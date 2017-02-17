@@ -10,8 +10,9 @@ from django.db import models
 
 
 class User(AbstractUser):
+    email = models.EmailField(unique=True)
     USERNAME_FIELD = 'email'
-    mobile = models.CharField()
+    phone = models.CharField(max_length=15, blank=True)
     gender = models.CharField(max_length=10)
     country = models.CharField(max_length=50)
     picture = models.ImageField(
@@ -36,13 +37,15 @@ class User(AbstractUser):
     def __str__(self):
         return self.get_full_name()
 
+    REQUIRED_FIELDS = [email, gender, country]
+
 
 class Mentor(models.Model):
     user = models.OneToOneField(User)
     competencies = models.CharField(max_length=255, blank=True)
-    support_stage = models.Charfield()
-    support_type = models.CharField()
-    experience = models.CharField()
+    support_stage = models.CharField(max_length=255)
+    support_type = models.TextField()
+    experience = models.TextField()
 
 
 class Investor(models.Model):
@@ -53,7 +56,7 @@ class Investor(models.Model):
 
 class Innovator(models.Model):
     user = models.OneToOneField(User)
-    experience = models.CharField()
+    experience = models.TextField()
     team = models.ForeignKey(Innovation)  # to the innovation table
 
 
