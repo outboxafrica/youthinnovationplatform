@@ -2227,7 +2227,6 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
     /*Removes default chrome and safari style*/
     -moz-appearance: none;
     /* Removes Default Firefox style*/
-    background-color: transparent;
     /*Width of select dropdown to give space for arrow image*/
     text-indent: 0.01px;
     /* Removes default arrow from firefox*/
@@ -2273,4 +2272,8 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
     display: none;
     visibility: hidden;
 
+}
+
+#submitbtn{
+    margin-top: 20px;
 }

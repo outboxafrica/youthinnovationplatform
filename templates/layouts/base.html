@@ -17,6 +17,13 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js" type="text/javascript"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script>
+    {% if messages %}
+        {% for message in messages %}
+            alert(message);
+        {% endfor %}
+    {% endif %}
+    </script>
+    <script>
         $('.btnNext').click(function () {
             $('.nav-pills > .active').next('li').find('a').trigger('click');
         });

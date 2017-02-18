@@ -32,8 +32,123 @@ class HomePageView(TemplateView):
         return context
 
 
+class Accounts(TemplateView):
+    template_name = 'index/accounts.html'
+
+    def get(self, request, *args, **kwargs):
+        loginform = LoginForm()
+        registerform = RegisterForm()
+
+        return render(request, self.template_name, {'loginform': loginform, 'registerform': registerform})
+
+    def post(self, request, *args, **kwargs):
+        register_form = RegisterForm(request.POST)
+        login_form = LoginForm(request.POST)
+        if 'login' in request.POST:
+            print 'Login'
+            if login_form.is_valid():
+                print 'form data valid'
+                cleaned_cred = login_form.cleaned_data
+                user = authenticate(username=cleaned_cred['email'], password=cleaned_cred['password'])
+                if user:
+                    if user.is_active:
+                        django_login(request, user)
+                        try:
+                            return HttpResponseRedirect(request.GET['next'])
+                        except KeyError, e:
+                            print e
+                        return HttpResponseRedirect('/')
+                    else:
+                        raise ValidationError("Please check your email and validate your account")
+                else:
+                    # raise ValidationError("User does not exist. Please create an account")
+                    print 'incorrect login'
+                    messages.error(request, 'Invalid login details')
+                    return HttpResponseRedirect(reverse('users:index'))
+            else:
+                return render(request, self.template_name, {'loginform': login_form, 'registerform': register_form})
+
+        elif 'register' in request.POST:
+            print 'Sign Up'
+            if register_form.is_valid():
+                cleaned_cred = register_form.cleaned_data
+                role = cleaned_cred['roles']
+                email = cleaned_cred['email']
+                password = cleaned_cred['password']
+                full_names = cleaned_cred['full_names']
+
+                firstname = full_names.split(" ")[0]
+                lastname = " ".join(full_names.split(" ")[1:])
+
+                # generate verification code
+                salt = hashlib.sha1(str(random.random())).hexdigest()[:5]
+                activation_key = hashlib.sha1(salt + email).hexdigest()
+                key_expires = datetime.datetime.today() + datetime.timedelta(hours=24)
+
+                # this form creates a generic user object
+
+                # Create user profile
+                if role == 'innovator':
+                    innovator_profile = Innovator(
+                        first_name=firstname,
+                        last_name=lastname,
+                        email=email,
+                        username=email,
+                        activation_key=activation_key,
+                        key_expires=key_expires
+                    )
+                    innovator_profile.set_password(password)
+                    innovator_profile.save()
+                elif role == 'investor':
+                    investor_profile = Investor(
+                        first_name=firstname,
+                        last_name=lastname,
+                        email=email,
+                        username=email,
+                        activation_key=activation_key,
+                        key_expires=key_expires
+                    )
+                    investor_profile.set_password(password)
+                    investor_profile.save()
+                elif role == 'mentor':
+                    mentor_profile = Mentor(
+                        first_name=firstname,
+                        last_name=lastname,
+                        email=email,
+                        username=email,
+                        activation_key=activation_key,
+                        key_expires=key_expires
+                    )
+                    mentor_profile.set_password(password)
+                    mentor_profile.save()
+                elif role == 'hub_manager':
+                    hub_manager_profile = HubManager(
+                        first_name=firstname,
+                        last_name=lastname,
+                        email=email,
+                        username=email,
+                        activation_key=activation_key,
+                        key_expires=key_expires
+                    )
+                    hub_manager_profile.set_password(password)
+                    hub_manager_profile.save()
+
+                mailer = UNDPMailer()
+                mailer.sendVerification(email, activation_key,
+                                        request.build_absolute_uri("/"))
+
+                messages.success(request,
+                                 'Your account has been successfully created')
+                # Add analytics hit for completed project
+                return HttpResponseRedirect('/users/verify')
+
+            else:
+                return render(request, self.template_name, {'loginform': login_form, 'registerform': register_form})
+
+
 def accounts(request):
     if request.method == 'POST':
+        print 'method is a post'
         if 'login' in request.POST:
             print 'Login'
             form = LoginForm(request.POST)
@@ -134,10 +249,16 @@ def accounts(request):
             else:
                 print "not valid"
                 print form.errors
+                return render(request, 'index/accounts.html', {'loginform': loginform, 'registerform': registerform})
 
-    loginform = LoginForm()
-    registerform = RegisterForm()
-    return render(request, 'index/accounts.html', {'loginform':loginform, 'registerform': registerform})
+    elif request.method == 'GET':
+        print 'method is a get'
+        loginform = LoginForm()
+        registerform = RegisterForm()
+        return render(request, 'index/accounts.html', {'loginform': loginform, 'registerform': registerform})
+    # loginform = LoginForm()
+    # registerform = RegisterForm()
+    # return render(request, 'index/accounts.html', {'loginform':loginform, 'registerform': registerform})
 
 
 def verify(request):

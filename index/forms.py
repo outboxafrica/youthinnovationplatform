@@ -1,7 +1,6 @@
 import re
-from django.contrib.auth.models import User
 from django import forms
-
+from users.models import User
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Div, Submit, HTML, Button, Row, Field
 from crispy_forms.bootstrap import AppendedText, PrependedText, FormActions, InlineCheckboxes
@@ -52,11 +51,27 @@ class RegisterForm(forms.Form):
 
         self.helper = FormHelper()
         self.helper.form_method = 'post'
+        self.helper.form_class = 'form-horizontal'
         self.helper.layout = Layout(
             Field('full_names', css_class='sign_text'),
             Field('roles', css_class='sign_text-real'),
             Field('email', css_class='sign_text'),
             Field('password', css_class='sign_text'),
             Field('confirm_password', css_class='sign_text'),
-            Submit('register', 'Sign up', css_class='cancelBtn')
+            Submit('register', 'Sign up', css_class='cancelBtn', css_id='submitbtn')
         )
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            return email
+        raise forms.ValidationError(u'Email "%s" is already in use.' % email)
+
+    def clean_password(self):
+        password = self.cleaned_data['password']
+        confirm = self.cleaned_data['confirm_password']
+
+        if password != confirm:
+            forms.ValidationError('Passwords do not match')

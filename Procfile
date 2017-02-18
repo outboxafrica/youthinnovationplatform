@@ -1,0 +1,1 @@
+web: gunicorn YouthInnovPltfrm.wsgi --log-file -
