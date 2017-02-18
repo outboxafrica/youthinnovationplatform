@@ -2,7 +2,7 @@ import hashlib
 import datetime
 import random
 
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import TemplateView
 from django.utils import timezone
 from django.contrib.auth import authenticate
@@ -16,7 +16,7 @@ from blog.models import Post
 from projects.models import Innovation
 from index.forms import RegisterForm, LoginForm, UserForm
 from index.mailer import UNDPMailer
-from users.models import Innovator, Investor, HubManager, ProgramManager, Mentor
+from users.models import Innovator, Investor, HubManager, ProgramManager, Mentor, User
 
 # Create your views here.
 
@@ -32,7 +32,7 @@ class HomePageView(TemplateView):
         return context
 
 
-def index(request):
+def accounts(request):
     if request.method == 'POST':
         if 'login' in request.POST:
             print 'Login'
@@ -76,35 +76,51 @@ def index(request):
                 key_expires = datetime.datetime.today() + datetime.timedelta(hours=24)
 
                 # this form creates a generic user object
-                user_form = UserForm(
-                    data={"first_name":firstname,
-                          "last_name":lastname,
-                          "email": email,
-                          "password": password,
-                          "activation_key":activation_key,
-                          "key_expires":key_expires})
-
-                user = user_form.save(commit=False)
-                user.set_password(user.password)
-                user.first_name = firstname
-                user.last_name = lastname
-                user.is_active = False
-                user.activation_key = activation_key
-                user.key_expires = key_expires
-                user.save()
 
                 # Create user profile
                 if role == 'innovator':
-                    innovator_profile = Innovator(user=user)
+                    innovator_profile = Innovator(
+                        first_name=firstname,
+                        last_name=lastname,
+                        email=email,
+                        username=email,
+                        activation_key=activation_key,
+                        key_expires=key_expires
+                    )
+                    innovator_profile.set_password(password)
                     innovator_profile.save()
                 elif role == 'investor':
-                    investor_profile = Investor(user=user)
+                    investor_profile = Investor(
+                        first_name=firstname,
+                        last_name=lastname,
+                        email=email,
+                        username=email,
+                        activation_key=activation_key,
+                        key_expires=key_expires
+                    )
+                    investor_profile.set_password(password)
                     investor_profile.save()
                 elif role == 'mentor':
-                    mentor_profile = Mentor(user=user)
+                    mentor_profile = Mentor(
+                        first_name=firstname,
+                        last_name=lastname,
+                        email=email,
+                        username=email,
+                        activation_key=activation_key,
+                        key_expires=key_expires
+                    )
+                    mentor_profile.set_password(password)
                     mentor_profile.save()
                 elif role == 'hub_manager':
-                    hub_manager_profile = HubManager(user=user)
+                    hub_manager_profile = HubManager(
+                        first_name=firstname,
+                        last_name=lastname,
+                        email=email,
+                        username=email,
+                        activation_key=activation_key,
+                        key_expires=key_expires
+                    )
+                    hub_manager_profile.set_password(password)
                     hub_manager_profile.save()
 
                 mailer = UNDPMailer()
@@ -122,3 +138,27 @@ def index(request):
     loginform = LoginForm()
     registerform = RegisterForm()
     return render(request, 'index/accounts.html', {'loginform':loginform, 'registerform': registerform})
+
+
+def verify(request):
+    return render(request, 'users/verify.html')
+
+
+def verify_key(request, key):
+    user_profile = get_object_or_404(User, activation_key=key)
+    if user_profile.key_expires < timezone.now():
+        return render(request, 'users/confirm_expired.html')
+    user = user_profile.user
+    user.is_active = True
+    user.save()
+    user.backend = 'django.contrib.auth.backends.ModelBackend'
+    django_login(request, user)
+    if user.userprofile.roles == 'Investor':
+        print 'Investor'
+    elif user.userprofile.roles == 'Mentor':
+        print 'Mentor'
+    elif user.userprofile.roles == 'Innovator':
+        print 'Innovator'
+    elif user.userprofile.roles == 'Community Hub':
+        print 'Community Hub'
+    return render(request, 'users/confirm.html')

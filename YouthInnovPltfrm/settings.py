@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'contact_us',
     'index',
     'events',
+    'crispy_forms'
 
 ]
 
@@ -142,3 +143,10 @@ STATICFILES_DIRS = [
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 MEDIA_URL = '/media/'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'undpdjango@gmail.com'
+EMAIL_HOST_PASSWORD = 'Django_undp'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'undp_django@gmail.com'

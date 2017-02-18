@@ -12,7 +12,7 @@ class UNDPMailer():
             to=[email],
             headers={"Reply-To": "undp_django@gmail.com"}
         )
-        mail.attach_alternative("Click <a href=\"" + url + "users/verify/" + code
+        mail.attach_alternative("Click <a href=\"" + url + "index/verify/" + code
                                 + "\">here</a> to activate your account", "text/html")
 
         mail.send()

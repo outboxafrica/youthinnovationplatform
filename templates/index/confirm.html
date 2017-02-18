@@ -1,0 +1,17 @@
+{% extends 'layouts/index.html' %}
+{% block content %}
+<script type="text/javascript">
+	 setTimeout(function(){
+	 	window.location = "/search/";
+	 }, 10000);
+</script>
+	<div class="body-container container">
+		<h1 class="title">Account Confirmation</h1>
+		<div class="alert alert-success" role="alert">
+	    <span class="messages">
+		  		<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+		  		Your account has been confirmed. You'll now continue to register. Click <a href="{% url 'users:profile_setup' %}">here</a> to continue. (You'll be redirected in 10 seconds)
+	    </span>
+		</div>
+	</div>
+{% endblock %}

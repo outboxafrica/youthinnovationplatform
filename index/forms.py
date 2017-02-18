@@ -31,7 +31,7 @@ class UserForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'email', 'password','activation_key', 'key_expires')
+        fields = ('first_name', 'last_name', 'email', )
 
 
 class RegisterForm(forms.Form):
@@ -45,6 +45,7 @@ class RegisterForm(forms.Form):
     )
     email = forms.EmailField()
     password = forms.CharField(widget=forms.PasswordInput())
+    confirm_password = forms.CharField(widget=forms.PasswordInput())
 
     def __init__(self, *args, **kwargs):
         super(RegisterForm, self).__init__(*args, **kwargs)

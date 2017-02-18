@@ -14,6 +14,7 @@ from django.db import models
 class User(AbstractUser):
     email = models.EmailField(unique=True)
     USERNAME_FIELD = 'email'
+    username = models.CharField(unique=False, max_length=150)
     phone = models.CharField(max_length=15, blank=True)
     gender = models.CharField(max_length=10)
     country = models.CharField(max_length=50)
@@ -27,7 +28,7 @@ class User(AbstractUser):
     linkedin = models.CharField(max_length=200, blank=True)
     twitter = models.CharField(max_length=200, blank=True)
     summary = models.TextField()
-    age = models.IntegerField(blank=True)
+    age = models.IntegerField(blank=True, default=20)
     timestamp = models.DateTimeField(auto_now=True)
     activation_key = models.CharField(max_length=40, blank=True)
     key_expires = models.DateTimeField(default=timezone.now())
@@ -44,33 +45,31 @@ class User(AbstractUser):
     REQUIRED_FIELDS = [email]
 
 
-class Mentor(models.Model):
-    user = models.OneToOneField(User)
+class Mentor(User):
     competencies = models.CharField(max_length=255, blank=True)
     support_stage = models.CharField(max_length=255)
     support_type = models.TextField()
     experience = models.TextField()
 
 
-class Investor(models.Model):
-    user = models.OneToOneField(User)
+class Investor(User):
     resume = models.FileField(upload_to='static/uploads/%Y/%m/%d/', blank=True)
     company = models.ForeignKey(InvestmentCompany)  # to the investment company table
 
 
-class Innovator(models.Model):
-    user = models.OneToOneField(User)
+class Innovator(User):
     experience = models.TextField()
     team = models.ForeignKey(Innovation)  # to the innovation table
 
 
-class ProgramManager(models.Model):
-    user = models.OneToOneField(User)
+class ProgramManager(User):
+    program = models.CharField(max_length=100, null=True, blank=True)
 
 
-class HubManager(models.Model):
-    user = models.OneToOneField(User)
+class HubManager(User):
     hub = models.ForeignKey(CommunityHub)  # to the community hub table
+
+
 
 
 
