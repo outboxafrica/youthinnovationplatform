@@ -1,5 +1,7 @@
 from __future__ import unicode_literals
+import datetime
 from django.contrib.auth.models import AbstractUser
+from django.utils import timezone
 from YouthInnovPltfrm import settings
 
 from projects.models import InvestmentCompany, CommunityHub, Innovation
@@ -27,6 +29,8 @@ class User(AbstractUser):
     summary = models.TextField()
     age = models.IntegerField(blank=True)
     timestamp = models.DateTimeField(auto_now=True)
+    activation_key = models.CharField(max_length=40, blank=True)
+    key_expires = models.DateTimeField(default=timezone.now())
 
     def get_picture(self):
             try:
@@ -37,7 +41,7 @@ class User(AbstractUser):
     def __str__(self):
         return self.get_full_name()
 
-    REQUIRED_FIELDS = [email, gender, country]
+    REQUIRED_FIELDS = [email]
 
 
 class Mentor(models.Model):

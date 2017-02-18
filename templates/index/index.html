@@ -1,0 +1,163 @@
+{% extends 'layouts/base.html' %}
+{% load project_extras %}
+
+{% block content %}
+    <div class="homepageBanner">
+        <div class="left_icons pull-left">
+            <ul>
+                <li>
+                    <a href="#"> <img id="briefcase_icon"
+                                      src="/static/img/Briefcase_icon@2x.png">
+                        <p>Showcase your
+                            <br>ideas or business</p>
+                    </a>
+                    <div class="separator"></div>
+                </li>
+                <li>
+                    <a href="#"> <img id="money_icon"
+                                      src="/static/img/Money_icon@2x.png">
+                        <p>Help a young
+                            <br>business grow</p>
+                    </a>
+                    <div class="separator"></div>
+                </li>
+                <li>
+                    <a href="#"> <img id="mentor_icon"
+                                      src="/static/img/Mentor_icon@2x.png">
+                        <p>Mentor a young
+                            <br>entrepreneur</p>
+                    </a>
+                    <div class="separator"></div>
+                </li>
+                <li>
+                    <a href="#"> <img id="hub_icon" src="/static/img/hub_icon@2x.png">
+                        <p>Build a startup
+                            <br> community</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="mob_text pull-left">
+            <p>"Build a business profile and
+                <br>gain access to a curated
+                <br> list of mentors, investors and
+                <br> community hubs to
+                <br> connect with."</p>
+        </div>
+        {% if not user.is_authenticated %}
+            <div class="pull-right button_image">
+                <a href="">
+                    <img id="start_button2" src="/static/img/button_psd_2_75.png"/> </a>
+            </div>
+        {% endif %}
+        <div class="testimonial_bg">
+            <div class="testimony1">
+                <div class="circular"><img class="avatar" src="/static/img/User_1.png"></div>
+                <p>"The Youth Innovation platform,
+                    <br>helped me secure investment
+                    <br> to the tune of $50,000
+                    <br> in a year."</p>
+                <div class="separator_test"></div>
+                <p class="names">Greg Mukasa
+                    <br>Renewable Energy Ltd</p>
+            </div>
+            <div class="testimony2">
+                <div class="circular"><img class="avatar" src="/static/img/user2.png"></div>
+                <p>"The Youth Innovation platform,
+                    <br>helped me secure investment
+                    <br> to the tune of $50,000
+                    <br> in a year."</p>
+                <div class="separator_test"></div>
+                <p class="names">Rita Asiimwe
+                    <br>Rita Designs Ltd</p>
+            </div>
+            <div class="testimony3">
+                <div class="circular"><img class="avatar" src="/static/img/user3.png"></div>
+                <p>"The Youth Innovation platform,
+                    <br>helped me secure investment
+                    <br> to the tune of $50,000
+                    <br> in a year."</p>
+                <div class="separator_test"></div>
+                <p class="names">Jane Kato
+                    <br>Kato Arts &amp; Crafts</p>
+            </div>
+        </div>
+    </div>
+    <div class="featured_startups">
+        <p id="featured_startups_heading">Featured Startups</p>
+        <div class="separator_featured_wrapper">
+            <div class="featured_startups_separator"></div>
+        </div>
+        <div class="featured_startup_cards">
+            {% for project in innovations %}
+                <div class="featured_startup_card1">
+                    <div class="startup_pic"><img class="card_img" src="/media/{{ project.service_pic }}">
+                        <div class="startup_stage pull-right">
+                            <p>{{ project.idea_stage|status }}</p>
+                        </div>
+                    </div>
+                    <div class="desc_separator"></div>
+                    <div class="startup_description">
+                        <p class="title-index">{{ project.name }}</p>
+                        <p class="sector">Sector - {{ project.sectors|listSector }}</p>
+                        <p class="desc">{{ project.description }}</p>
+                    </div>
+                    <img class="share_btn" src="/static/img/Share_icon2x_1_24x21.png"></div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="blog">
+        <p id="featured_startups_heading">Blog</p>
+        <div class="separator_featured_wrapper">
+            <div class="featured_startups_separator"></div>
+        </div>
+        <div class="featured_startup_cards">
+            {% for entry in blog_posts %}
+                <div class="blog_card1">
+                    <a class="no_link" href="{{ entry.get_absolute_url }}">
+                        <div class="blog_pic">
+                            <img class="card_img" src="/media/{{ entry.blog_pic }}" width="304" height="175">
+                            <div class="blog_date">
+                                <p>{{ entry.publish | date:"d M Y" }}</p>
+                            </div>
+                        </div>
+                        <div class="desc_separator"></div>
+                        <div class="startup_description" id="blog_description">
+                            <p class="title-index">{{ entry.title }}</p>
+                            <p class="sector">{{ entry.body }}</p>
+                        </div>
+                        <img class="share_btn" src="/static/img/Share_icon2x_1_24x21.png"></a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="upcoming_events">
+        <p id="featured_startups_heading">Upcoming Events</p>
+        <div class="separator_featured_wrapper">
+            <div class="featured_startups_separator"></div>
+        </div>
+{#        <div class="featured_startup_cards">#}
+{#            {% for event in events %}#}
+{#                <div class="event_card11">#}
+{#                    <div class="event_pic"><img class="card_img" src="/static/img/events1.png">#}
+{#                        <div class="event_date">#}
+{#                            <p>{% for time in event.occurrence_set.all %}#}
+{#                                {{ time.start | date:"d M Y" }}#}
+{#                            {% endfor %}</p>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="desc_separator"></div>#}
+{#                    <div class="startup_description">#}
+{#                        <p class="title-index">{{ event.title }}</p>#}
+{#                        <p class="sector">Location - {{ event.venue }}</p>#}
+{#                        <p class="desc">{{ event.introduction }}</p>#}
+{#                    </div>#}
+{#                    <img class="share_btn" src="/static/img/Share_icon2x_1_24x21.png">#}
+{#                    <div class="attend_btn_index"><span>Attend</span> <img src="/static/img/left_icon_events2x_50.png">#}
+{#                    </div>#}
+{#                </div>#}
+{#            {% endfor %}#}
+{#        </div>#}
+    </div>
+{% endblock %}

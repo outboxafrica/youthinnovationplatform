@@ -1,0 +1,232 @@
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Montserrat-Regular'), url(http://fonts.gstatic.com/s/montserrat/v6/zhcz-_WihjSQC0oHJ9TCYAzyDMXhdD8sAj6OAJTFsBI.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Montserrat-Bold'), url(http://fonts.gstatic.com/s/montserrat/v6/IQHow_FEYlDC4Gzy_m8fcmaVI6zN22yiurzcBKxPjFE.woff2) format('woff2');
+}
+
+.clear {
+	clear: both;
+}
+
+.entry-title a {
+  color: #999;
+  line-height: 1.2;
+  font-size: 20px;
+}
+
+article {
+	padding-top: 10px;
+}
+
+.blue-text-center {
+  color: #085394;
+}
+
+nav li {
+  border-right: 1px solid #B7BABF;
+}
+.navbar-inverse {
+  border: none;
+}
+
+.blog-center {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.entry-body {
+  font-size: 16px;
+}
+.blog-cards {
+  margin-bottom: 0px !important;
+  border: none !important;
+}
+
+.container-blog {
+  overflow: hidden;
+  background: white;
+}
+
+.blog-cell {
+  border-left: 1px solid #e7e7e7;
+  border-bottom: 1px solid #e7e7e7;
+}
+
+.navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:focus, .navbar-inverse .navbar-nav>.open>a:hover {
+  background-color: white !important;
+}
+
+.date-and-sharing-wrapper .date {
+    -webkit-font-smoothing: antialiased;
+    font-size: 24px;
+    color: #6ab9c1;
+}
+
+.date-and-sharing-wrapper {
+    margin-bottom: 10px;
+    margin-left: 110px;
+}
+.date-and-sharing-wrapper {
+    padding: 10px 0;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+
+ul.sharing a {
+    display: block;
+    height: 32px;
+    width: 32px;
+    background-size: contain;
+    margin-left: 10px;
+}
+.twitter-share-button {
+    background-image: url(../img/twitter.png);
+}
+
+.facebook-share-button {
+    background-image: url(../img/facebook.png);
+}
+
+.linkedin-share-button {
+    background-image: url(../img/linkedin.png);
+}
+
+.sharing li {
+    float: right;
+}
+ul.sharing {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.text-right {
+    text-align: right !important;
+}
+
+.truncate {
+  width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.calendar-table {
+  width: 80%;
+  border: 1px solid #B7BABF;
+}
+
+.calendar-table tr {
+  height: 80px;
+  border: 1px solid #B7BABF;
+}
+
+.calendar-table td {
+  border: 1px solid #B7BABF;
+  padding-left: 15px;
+  color: #00caec;
+}
+.calendar-table h2 {
+  margin: 0px;
+  color: #085394;
+}
+.date-cell {
+  background-color: #6aa84f;
+  text-align: center;
+  padding-left: 0px !important;
+  color: white !important;
+  font-size: 16px;
+}
+
+#calendar {
+  border: 1px solid #B7BABF;
+  padding: 15px;
+}
+
+.event-details h4 {
+  color: #00afcf;
+  margin-top: 25px;
+}
+
+
+
+/* jssor slider bullet navigator skin 05 css */
+/*
+.jssorb05 div           (normal)
+.jssorb05 div:hover     (normal mouseover)
+.jssorb05 .av           (active)
+.jssorb05 .av:hover     (active mouseover)
+.jssorb05 .dn           (mousedown)
+*/
+.jssorb05 {
+    position: absolute;
+}
+.jssorb05 div, .jssorb05 div:hover, .jssorb05 .av {
+    position: absolute;
+    /* size of bullet elment */
+    width: 16px;
+    height: 16px;
+    background: url('/static/img/b05.png') no-repeat;
+    overflow: hidden;
+    cursor: pointer;
+}
+.jssorb05 div { background-position: -7px -7px; }
+.jssorb05 div:hover, .jssorb05 .av:hover { background-position: -37px -7px; }
+.jssorb05 .av { background-position: -67px -7px; }
+.jssorb05 .dn, .jssorb05 .dn:hover { background-position: -97px -7px; }
+
+/* jssor slider arrow navigator skin 12 css */
+/*
+.jssora12l                  (normal)
+.jssora12r                  (normal)
+.jssora12l:hover            (normal mouseover)
+.jssora12r:hover            (normal mouseover)
+.jssora12l.jssora12ldn      (mousedown)
+.jssora12r.jssora12rdn      (mousedown)
+*/
+.jssora12l, .jssora12r {
+    display: block;
+    position: absolute;
+    /* size of arrow element */
+    width: 30px;
+    height: 46px;
+    cursor: pointer;
+    background: url('/static/img/a12.png') no-repeat;
+    overflow: hidden;
+}
+.jssora12l { background-position: -16px -37px; }
+.jssora12r { background-position: -75px -37px; }
+.jssora12l:hover { background-position: -136px -37px; }
+.jssora12r:hover { background-position: -195px -37px; }
+.jssora12l.jssora12ldn { background-position: -256px -37px; }
+.jssora12r.jssora12rdn { background-position: -315px -37px; }
+.slide {
+  width: 100%;
+  text-align: center;
+}
+
+.slide h3 {
+  color: #ffe180;
+}
+
+.partner-image {
+  display: inline-block;
+   width: 300px;
+   height: 150px;
+   margin-left: 3px;
+}
+
+
+
+
+
+
+
+

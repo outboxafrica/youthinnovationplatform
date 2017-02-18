@@ -1,0 +1,27 @@
+{% extends 'layouts/../index/../layouts/base.html' %}
+{% load project_extras %}
+{% load zinnia %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="banner">
+            <div class="burn">
+                <div class="messages_title"> <span id="startupTitle">Contact Us</span>
+                    <div class="desc_separator" id="title_separator"></div>
+                </div>
+            </div>
+        </div>
+        <div class="main-events-content">
+            <div class="contactus">
+                <div class="map-pic"> <img src="/static/img/map.png" width="570" height="367"> </div>
+                <div class="vertical-separator" id="maps-vertical"></div>
+                <div class="message-form">
+                    <div class="eventcard-title">
+                        <p>Get in touch</p>
+                        <div class="overview-separator lefter"></div>
+                        <br> </div>
+                    {% crispy form %}
+                </div>
+            </div>
+        </div>
+{% endblock %}

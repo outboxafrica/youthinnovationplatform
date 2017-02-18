@@ -1,0 +1,89 @@
+{% extends 'layouts/../index/../layouts/base.html' %}
+{% load project_extras %}
+{% load zinnia %}
+
+{% block content %}
+<div class="banner">
+            <div class="burn">
+                <div class="messages_title"> <span id="startupTitle">Upcoming Events</span>
+                    <div class="desc_separator" id="title_separator"></div>
+                </div>
+            </div>
+        </div>
+        <div class="blog-content">
+        {% if not no_event %}
+            <div class="most-recent-blogpost">
+                <div class="people_role pull-right">
+                    <!-- blog date -->
+                    <p>
+                        {% for time in upcoming_event.occurrence_set.all %}
+                            {{ time.start | date:"d M Y" }}
+                            {% endfor %}
+                    </p>
+                </div>
+                <div class="blog-image2 pull-left"> <img src="/static/img/karungiTerry.jpg" height="299" width="448"> </div>
+                <div class="vertical-separator"></div>
+                <div class="text-overview" >
+                    <div class="overview-title">
+                        <p>{{ upcoming_event.title }}</p>
+                        <div class="overview-separator lefty"></div>
+                    </div>
+                    <div id="snippet_body">
+                    <div class="main_text_content" id="most_recent_event">
+                        <p>Location - {{ upcoming_event.venue }}</p>
+                        <p> {{ upcoming_event.objectives }} </p>
+                        </div>
+                    </div> <img class="blog_share_btn" src="/static/img/Share_icon2x_1_24x21.png">
+                    <div class="attend_btn pull-right"> <span>Attend</span> <img src="/static/img/left_icon_events2x_50.png"> </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="other-events">
+                {% for event in events %}
+                    <div class="event_card1">
+                    <div class="event_pic"> <img class="card_img" src="/static/img/events1.png">
+                        <div class="event_date">
+                            <p>
+                                {% for time in event.occurrence_set.all %}
+                            {{ time.start | date:"d M Y" }}
+                            {% endfor %}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="desc_separator"></div>
+                    <div class="content-eventcard eventcard_description" id="event_description">
+                        <p id="event-title">{{ event.title }}</p>
+                        <p class="location">Location - {{ event.venue }}</p>
+                        <p class="desc">{{ event.introduction }}</p>
+                    </div> <img id="event_share" class="blog_share_btn" src="/static/img/Share_icon2x_1_24x21.png">
+                    <div class="attend_btn pull-right"> <span>Attend</span> <img src="/static/img/left_icon_events2x_50.png"> </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <h2>No current events but take a look at our past events</h2>
+            <div class="other-events">
+                {% for event in past_events %}
+                    <div class="event_card1">
+                    <div class="event_pic"> <img class="card_img" src="/static/img/events1.png">
+                        <div class="event_date">
+                            <p>
+                                {% for time in event.occurrence_set.all %}
+                            {{ time.start | date:"d M Y" }}
+                            {% endfor %}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="desc_separator"></div>
+                    <div class="content-eventcard eventcard_description" id="event_description">
+                        <p id="event-title">{{ event.title }}</p>
+                        <p class="location">Location - {{ event.venue }}</p>
+                        <p class="desc">{{ event.introduction }}</p>
+                    </div> <img id="event_share" class="blog_share_btn" src="/static/img/Share_icon2x_1_24x21.png">
+                    <div class="attend_btn pull-right"> <span>Attend</span> <img src="/static/img/left_icon_events2x_50.png"> </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        </div>
+{% endblock %}

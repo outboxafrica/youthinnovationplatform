@@ -1,0 +1,71 @@
+{% extends 'layouts/../index/../layouts/base.html' %}
+{% load project_extras %}
+{% load zinnia %}
+
+{% block content %}
+    <div class="banner">
+        <div class="burn">
+            <div class="messages_title"><span id="startupTitle">Blog</span>
+                <div class="desc_separator" id="title_separator"></div>
+            </div>
+        </div>
+    </div>
+    <div class="blog-content">
+        <div class="most-recent-blogpost">
+
+            <div class="people_role pull-right">
+                <!-- blog date -->
+                <p>{{ latest_post.publish | date:"d M Y" }}</p>
+            </div>
+            <div class="blog-image2 pull-left"><img src="/media/{{ latest_post.blog_pic }}" height="299" width="448">
+            </div>
+            <div class="vertical-separator"></div>
+            <div class="text-overview">
+                <div class="overview-title topmarginify">
+                    <p>{{ latest_post.title|title }}</p>
+                    <div class="overview-separator lefty"></div>
+                </div>
+                <div id="snippet_body">
+                    <div class="main_text_content">
+                        <p>{{ latest_post.body }}</p>
+                    </div>
+                </div>
+                <img class="blog_share_btn" id="latest_post_share_button" src="/static/img/Share_icon2x_1_24x21.png">
+                <div class="attend_btn pull-right" id="latest_post_more_button">
+                    <a href="{{ latest_post.get_absolute_url }}">
+                        <span>More</span> <img src="/static/img/left_icon_events2x_50.png">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="other-blogposts">
+            {% for post in posts %}
+                <div class="blogcard ">
+
+                    <div class="blogcard-pic">
+                        <img src="/media/{{ post.blog_pic }}" height="211" width="314">
+                        <div class="blog_date">
+                            <p>{{ post.publish | date:"d M Y" }}</p>
+                        </div>
+                    </div>
+                    <div class="separator" id="blogcard-separator"></div>
+                    <div class="blogcard_description">
+                        <div class="overview-title" id="blog_title">
+                            <p>{{ post.title|title }}</p>
+                        </div>
+                        <div class="blog-snippet">
+                            <p>{{ post.body }}</p>
+                        </div>
+                    </div>
+                    <div class="bottom-buttons"><img class="blog_share_btn" src="/static/img/Share_icon2x_1_24x21.png">
+                        <div class="attend_btn pull-right">
+                            <a href="{{ post.get_absolute_url }}"><span>More</span> <img
+                                    src="/static/img/left_icon_events2x_50.png"></a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

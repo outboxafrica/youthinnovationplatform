@@ -1,0 +1,31 @@
+{% extends 'layouts/base.html' %}
+{% load project_extras %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="main_content">
+        <div class="layer">
+            <div class="tab-forms" id="login-tabs">
+                <ul class="nav red nav-pills left-margin" data-tabs="tabs">
+                    <li class="active"><a data-toggle="tab" href="#signin">Sign In</a></li>
+                    <li><a data-toggle="tab" href="#signup">Sign Up</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="signin">
+                        {% crispy loginform %}
+                    </div>
+                    <div class="tab-pane" id="signup">
+                        {% crispy registerform %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pull-right side_text">
+            <p>"Build a business profile and
+                <br>gain access to a curated
+                <br> list of mentors, investors and
+                <br> community hubs to
+                <br> connect with."</p>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends 'layouts/../index/../layouts/base.html' %}
+{% load project_extras %}
+{% load zinnia %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="blog-main-content">
+        <div class="blog-image">
+            <img id="blog-image" src="/media/{{ post.blog_pic }}" width="600" height="400">
+        </div>
+        <div class="blog-text-content">
+            <div class="blog-title">{{ post.title }}</div>
+            <div class="separator" id="blog-separator-title"></div>
+            <div class="blog-date">
+                <div class="share-buttons pull-right">
+                    <img id="linkedinBtn" src="/static/img/linkedin2.png" alt="linkedin" height="30" width="30">
+                    <img id="facebookBtn" src="/static/img/facebook2.png" alt="facebook" height="30" width="30">
+                    <img id="facebookBtn" src="/static/img/google-plus.png" alt="google-plus" height="30" width="30">
+                    <img id="facebookBtn" src="/static/img/twitter.png" alt="twitter" height="30" width="30">
+                </div>
+                <p id="date-blog-text">{{ post.publish | date:"d M Y" }}</p>
+            </div>
+            <div class="separator" id="blog-separator-title"></div>
+            <div class="blog-publisher">
+                Written by:<span id="blog_publisher"> {{ post.author }}</span>
+            </div>
+            <div class="blog-text">
+
+                <div class="pull-right">
+                    <p>{{ post.body }}</p>
+                </div>
+            </div>
+            <div class="comments">
+                <p id="comments-title">Comments</p>
+            </div>
+            {% for comment in post.comments.all %}
+            <div class="single_comment">
+                <div class="display-pic">
+                </div>
+                <div class="comment_meta">
+                    <p id="user_says">{{ comment.author }} says:</p><br>
+                    <p id="comment_timestamp">{{ comment.created_date | date:"d M Y" }} at
+                        {{ comment.created_date | time }}</p>
+                </div>
+                <div class="comment_text">
+                    <p>{{ comment.text }}</p>
+                </div>
+            </div>
+            {% empty %}
+                <p>No comments here yet :(</p>
+            {% endfor %}
+            <div class="post-comment">
+                <p class="tabs-title">Post your comment
+                    <br></p>
+                <form action="." method="post">
+                {{ commentForm | crispy }}
+                {% csrf_token %}
+                <p><input class="savenextBtn" type="submit" value="Add comment"></p>
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+    </div>
+{% endblock %}
