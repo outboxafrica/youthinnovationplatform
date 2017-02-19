@@ -108,6 +108,9 @@
         </div>
         <!-- /.container-fluid -->
     </nav>
+    {% if messages %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endif %}
     {% block content %}
 
     {% endblock %}

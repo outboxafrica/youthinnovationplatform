@@ -10,7 +10,7 @@ from django.core.validators import RegexValidator, URLValidator, EmailValidator,
 class LoginForm(forms.Form):
     email = forms.EmailField()
     password = forms.CharField(widget=forms.PasswordInput())
-    remember = forms.CharField(widget=forms.CheckboxInput, label="Remember Me")
+    remember = forms.CharField(widget=forms.CheckboxInput, label="Remember Me", required=False)
 
     def __init__(self, *args, **kwargs):
         super(LoginForm, self).__init__(*args, **kwargs)
@@ -69,9 +69,9 @@ class RegisterForm(forms.Form):
             return email
         raise forms.ValidationError(u'Email "%s" is already in use.' % email)
 
-    def clean_password(self):
-        password = self.cleaned_data['password']
-        confirm = self.cleaned_data['confirm_password']
-
-        if password != confirm:
-            forms.ValidationError('Passwords do not match')
+    # def clean_password(self):
+    #     password = self.cleaned_data['password']
+    #     confirm_password = self.cleaned_data['confirm_password']
+    #
+    #     if password != confirm_password:
+    #         forms.ValidationError('Passwords do not match')

@@ -45,10 +45,10 @@ class Accounts(TemplateView):
         register_form = RegisterForm(request.POST)
         login_form = LoginForm(request.POST)
         if 'login' in request.POST:
-            print 'Login'
             if login_form.is_valid():
                 print 'form data valid'
                 cleaned_cred = login_form.cleaned_data
+                print cleaned_cred
                 user = authenticate(username=cleaned_cred['email'], password=cleaned_cred['password'])
                 if user:
                     if user.is_active:
@@ -64,7 +64,7 @@ class Accounts(TemplateView):
                     # raise ValidationError("User does not exist. Please create an account")
                     print 'incorrect login'
                     messages.error(request, 'Invalid login details')
-                    return HttpResponseRedirect(reverse('users:index'))
+                    return HttpResponseRedirect(reverse('index:home'))
             else:
                 return render(request, self.template_name, {'loginform': login_form, 'registerform': register_form})
 
@@ -75,6 +75,7 @@ class Accounts(TemplateView):
                 role = cleaned_cred['roles']
                 email = cleaned_cred['email']
                 password = cleaned_cred['password']
+                confirm_password = cleaned_cred['confirm_password']
                 full_names = cleaned_cred['full_names']
 
                 firstname = full_names.split(" ")[0]
@@ -138,148 +139,24 @@ class Accounts(TemplateView):
                                         request.build_absolute_uri("/"))
 
                 messages.success(request,
-                                 'Your account has been successfully created')
+                                 'Your account has been successfully created, check you email to verify your account')
                 # Add analytics hit for completed project
-                return HttpResponseRedirect('/users/verify')
+                return HttpResponseRedirect('/accounts')
 
             else:
                 return render(request, self.template_name, {'loginform': login_form, 'registerform': register_form})
 
 
-def accounts(request):
-    if request.method == 'POST':
-        print 'method is a post'
-        if 'login' in request.POST:
-            print 'Login'
-            form = LoginForm(request.POST)
-            if form.is_valid():
-                print 'form data valid'
-                cleaned_cred = form.cleaned_data
-                user = authenticate(username=cleaned_cred['email'], password=cleaned_cred['password'])
-                if user:
-                    if user.is_active:
-                        django_login(request, user)
-                        try:
-                            return HttpResponseRedirect(request.GET['next'])
-                        except KeyError, e:
-                            print e
-                        return HttpResponseRedirect('/')
-                    else:
-                        raise ValidationError("Please check your email and validate your account")
-                else:
-                    # raise ValidationError("User does not exist. Please create an account")
-                    print 'incorrect login'
-                    messages.error(request, 'Invalid login details')
-                    return HttpResponseRedirect(reverse('users:index'))
-
-        elif 'register' in request.POST:
-            print 'Sign Up'
-            form = RegisterForm(request.POST)
-            if form.is_valid():
-                cleaned_cred = form.cleaned_data
-                role = cleaned_cred['roles']
-                email = cleaned_cred['email']
-                password = cleaned_cred['password']
-                full_names = cleaned_cred['full_names']
-
-                firstname = full_names.split(" ")[0]
-                lastname = " ".join(full_names.split(" ")[1:])
-
-                # generate verification code
-                salt = hashlib.sha1(str(random.random())).hexdigest()[:5]
-                activation_key = hashlib.sha1(salt + email).hexdigest()
-                key_expires = datetime.datetime.today() + datetime.timedelta(hours=24)
-
-                # this form creates a generic user object
-
-                # Create user profile
-                if role == 'innovator':
-                    innovator_profile = Innovator(
-                        first_name=firstname,
-                        last_name=lastname,
-                        email=email,
-                        username=email,
-                        activation_key=activation_key,
-                        key_expires=key_expires
-                    )
-                    innovator_profile.set_password(password)
-                    innovator_profile.save()
-                elif role == 'investor':
-                    investor_profile = Investor(
-                        first_name=firstname,
-                        last_name=lastname,
-                        email=email,
-                        username=email,
-                        activation_key=activation_key,
-                        key_expires=key_expires
-                    )
-                    investor_profile.set_password(password)
-                    investor_profile.save()
-                elif role == 'mentor':
-                    mentor_profile = Mentor(
-                        first_name=firstname,
-                        last_name=lastname,
-                        email=email,
-                        username=email,
-                        activation_key=activation_key,
-                        key_expires=key_expires
-                    )
-                    mentor_profile.set_password(password)
-                    mentor_profile.save()
-                elif role == 'hub_manager':
-                    hub_manager_profile = HubManager(
-                        first_name=firstname,
-                        last_name=lastname,
-                        email=email,
-                        username=email,
-                        activation_key=activation_key,
-                        key_expires=key_expires
-                    )
-                    hub_manager_profile.set_password(password)
-                    hub_manager_profile.save()
-
-                mailer = UNDPMailer()
-                mailer.sendVerification(email, activation_key,
-                                        request.build_absolute_uri("/"))
-
-                messages.success(request,
-                                 'Your account has been successfully created')
-                # Add analytics hit for completed project
-                return HttpResponseRedirect('/users/verify')
-            else:
-                print "not valid"
-                print form.errors
-                return render(request, 'index/accounts.html', {'loginform': loginform, 'registerform': registerform})
-
-    elif request.method == 'GET':
-        print 'method is a get'
-        loginform = LoginForm()
-        registerform = RegisterForm()
-        return render(request, 'index/accounts.html', {'loginform': loginform, 'registerform': registerform})
-    # loginform = LoginForm()
-    # registerform = RegisterForm()
-    # return render(request, 'index/accounts.html', {'loginform':loginform, 'registerform': registerform})
-
-
 def verify(request):
-    return render(request, 'users/verify.html')
+    return render(request, 'index/confirm.html')
 
 
 def verify_key(request, key):
-    user_profile = get_object_or_404(User, activation_key=key)
-    if user_profile.key_expires < timezone.now():
-        return render(request, 'users/confirm_expired.html')
-    user = user_profile.user
+    user = get_object_or_404(User, activation_key=key)
+    if user.key_expires < timezone.now():
+        return render(request, 'index/confirm_expired.html')
     user.is_active = True
     user.save()
     user.backend = 'django.contrib.auth.backends.ModelBackend'
     django_login(request, user)
-    if user.userprofile.roles == 'Investor':
-        print 'Investor'
-    elif user.userprofile.roles == 'Mentor':
-        print 'Mentor'
-    elif user.userprofile.roles == 'Innovator':
-        print 'Innovator'
-    elif user.userprofile.roles == 'Community Hub':
-        print 'Community Hub'
-    return render(request, 'users/confirm.html')
+    return render(request, 'index/confirm.html')

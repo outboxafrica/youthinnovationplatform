@@ -59,7 +59,7 @@ class Investor(User):
 
 class Innovator(User):
     experience = models.TextField()
-    team = models.ForeignKey(Innovation)  # to the innovation table
+    team = models.ForeignKey(Innovation, null=True)  # to the innovation table
 
 
 class ProgramManager(User):
@@ -67,7 +67,7 @@ class ProgramManager(User):
 
 
 class HubManager(User):
-    hub = models.ForeignKey(CommunityHub)  # to the community hub table
+    hub = models.ForeignKey(CommunityHub, null=True)  # to the community hub table
 
 
 
