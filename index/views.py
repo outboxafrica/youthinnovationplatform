@@ -7,6 +7,7 @@ from django.views.generic import TemplateView
 from django.utils import timezone
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as django_login
+from django.contrib.auth import logout as django_logout
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.core.validators import RegexValidator, URLValidator, EmailValidator, ValidationError
@@ -160,3 +161,8 @@ def verify_key(request, key):
     user.backend = 'django.contrib.auth.backends.ModelBackend'
     django_login(request, user)
     return render(request, 'index/confirm.html')
+
+
+def logout(request):
+    django_logout(request)
+    return HttpResponseRedirect('/')

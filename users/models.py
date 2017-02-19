@@ -33,6 +33,7 @@ class User(AbstractUser):
     activation_key = models.CharField(max_length=40, blank=True)
     key_expires = models.DateTimeField(default=timezone.now())
 
+
     def get_picture(self):
             try:
                 return "/" + self.picture.url

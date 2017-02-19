@@ -1,0 +1,41 @@
+{% extends 'layouts/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+     <div class="banner">
+            <div class="burn">
+                <div class="title"> <span id="startupTitle">{{ user.first_name }}'s Details</span>
+                    <div class="desc_separator" id="title_separator"></div>
+                </div>
+            </div>
+        </div>
+        <div class="sidebar pull-left">
+            <div class="people_role pull-left">
+                <p>{{ userprofile.roles }}</p>
+            </div>
+            <div class="user-avatar">
+                <!--user avatar-->
+                <div class="circular " id="startup_profile_avatar"> <img class="avatar" src="/static/img/male_user@2x.png"> </div>
+            </div> <span id="startup-name"> {{ user.get_full_name }}</span>
+            <!--user name-->
+            <div class="sidebar_separator"></div>
+            <div class="social-media-icons"> <img id="linkedinBtn" src="/static/img/LinkedIn.png" alt="linkedin">
+                <img id="facebookBtn" src="/static/img/Facebook.png" alt="facebook"> </div>
+            <span id="startup-telephone">{{ user.phone }}</span>
+            <span id="startup-website">{{ user.website }}</span>
+            {% if userprofile.roles == 'Investor' %}
+                <button class="contact-ownerBtn" type="button">Company profile</button>
+            {% elif userprofile.roles == 'Innovator' %}
+                <button class="contact-ownerBtn" type="button">Innovator profile</button>
+            {% elif userprofile.roles == 'Community Hub' %}
+                <button class="contact-ownerBtn" type="button">Hub profile</button>
+            {% endif%}
+        </div>
+        <div class="content-container">
+            <div class="user-form">
+                {% crispy form %}
+            </div>
+        </div>
+
+{% endblock %}

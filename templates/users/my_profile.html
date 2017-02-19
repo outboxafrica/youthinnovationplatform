@@ -1,0 +1,79 @@
+{% extends 'layouts/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+        <div class="banner">
+            <div class="burn">
+                <div class="title"> <span id="startupTitle">{{ userprofile.get_full_name }}'s Details</span>
+                    <div class="desc_separator" id="title_separator"></div>
+                </div>
+            </div>
+            <a href={% url 'users:edit_user' %}>
+                <button id="editprofileBtn" class="pull-right" type="button">Edit profile</button></a>
+        </div>
+        <div class="sidebar pull-left">
+            <div class="people_role pull-left">
+                <p>{{ userprofile.roles }}</p>
+            </div>
+            <div class="user-avatar">
+                <!--user avatar-->
+                <div class="circular " id="startup_profile_avatar"> <img class="avatar" src="/static/img/male_user@2x.png">
+                </div>
+            </div> <span id="startup-name"> {{ userprofile.get_full_name }}</span>
+            <!--user name-->
+            <div class="sidebar_separator"></div>
+            <div class="social-media-icons"> <img id="linkedinBtn" src="/static/img/LinkedIn.png" alt="linkedin">
+                <img id="facebookBtn" src="/static/img/Facebook.png" alt="facebook"> </div>
+            <span id="startup-telephone">{{ userprofile.phone }}</span>
+            <span id="startup-website">{{ userprofile.website }}</span>
+            {% if userprofile.roles == 'Investor' %}
+                <button class="contact-ownerBtn" type="button">Company profile</button>
+            {% elif userprofile.roles == 'Innovator' %}
+                <button class="contact-ownerBtn" type="button">Innovator profile</button>
+            {% elif userprofile.roles == 'Community Hub' %}
+                <button class="contact-ownerBtn" type="button">Hub profile</button>
+            {% endif%}
+        </div>
+        <div class="content-container">
+            <div class="overview pull-right">
+                <div class="overview-title marginalise">
+                    <p>Experience Summary</p>
+                </div>
+                <div class="overview-separator"></div>
+                <div class="main_text_content">
+                    <p>{{ userprofile.expertise|linebreaks }}</p>
+                </div>
+            </div>
+{#            <div class="overview pull-right">#}
+{#                <div class="overview-title marginalise">#}
+{#                    <p>Competencies</p>#}
+{#                </div>#}
+{#                <div class="overview-separator"></div>#}
+{#                <div class="main_text_content">#}
+{#                    <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vitae nisi vel nibh convallis consequat id eget odio. Cras ac pharetra neque. Aliquam vel leo massa. Praesent porttitor nulla vitae libero iaculis, vel vulputate dolor semper. Nam quis aliquet augue. In et risus vitae leo tempus faucibus vitae et est. Praesent nec dapibus metus. Integer ut venenatis libero. Aliquam at magna posuere, finibus sem id, dictum erat. Donec at mi ut turpis blandit tristique ac pulvinar sapien. Aliquam ultrices mattis nunc, tempus faucibus lacus vestibulum sit amet. Vivamus non laoreet ligula. Mauris vehicula purus non convallis tristique. Vestibulum ex dui, ultrices at pretium a, porttitor at diam. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam semper sagittis diam ac iaculis. Vestibulum sed libero tristique, elementum libero id, ultricies ex. </p>#}
+{#                </div>#}
+{#            </div>#}
+            <div class="overview pull-right">
+                <div class="overview-title marginalise">
+                    <p>Community Hub Affiliation</p>
+                </div>
+                <div class="overview-separator"></div>
+                <div class="main_text_content community_hub">
+                    <div class="hub_affiliation"> <img src="/static/img/Shape.png"> </div>
+                    <div class="hub_affiliation"> <img src="/static/img/Shape.png"> </div>
+                    <div class="hub_affiliation"> <img src="/static/img/Shape.png"> </div>
+                    <div class="hub_affiliation"> <img src="/static/img/Shape.png"> </div>
+                </div>
+            </div>
+            <div class="team-members pull-right">
+                <div class="overview-title marginalise">
+                    <p>Team Members</p>
+                </div>
+                <div class="overview-separator"></div>
+                <div class="circular left-align" id="first-team-member"> <img class="avatar" src="/static/img/avatar-m-41.png"> </div>
+                <div class="circular left-align"> <img class="avatar" src="/static/img/avatar-m-02%20copy.png"> </div>
+                <div class="circular left-align"> <img class="avatar" src="/static/img/avatar-m-83.png"> </div>
+                <div class="circular left-align"> <img class="avatar" src="/static/img/avatar-m-37.png"> </div>
+            </div>
+        </div>
+{% endblock %}

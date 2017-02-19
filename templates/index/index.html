@@ -44,9 +44,6 @@
                 <br> community hubs to
                 <br> connect with."</p>
         </div>
-        {% if user.is_authenticated %}
-            <h1>User authenticated</h1>
-    {% endif %}
         {% if not user.is_authenticated %}
             <div class="pull-right button_image">
                 <a href={% url 'index:accounts' %}>
