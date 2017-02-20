@@ -25,7 +25,9 @@ SECRET_KEY = '_#_33_8ut+t6eu(7yggghzr26zizi415518!y=4nf0=!%-!rso'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'outboxundp.herokuapp.com'
+]
 
 
 # Application definition
