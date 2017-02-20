@@ -206,7 +206,6 @@
 
 /* higher specificity */
 .wp-core-ui .media-modal-icon {
-	background-image: url(../images/uploader-icons.png);
 	background-repeat: no-repeat;
 }
 
@@ -1494,7 +1493,6 @@
  * Spinner
  */
 .media-frame .spinner {
-	background: url(../images/spinner.gif) no-repeat;
 	-webkit-background-size: 20px 20px;
 	background-size: 20px 20px;
 	float: right;
@@ -2517,20 +2515,6 @@
 /**
  * HiDPI Displays
  */
-@media print,
-  (-webkit-min-device-pixel-ratio: 1.25),
-  (min-resolution: 120dpi) {
-
-	.media-modal-icon {
-		background-image: url(../images/uploader-icons-2x.png);
-		-webkit-background-size: 134px 15px;
-		background-size: 134px 15px;
-	}
-
-	.media-frame .spinner {
-		background-image: url(../images/spinner-2x.gif);
-	}
-}
 
 .media-frame-content[data-columns="1"] .attachment {
 	width: 100%;
