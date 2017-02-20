@@ -3,6 +3,7 @@ Django==1.10
 django-autoslug==1.9.3
 django-crispy-forms==1.6.1
 django-eventtools==0.9.10
+gunicorn==19.6.0
 olefile==0.44
 packaging==16.8
 Pillow==4.0.0
