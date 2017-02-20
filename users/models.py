@@ -23,8 +23,8 @@ class User(AbstractUser):
         blank=True,
         default=settings.STATIC_URL + 'img/user-placeholder.png'
     )
-    linkedin = models.URLField()
-    blog = models.URLField()
+    website = models.URLField(null=True, blank=True)
+    blog = models.URLField(null=True, blank=True)
     linkedin = models.CharField(max_length=200, blank=True)
     twitter = models.CharField(max_length=200, blank=True)
     summary = models.TextField()
@@ -32,7 +32,7 @@ class User(AbstractUser):
     timestamp = models.DateTimeField(auto_now=True)
     activation_key = models.CharField(max_length=40, blank=True)
     key_expires = models.DateTimeField(default=timezone.now())
-
+    role = models.CharField(max_length=50, null=True)
 
     def get_picture(self):
             try:

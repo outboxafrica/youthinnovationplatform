@@ -97,7 +97,8 @@ class Accounts(TemplateView):
                         email=email,
                         username=email,
                         activation_key=activation_key,
-                        key_expires=key_expires
+                        key_expires=key_expires,
+                        role='innovator',
                     )
                     innovator_profile.set_password(password)
                     innovator_profile.save()
@@ -108,7 +109,8 @@ class Accounts(TemplateView):
                         email=email,
                         username=email,
                         activation_key=activation_key,
-                        key_expires=key_expires
+                        key_expires=key_expires,
+                    role = 'investor',
                     )
                     investor_profile.set_password(password)
                     investor_profile.save()
@@ -119,7 +121,8 @@ class Accounts(TemplateView):
                         email=email,
                         username=email,
                         activation_key=activation_key,
-                        key_expires=key_expires
+                        key_expires=key_expires,
+                        role='mentor',
                     )
                     mentor_profile.set_password(password)
                     mentor_profile.save()
@@ -130,7 +133,8 @@ class Accounts(TemplateView):
                         email=email,
                         username=email,
                         activation_key=activation_key,
-                        key_expires=key_expires
+                        key_expires=key_expires,
+                        role='hub_manager',
                     )
                     hub_manager_profile.set_password(password)
                     hub_manager_profile.save()

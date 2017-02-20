@@ -43,7 +43,7 @@
                         data-target="#collapsable-nav-segment" aria-expanded="false"><span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href=""><img src="/static/img/Logo.png" alt="Logo"/></a>
+                <a class="navbar-brand" href={% url 'index:home' %}><img src="/static/img/Logo.png" alt="Logo"/></a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="collapsable-nav-segment">
@@ -78,16 +78,13 @@
                             <ul class="dropdown-menu" id="user_menu">
                                 <li><a href={% url 'users:edit_user' %}>Edit My Profile</a></li>
                                 <li><a href={% url 'users:view_profile' %}>View User Profile</a></li>
-                                {% if user.userprofile.roles == 'Investor' %}
+                                {% if user.role == 'investor' %}
                                     <li><a href="">View Company Profile</a></li>
                                     <li><a href="">Edit Company Profile</a></li>
-                                {% elif user.userprofile.roles == 'Mentor' %}
-                                    <li><a href="#">View Mentor Profile</a></li>
-                                    <li><a href="">Edit Mentor Profile</a></li>
-                                {% elif user.userprofile.roles == 'Community Hub' %}
+                                {% elif user.role == 'hub manager' %}
                                     <li><a href="">Edit Hub Profile</a></li>
                                     <li><a href="">View Hub Profile</a></li>
-                                {% elif user.userprofile.roles == "Innovator" %}
+                                {% elif user.role == "innovator" %}
                                     <li><a href="">View Startup Profile</a></li>
                                     <li><a href="">Edit Startup Profile</a></li>
                                 {% endif %}

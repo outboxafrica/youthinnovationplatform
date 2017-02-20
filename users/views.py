@@ -1,16 +1,33 @@
 from django.shortcuts import render
+from django.urls import reverse
 from django.views.generic import FormView, TemplateView
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from users.forms import ProfileForm
-from users.models import User
+from users.forms import InnovatorProfileForm, InvestorProfileForm, MentorProfileForm, HubManagerProfileForm, ProgramManagerProfileForm
+from users.models import User, Mentor, Innovator, Investor, HubManager, ProgramManager
 
 # Create your views here.
 
 
 class EditUser(FormView):
-    form_class = ProfileForm
     template_name = 'users/edit_user.html'
-    success_url = '/'
+    success_url = 'view'
+
+    def get_form_class(self):
+        role = self.request.user.role
+        if role == 'mentor':
+            form_class = MentorProfileForm
+        elif role == 'innovator':
+            print 'innovator form'
+            form_class = InnovatorProfileForm
+        elif role == 'investor':
+            form_class = InvestorProfileForm
+        elif role == 'hub manager':
+            form_class = HubManagerProfileForm
+        elif role == 'program manager':
+            form_class = ProgramManagerProfileForm
+
+        return form_class
 
     def form_valid(self, form):
         user = form.save(commit=False)
@@ -21,7 +38,7 @@ class EditUser(FormView):
         return super(EditUser, self).form_valid(form)
 
     def get_form(self, form_class=None):
-        form_class = self.form_class
+        form_class = self.get_form_class()
         try:
             user = User.objects.get(pk=self.request.user.id)
             print type(user)

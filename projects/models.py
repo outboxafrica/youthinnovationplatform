@@ -6,16 +6,30 @@ from django.db import models
 
 
 class InvestmentCompany(models.Model):
-    name = models.CharField(max_length=200)
-    description = models.TextField()
-    industry = models.CharField(max_length=255)
-    support_stage = models.CharField(max_length=255)
-    url = models.URLField()
-    ticket_size = models.CharField(max_length=20)
+    investor_focus = models.TextField(blank=True)
+    preferred_industries = models.CharField(max_length=200, blank=True)
+    other_industries = models.CharField(max_length=100, blank=True)
+    investment_stage = models.CharField(max_length=200, blank=True)
+    ticket_size = models.CharField(max_length=200, blank=True)
+    url = models.CharField(max_length=200, blank=True)
     logo = models.FileField(upload_to='static/logos/%Y/%m/%d/', blank=True)
+    organisation_name = models.CharField(max_length=200, blank=True)
+    description = models.TextField(blank=True)
+    support_type = models.CharField(max_length=255, blank=True)
+    competencies = models.TextField(blank=True)
+    specialties = models.TextField(blank=True)
+    published = models.BooleanField(default=False)
 
-    def __str__(self):
-        return self.name
+    def get_logo(self):
+        if self.logo:
+            return self.logo.url
+        elif self.picture:
+            return self.picture.url
+        else:
+            return "/"
+
+    def __unicode__(self):
+        return self.organisation_name
 
 
 class CommunityHub(models.Model):
