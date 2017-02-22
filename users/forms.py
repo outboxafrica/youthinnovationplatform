@@ -318,9 +318,7 @@ class InvestorProfileForm(forms.ModelForm):
         w, h = get_image_dimensions(image)
         aspect_ratio = w/h
         if image:
-            if image._size > 4 * 1024 * 1024:
-                raise ValidationError("Image file too large ( > 4mb )")
-            elif aspect_ratio != 1:
+            if aspect_ratio != 1:
                 raise ValidationError("Image must have an aspect ratio of 1:1")
             return image
         else:
@@ -412,9 +410,7 @@ class HubManagerProfileForm(forms.ModelForm):
         w, h = get_image_dimensions(image)
         aspect_ratio = w/h
         if image:
-            if image._size > 4 * 1024 * 1024:
-                raise ValidationError("Image file too large ( > 4mb )")
-            elif aspect_ratio != 1:
+            if aspect_ratio != 1:
                 raise ValidationError("Image must have an aspect ratio of 1:1")
             return image
         else:
@@ -506,9 +502,7 @@ class ProgramManagerProfileForm(forms.ModelForm):
         w, h = get_image_dimensions(image)
         aspect_ratio = w/h
         if image:
-            if image._size > 4 * 1024 * 1024:
-                raise ValidationError("Image file too large ( > 4mb )")
-            elif aspect_ratio != 1:
+            if aspect_ratio != 1:
                 raise ValidationError("Image must have an aspect ratio of 1:1")
             return image
         else:
