@@ -13,13 +13,13 @@ class InnovatorProfileForm(forms.ModelForm):
         self.fields['full_names'].label = "Full names"
         self.fields['phone'].label = "Mobile contact"
         self.fields['summary'].label = "Please provide a summary about your educational, professional and" \
-                                         " entrepreneurial experience"
+                                       " entrepreneurial experience"
 
     full_names = forms.CharField()
     phone_regex = RegexValidator(
         regex=r'^\+?1?\d{9,15}$',
         message="Phone number must be entered in the format:"
-        " '+256 XXX XXX'. Up to 15 digits allowed.")
+                " '+256 XXX XXX'. Up to 15 digits allowed.")
     phone = forms.CharField(
         validators=[phone_regex],
         widget=forms.TextInput(attrs={'class': "",
@@ -28,11 +28,11 @@ class InnovatorProfileForm(forms.ModelForm):
     picture = forms.ImageField(required=False, validators=[validate_img])
     resume = forms.FileField(validators=[validate_doc], required=False)
     linkedin = forms.CharField(required=False,
-        widget=forms.URLInput(attrs={'placeholder': "http://example.com"}))
+                               widget=forms.URLInput(attrs={'placeholder': "http://example.com"}))
     twitter = forms.CharField(required=False,
-        widget=forms.URLInput(attrs={'placeholder': "http://example.com"}))
+                              widget=forms.URLInput(attrs={'placeholder': "http://example.com"}))
     blog = forms.CharField(required=False,
-        widget=forms.URLInput(attrs={'placeholder': "http://example.com"}))
+                           widget=forms.URLInput(attrs={'placeholder': "http://example.com"}))
     website = forms.CharField(
         required=False,
         widget=forms.URLInput(attrs={'placeholder': "http://example.com"}))
@@ -52,7 +52,7 @@ class InnovatorProfileForm(forms.ModelForm):
               css_class='text-small'),
         Field('gender'),
         Field('age',
-                css_class='sign_text'),
+              css_class='sign_text'),
         Field('phone',
               css_class='text-small'),
         Field('country',
@@ -80,12 +80,12 @@ class InnovatorProfileForm(forms.ModelForm):
                 'Next',
                 css_class="cancelBtn"
             )
-        ),)
+        ), )
 
     class Meta:
         model = Innovator
         fields = ('gender', 'phone', 'country', 'summary', 'picture',
-                  'resume', 'linkedin', 'twitter', 'blog', 'website', 'full_names','age')
+                  'resume', 'linkedin', 'twitter', 'blog', 'website', 'full_names', 'age')
 
 
 class MentorProfileForm(forms.ModelForm):
@@ -94,7 +94,7 @@ class MentorProfileForm(forms.ModelForm):
         self.fields['full_names'].label = "Full names"
         self.fields['phone'].label = "Mobile contact"
         self.fields['summary'].label = "Please provide a summary about your educational, professional and" \
-                                         " entrepreneurial experience"
+                                       " entrepreneurial experience"
         competencies = forms.CharField(
             widget=forms.Textarea(),
             label="What are your core competencies?"
@@ -131,7 +131,7 @@ class MentorProfileForm(forms.ModelForm):
     phone_regex = RegexValidator(
         regex=r'^\+?1?\d{9,15}$',
         message="Phone number must be entered in the format:"
-        " '+256 XXX XXX'. Up to 15 digits allowed.")
+                " '+256 XXX XXX'. Up to 15 digits allowed.")
     phone = forms.CharField(
         validators=[phone_regex],
         widget=forms.TextInput(attrs={'class': "",
@@ -141,11 +141,11 @@ class MentorProfileForm(forms.ModelForm):
     picture = forms.ImageField(required=False, validators=[validate_img])
     resume = forms.FileField(validators=[validate_doc], required=False)
     linkedin = forms.CharField(required=False,
-        widget=forms.URLInput(attrs={'placeholder': "http://example.com"}))
+                               widget=forms.URLInput(attrs={'placeholder': "http://example.com"}))
     twitter = forms.CharField(required=False,
-        widget=forms.URLInput(attrs={'placeholder': "http://example.com"}))
+                              widget=forms.URLInput(attrs={'placeholder': "http://example.com"}))
     blog = forms.CharField(required=False,
-        widget=forms.URLInput(attrs={'placeholder': "http://example.com"}))
+                           widget=forms.URLInput(attrs={'placeholder': "http://example.com"}))
     website = forms.CharField(
         required=False,
         widget=forms.URLInput(attrs={'placeholder': "http://example.com"}))
@@ -165,7 +165,7 @@ class MentorProfileForm(forms.ModelForm):
               css_class='text-small'),
         Field('gender'),
         Field('age',
-                css_class='sign_text'),
+              css_class='sign_text'),
         Field('phone',
               css_class='text-small'),
         Field('country',
@@ -196,12 +196,12 @@ class MentorProfileForm(forms.ModelForm):
                 'Next',
                 css_class="cancelBtn"
             )
-        ),)
+        ), )
 
     class Meta:
         model = Mentor
         fields = ('gender', 'phone', 'country', 'summary', 'picture',
-                  'resume', 'linkedin', 'twitter', 'blog', 'website', 'full_names','age', 'support_stage',
+                  'resume', 'linkedin', 'twitter', 'blog', 'website', 'full_names', 'age', 'support_stage',
                   'support_type', 'competencies')
 
 
@@ -211,13 +211,13 @@ class InvestorProfileForm(forms.ModelForm):
         self.fields['full_names'].label = "Full names"
         self.fields['phone'].label = "Mobile contact"
         self.fields['summary'].label = "Please provide a summary about your educational, professional and" \
-                                         " entrepreneurial experience"
+                                       " entrepreneurial experience"
 
     full_names = forms.CharField()
     phone_regex = RegexValidator(
         regex=r'^\+?1?\d{9,15}$',
         message="Phone number must be entered in the format:"
-        " '+256 XXX XXX'. Up to 15 digits allowed.")
+                " '+256 XXX XXX'. Up to 15 digits allowed.")
     phone = forms.CharField(
         validators=[phone_regex],
         widget=forms.TextInput(attrs={'class': "",
@@ -226,11 +226,11 @@ class InvestorProfileForm(forms.ModelForm):
     picture = forms.ImageField(required=False, validators=[validate_img])
     resume = forms.FileField(validators=[validate_doc], required=False)
     linkedin = forms.CharField(required=False,
-        widget=forms.URLInput(attrs={'placeholder': "http://example.com"}))
+                               widget=forms.URLInput(attrs={'placeholder': "http://example.com"}))
     twitter = forms.CharField(required=False,
-        widget=forms.URLInput(attrs={'placeholder': "http://example.com"}))
+                              widget=forms.URLInput(attrs={'placeholder': "http://example.com"}))
     blog = forms.CharField(required=False,
-        widget=forms.URLInput(attrs={'placeholder': "http://example.com"}))
+                           widget=forms.URLInput(attrs={'placeholder': "http://example.com"}))
     website = forms.CharField(
         required=False,
         widget=forms.URLInput(attrs={'placeholder': "http://example.com"}))
@@ -250,7 +250,7 @@ class InvestorProfileForm(forms.ModelForm):
               css_class='text-small'),
         Field('gender'),
         Field('age',
-                css_class='sign_text'),
+              css_class='sign_text'),
         Field('phone',
               css_class='text-small'),
         Field('country',
@@ -278,12 +278,12 @@ class InvestorProfileForm(forms.ModelForm):
                 'Next',
                 css_class="cancelBtn"
             )
-        ),)
+        ), )
 
     class Meta:
         model = Investor
         fields = ('gender', 'phone', 'country', 'summary', 'picture',
-                  'resume', 'linkedin', 'twitter', 'blog', 'website', 'full_names','age')
+                  'resume', 'linkedin', 'twitter', 'blog', 'website', 'full_names', 'age')
 
 
 class HubManagerProfileForm(forms.ModelForm):
@@ -292,13 +292,13 @@ class HubManagerProfileForm(forms.ModelForm):
         self.fields['full_names'].label = "Full names"
         self.fields['phone'].label = "Mobile contact"
         self.fields['summary'].label = "Please provide a summary about your educational, professional and" \
-                                         " entrepreneurial experience"
+                                       " entrepreneurial experience"
 
     full_names = forms.CharField()
     phone_regex = RegexValidator(
         regex=r'^\+?1?\d{9,15}$',
         message="Phone number must be entered in the format:"
-        " '+256 XXX XXX'. Up to 15 digits allowed.")
+                " '+256 XXX XXX'. Up to 15 digits allowed.")
     phone = forms.CharField(
         validators=[phone_regex],
         widget=forms.TextInput(attrs={'class': "",
@@ -307,11 +307,11 @@ class HubManagerProfileForm(forms.ModelForm):
     picture = forms.ImageField(required=False, validators=[validate_img])
     resume = forms.FileField(validators=[validate_doc], required=False)
     linkedin = forms.CharField(required=False,
-        widget=forms.URLInput(attrs={'placeholder': "http://example.com"}))
+                               widget=forms.URLInput(attrs={'placeholder': "http://example.com"}))
     twitter = forms.CharField(required=False,
-        widget=forms.URLInput(attrs={'placeholder': "http://example.com"}))
+                              widget=forms.URLInput(attrs={'placeholder': "http://example.com"}))
     blog = forms.CharField(required=False,
-        widget=forms.URLInput(attrs={'placeholder': "http://example.com"}))
+                           widget=forms.URLInput(attrs={'placeholder': "http://example.com"}))
     website = forms.CharField(
         required=False,
         widget=forms.URLInput(attrs={'placeholder': "http://example.com"}))
@@ -331,7 +331,7 @@ class HubManagerProfileForm(forms.ModelForm):
               css_class='text-small'),
         Field('gender'),
         Field('age',
-                css_class='sign_text'),
+              css_class='sign_text'),
         Field('phone',
               css_class='text-small'),
         Field('country',
@@ -359,12 +359,12 @@ class HubManagerProfileForm(forms.ModelForm):
                 'Next',
                 css_class="cancelBtn"
             )
-        ),)
+        ), )
 
     class Meta:
         model = HubManager
         fields = ('gender', 'phone', 'country', 'summary', 'picture',
-                  'resume', 'linkedin', 'twitter', 'blog', 'website', 'full_names','age')
+                  'resume', 'linkedin', 'twitter', 'blog', 'website', 'full_names', 'age')
 
 
 class ProgramManagerProfileForm(forms.ModelForm):
@@ -373,13 +373,13 @@ class ProgramManagerProfileForm(forms.ModelForm):
         self.fields['full_names'].label = "Full names"
         self.fields['phone'].label = "Mobile contact"
         self.fields['summary'].label = "Please provide a summary about your educational, professional and" \
-                                         " entrepreneurial experience"
+                                       " entrepreneurial experience"
 
     full_names = forms.CharField()
     phone_regex = RegexValidator(
         regex=r'^\+?1?\d{9,15}$',
         message="Phone number must be entered in the format:"
-        " '+256 XXX XXX'. Up to 15 digits allowed.")
+                " '+256 XXX XXX'. Up to 15 digits allowed.")
     phone = forms.CharField(
         validators=[phone_regex],
         widget=forms.TextInput(attrs={'class': "",
@@ -388,11 +388,11 @@ class ProgramManagerProfileForm(forms.ModelForm):
     picture = forms.ImageField(required=False, validators=[validate_img])
     resume = forms.FileField(validators=[validate_doc], required=False)
     linkedin = forms.CharField(required=False,
-        widget=forms.URLInput(attrs={'placeholder': "http://example.com"}))
+                               widget=forms.URLInput(attrs={'placeholder': "http://example.com"}))
     twitter = forms.CharField(required=False,
-        widget=forms.URLInput(attrs={'placeholder': "http://example.com"}))
+                              widget=forms.URLInput(attrs={'placeholder': "http://example.com"}))
     blog = forms.CharField(required=False,
-        widget=forms.URLInput(attrs={'placeholder': "http://example.com"}))
+                           widget=forms.URLInput(attrs={'placeholder': "http://example.com"}))
     website = forms.CharField(
         required=False,
         widget=forms.URLInput(attrs={'placeholder': "http://example.com"}))
@@ -412,7 +412,7 @@ class ProgramManagerProfileForm(forms.ModelForm):
               css_class='text-small'),
         Field('gender'),
         Field('age',
-                css_class='sign_text'),
+              css_class='sign_text'),
         Field('phone',
               css_class='text-small'),
         Field('country',
@@ -440,10 +440,9 @@ class ProgramManagerProfileForm(forms.ModelForm):
                 'Next',
                 css_class="cancelBtn"
             )
-        ),)
+        ), )
 
     class Meta:
         model = ProgramManager
         fields = ('gender', 'phone', 'country', 'summary', 'picture',
-                  'resume', 'linkedin', 'twitter', 'blog', 'website', 'full_names','age')
-
+                  'resume', 'linkedin', 'twitter', 'blog', 'website', 'full_names', 'age')

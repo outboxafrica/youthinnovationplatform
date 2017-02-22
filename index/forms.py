@@ -67,11 +67,22 @@ class RegisterForm(forms.Form):
             user = User.objects.get(email=email)
         except User.DoesNotExist:
             return email
-        raise forms.ValidationError(u'Email "%s" is already in use.' % email)
+        raise forms.ValidationError(u'This email address is already taken')
+
+    def clean(self):
+        password = self.cleaned_data['password']
+        passwordConfirm = self.cleaned_data['confirm_password']
+        if password != passwordConfirm:
+            raise forms.ValidationError(u"The passwords do not match.")
+        return password
 
     # def clean_password(self):
-    #     password = self.cleaned_data['password']
-    #     confirm_password = self.cleaned_data['confirm_password']
-    #
-    #     if password != confirm_password:
-    #         forms.ValidationError('Passwords do not match')
+    #     try:
+    #         cleaned_data = super(RegisterForm, self).clean()
+    #         password = cleaned_data['password']
+    #         if len(password) < 8:
+    #             raise forms.ValidationError(u"Password is too weak, must be more than 10 characters")
+    #     except:
+    #         pass
+
+

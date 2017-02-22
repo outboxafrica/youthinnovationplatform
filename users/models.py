@@ -55,7 +55,7 @@ class Mentor(User):
 
 class Investor(User):
     resume = models.FileField(upload_to='static/uploads/%Y/%m/%d/', blank=True)
-    company = models.ForeignKey(InvestmentCompany)  # to the investment company table
+    company = models.ForeignKey(InvestmentCompany, null=True)  # to the investment company table
 
 
 class Innovator(User):

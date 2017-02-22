@@ -80,7 +80,7 @@
                                 <li><a href={% url 'users:view_profile' %}>View User Profile</a></li>
                                 {% if user.role == 'investor' %}
                                     <li><a href="">View Company Profile</a></li>
-                                    <li><a href="">Edit Company Profile</a></li>
+                                    <li><a href={% url 'projects:investment_company' %}>Edit Company Profile</a></li>
                                 {% elif user.role == 'hub manager' %}
                                     <li><a href="">Edit Hub Profile</a></li>
                                     <li><a href="">View Hub Profile</a></li>

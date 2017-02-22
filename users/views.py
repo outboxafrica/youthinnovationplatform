@@ -21,6 +21,7 @@ class EditUser(FormView):
             print 'innovator form'
             form_class = InnovatorProfileForm
         elif role == 'investor':
+            print 'investor form'
             form_class = InvestorProfileForm
         elif role == 'hub manager':
             form_class = HubManagerProfileForm
@@ -35,7 +36,7 @@ class EditUser(FormView):
         return super(EditUser, self).form_valid(form)
 
     def form_invalid(self, form):
-        return super(EditUser, self).form_valid(form)
+        return super(EditUser, self).form_invalid(form)
 
     def get_form(self, form_class=None):
         form_class = self.get_form_class()

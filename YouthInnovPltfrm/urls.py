@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^events/', include('events.urls', namespace='events', app_name='events')),
     url(r'^users/', include('users.urls', namespace='users', app_name='users')),
+    url(r'^projects/', include('projects.urls', namespace='projects', app_name='projects')),
     url(r'^blog/', include('blog.urls', namespace='blog', app_name='blog')),
     url(r'^contact_us', include('contact_us.urls', namespace='contact_us', app_name='contact_us')),
 ]

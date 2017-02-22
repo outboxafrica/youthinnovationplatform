@@ -1,0 +1,121 @@
+{% extends 'layouts/base.html' %}
+{% load crispy_forms_tags %}
+{% load user_extras %}
+
+{% block content %}
+<div class="banner">
+            <div class="burn">
+                <div class="title">
+                    <span id="startupTitle">Investment Company</span>
+                    <div class="desc_separator" id="title_separator"></div>
+                </div>
+            </div>
+        </div>
+        <div class="sidebar pull-left">
+            <div class="people_role pull-left">
+                <p>Investment Company</p>
+            </div>
+            <div class="startup-logo">
+                <img src="/static/img/StartupLogo.png" alt="startup logo">
+            </div>
+            <span id="startup-name"> {{ company.organisation_name }}</span>
+            <div class="sidebar_separator"></div>
+            <div class="social-media-icons">
+                <img id="linkedinBtn" src="/static/img/LinkedIn.png" alt="linkedin">
+                <img id="facebookBtn" src="/static/img/Facebook.png" alt="facebook">
+            </div>
+            <span id="startup-telephone">+256 75 555 5555</span>
+            <span id="startup-website">{{ company.url }}</span>
+            <span id="startup-website">Ticket Size: {{ company.ticket_size }}</span>
+
+        </div>
+        <div class="content-container">
+            <div class="overview pull-right">
+                <div class="startup-image pull-left">
+                </div>
+                <div class="vertical-separator"></div>
+                <div class="text-overview">
+                    <div class="overview-title">
+                        <p>Company Summary</p>
+                        <div class="overview-separator" id="overview-margin"></div>
+                    </div>
+
+                    <div class="main_text_content">
+                        <p>
+                            {{ company.investor_focus }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="market pull-right">
+                <div class="text-overview">
+                    <div class="overview-title marginalise">
+                        <p>Our Investment Focus Industries</p>
+                    </div>
+                    <div class="overview-separator"></div>
+                    <div class="main_text_content">
+                        <ul class="view-details-ul">
+                            {% for focus in company.prefered_industries|listChoice %}
+                                <li>{{ focus|title }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="market pull-right">
+                <div class="text-overview">
+                    <div class="overview-title marginalise">
+                        <p>Stages of Support</p>
+                    </div>
+                    <div class="overview-separator"></div>
+                    <div class="main_text_content">
+                        <ul class="view-details-ul">
+                            {% for stage in company.investment_stage|listChoice %}
+                                <li>{{ stage }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="overview pull-right">
+                <div class="overview-title marginalise">
+                    <p>Portfolio Companies</p>
+                </div>
+                <div class="overview-separator"></div>
+                <div class="main_text_content community_hub">
+                    <div class="hub_affiliation">
+                        <img src="/static/img/Shape.png">
+                    </div>
+                    <div class="hub_affiliation">
+                        <img src="/static/img/Shape.png">
+                    </div>
+                    <div class="hub_affiliation">
+                        <img src="/static/img/Shape.png">
+                    </div>
+                    <div class="hub_affiliation">
+                        <img src="/static/img/Shape.png">
+                    </div>
+                </div>
+            </div>
+            <div class="team-members pull-right">
+                <div class="overview-title marginalise">
+                    <p>Team Members</p>
+                </div>
+                <div class="overview-separator"></div>
+                <div class="circular left-align" id="first-team-member">
+                    <img class="avatar" src="/static/img/avatar-m-41.png">
+                </div>
+                <div class="circular left-align">
+                    <img class="avatar" src="/static/img/avatar-m-02%20copy.png">
+                </div>
+                <div class="circular left-align">
+                    <img class="avatar" src="/static/img/avatar-m-83.png">
+                </div>
+                <div class="circular left-align">
+                    <img class="avatar" src="/static/img/avatar-m-37.png">
+                </div>
+
+            </div>
+
+        </div>
+{% endblock %}

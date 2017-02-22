@@ -73,10 +73,10 @@ class Accounts(TemplateView):
             print 'Sign Up'
             if register_form.is_valid():
                 cleaned_cred = register_form.cleaned_data
+                print cleaned_cred
                 role = cleaned_cred['roles']
                 email = cleaned_cred['email']
                 password = cleaned_cred['password']
-                confirm_password = cleaned_cred['confirm_password']
                 full_names = cleaned_cred['full_names']
 
                 firstname = full_names.split(" ")[0]

@@ -78,8 +78,8 @@ class InvestorForm(InvestorBaseForm):
               css_class='text-small'),
         Field('investor_focus',
               css_class='text-large'),
-        Field('prefered_industries',
-                         css_class='input-xlarge'),
+        Field('preferred_industries',
+                         css_class='input-xlarge marginify-checkbox'),
         Field('other_industries', css_class='text-small'),
         Field('investment_stage',
               css_class='input-xlarge'),
@@ -101,7 +101,7 @@ class InvestorForm(InvestorBaseForm):
 
     class Meta:
         model = InvestmentCompany
-        fields = ('name', 'investor_focus',
-                  'prefered_industries', 'other_industries',
+        fields = ('organisation_name', 'investor_focus',
+                  'preferred_industries', 'other_industries',
                   'investment_stage', 'ticket_size', 'url',
                   'logo')

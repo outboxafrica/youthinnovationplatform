@@ -791,6 +791,7 @@ footer li:first-child:before {
     border-color: transparent;
     background-color: #85dafa;
     margin-right: 10px;
+    margin-top: 20px;
 }
 
 .savenextBtn {
@@ -2276,4 +2277,8 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 
 #submitbtn{
     margin-top: 20px;
+}
+
+.marginify-checkbox{
+    margin-right: 20px;
 }

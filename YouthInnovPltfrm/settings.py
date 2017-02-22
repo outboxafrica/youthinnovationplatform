@@ -29,7 +29,6 @@ ALLOWED_HOSTS = [
     'outboxundp.herokuapp.com'
 ]
 
-
 # Application definition
 
 INSTALLED_APPS = [
