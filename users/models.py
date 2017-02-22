@@ -31,7 +31,8 @@ class User(AbstractUser):
     age = models.IntegerField(blank=True, default=20)
     timestamp = models.DateTimeField(auto_now=True)
     activation_key = models.CharField(max_length=40, blank=True)
-    key_expires = models.DateTimeField(default=timezone.now())
+    expiry = datetime.datetime.today() + datetime.timedelta(hours=24)
+    key_expires = models.DateTimeField(default=expiry)
     role = models.CharField(max_length=50, null=True)
 
     def get_picture(self):

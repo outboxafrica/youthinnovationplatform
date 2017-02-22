@@ -1,8 +1,10 @@
+from __future__ import division
 from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Div, Submit, HTML, Button, Row, Field
 from crispy_forms.bootstrap import AppendedText, PrependedText, FormActions
 from django.core.validators import RegexValidator, URLValidator, EmailValidator, ValidationError
+from django.core.files.images import get_image_dimensions
 from projects.validators import validate_img, validate_doc
 from users.models import Mentor, Innovator, Investor, HubManager, ProgramManager
 
@@ -86,6 +88,19 @@ class InnovatorProfileForm(forms.ModelForm):
         model = Innovator
         fields = ('gender', 'phone', 'country', 'summary', 'picture',
                   'resume', 'linkedin', 'twitter', 'blog', 'website', 'full_names', 'age')
+
+    def clean_picture(self):
+        image = self.cleaned_data.get('image', False)
+        w, h = get_image_dimensions(image)
+        aspect_ratio = w/h
+        if image:
+            if image.size_ > 4 * 1024 * 1024:
+                raise ValidationError("Image file too large ( > 4mb )")
+            elif aspect_ratio != 1:
+                raise ValidationError("Image must have an aspect ratio of 1:1")
+            return image
+        else:
+            raise ValidationError("Image file can not be read")
 
 
 class MentorProfileForm(forms.ModelForm):
@@ -204,6 +219,19 @@ class MentorProfileForm(forms.ModelForm):
                   'resume', 'linkedin', 'twitter', 'blog', 'website', 'full_names', 'age', 'support_stage',
                   'support_type', 'competencies')
 
+    def clean_picture(self):
+        image = self.cleaned_data.get('image', False)
+        w, h = get_image_dimensions(image)
+        aspect_ratio = w/h
+        if image:
+            if image._size > 4 * 1024 * 1024:
+                raise ValidationError("Image file too large ( > 4mb )")
+            elif aspect_ratio != 1:
+                raise ValidationError("Image must have an aspect ratio of 1:1")
+            return image
+        else:
+            raise ValidationError("Image file can not be read")
+
 
 class InvestorProfileForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -284,6 +312,19 @@ class InvestorProfileForm(forms.ModelForm):
         model = Investor
         fields = ('gender', 'phone', 'country', 'summary', 'picture',
                   'resume', 'linkedin', 'twitter', 'blog', 'website', 'full_names', 'age')
+
+    def clean_picture(self):
+        image = self.cleaned_data.get('image', False)
+        w, h = get_image_dimensions(image)
+        aspect_ratio = w/h
+        if image:
+            if image._size > 4 * 1024 * 1024:
+                raise ValidationError("Image file too large ( > 4mb )")
+            elif aspect_ratio != 1:
+                raise ValidationError("Image must have an aspect ratio of 1:1")
+            return image
+        else:
+            raise ValidationError("Image file can not be read")
 
 
 class HubManagerProfileForm(forms.ModelForm):
@@ -366,6 +407,19 @@ class HubManagerProfileForm(forms.ModelForm):
         fields = ('gender', 'phone', 'country', 'summary', 'picture',
                   'resume', 'linkedin', 'twitter', 'blog', 'website', 'full_names', 'age')
 
+    def clean_picture(self):
+        image = self.cleaned_data.get('image', False)
+        w, h = get_image_dimensions(image)
+        aspect_ratio = w/h
+        if image:
+            if image._size > 4 * 1024 * 1024:
+                raise ValidationError("Image file too large ( > 4mb )")
+            elif aspect_ratio != 1:
+                raise ValidationError("Image must have an aspect ratio of 1:1")
+            return image
+        else:
+            raise ValidationError("Image file can not be read")
+
 
 class ProgramManagerProfileForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -446,3 +500,16 @@ class ProgramManagerProfileForm(forms.ModelForm):
         model = ProgramManager
         fields = ('gender', 'phone', 'country', 'summary', 'picture',
                   'resume', 'linkedin', 'twitter', 'blog', 'website', 'full_names', 'age')
+
+    def clean_picture(self):
+        image = self.cleaned_data.get('image', False)
+        w, h = get_image_dimensions(image)
+        aspect_ratio = w/h
+        if image:
+            if image._size > 4 * 1024 * 1024:
+                raise ValidationError("Image file too large ( > 4mb )")
+            elif aspect_ratio != 1:
+                raise ValidationError("Image must have an aspect ratio of 1:1")
+            return image
+        else:
+            raise ValidationError("Image file can not be read")
