@@ -31,15 +31,14 @@ class User(AbstractUser):
     age = models.IntegerField(blank=True, default=20)
     timestamp = models.DateTimeField(auto_now=True)
     activation_key = models.CharField(max_length=40, blank=True)
-    expiry = datetime.datetime.today() + datetime.timedelta(hours=24)
-    key_expires = models.DateTimeField(default=expiry)
+    key_expires = models.DateTimeField(auto_now=True)
     role = models.CharField(max_length=50, null=True)
 
     def get_picture(self):
             try:
-                return "/" + self.picture.url
+                return "" + self.picture.url
             except:
-                return "/"
+                return settings.STATIC_URL + 'img/user-placeholder.png'
 
     def __str__(self):
         return self.get_full_name()

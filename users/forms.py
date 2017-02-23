@@ -9,7 +9,25 @@ from projects.validators import validate_img, validate_doc
 from users.models import Mentor, Innovator, Investor, HubManager, ProgramManager
 
 
-class InnovatorProfileForm(forms.ModelForm):
+class BaseForm(forms.ModelForm):
+    def clean_picture(self):
+        try:
+            image = self.cleaned_data.get('picture')
+            print image
+            w, h = get_image_dimensions(image)
+            aspect_ratio = w/h
+
+            if aspect_ratio != 1:
+                raise ValidationError("Image must have an aspect ratio of 1:1")
+
+            else:
+
+                return image
+        except:
+            raise ValidationError("Image file can not be read")
+
+
+class InnovatorProfileForm(BaseForm):
     def __init__(self, *args, **kwargs):
         super(InnovatorProfileForm, self).__init__(*args, **kwargs)
         self.fields['full_names'].label = "Full names"
@@ -88,19 +106,6 @@ class InnovatorProfileForm(forms.ModelForm):
         model = Innovator
         fields = ('gender', 'phone', 'country', 'summary', 'picture',
                   'resume', 'linkedin', 'twitter', 'blog', 'website', 'full_names', 'age')
-
-    def clean_picture(self):
-        image = self.cleaned_data.get('image', False)
-        w, h = get_image_dimensions(image)
-        aspect_ratio = w/h
-        if image:
-            if image.size_ > 4 * 1024 * 1024:
-                raise ValidationError("Image file too large ( > 4mb )")
-            elif aspect_ratio != 1:
-                raise ValidationError("Image must have an aspect ratio of 1:1")
-            return image
-        else:
-            raise ValidationError("Image file can not be read")
 
 
 class MentorProfileForm(forms.ModelForm):
@@ -220,7 +225,7 @@ class MentorProfileForm(forms.ModelForm):
                   'support_type', 'competencies')
 
     def clean_picture(self):
-        image = self.cleaned_data.get('image', False)
+        image = self.cleaned_data.get('picture', False)
         w, h = get_image_dimensions(image)
         aspect_ratio = w/h
         if image:
@@ -314,7 +319,7 @@ class InvestorProfileForm(forms.ModelForm):
                   'resume', 'linkedin', 'twitter', 'blog', 'website', 'full_names', 'age')
 
     def clean_picture(self):
-        image = self.cleaned_data.get('image', False)
+        image = self.cleaned_data.get('picture', False)
         w, h = get_image_dimensions(image)
         aspect_ratio = w/h
         if image:
@@ -406,7 +411,7 @@ class HubManagerProfileForm(forms.ModelForm):
                   'resume', 'linkedin', 'twitter', 'blog', 'website', 'full_names', 'age')
 
     def clean_picture(self):
-        image = self.cleaned_data.get('image', False)
+        image = self.cleaned_data.get('picture')
         w, h = get_image_dimensions(image)
         aspect_ratio = w/h
         if image:
