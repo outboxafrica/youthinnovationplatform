@@ -61,6 +61,7 @@ class Investor(User):
 class Innovator(User):
     experience = models.TextField()
     team = models.ForeignKey(Innovation, null=True)  # to the innovation table
+    has_startup = models.BooleanField(default=False)
 
 
 class ProgramManager(User):
