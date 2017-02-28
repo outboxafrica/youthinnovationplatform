@@ -2282,3 +2282,56 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 .marginify-checkbox{
     margin-right: 20px;
 }
+
+.centred{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+}
+button#submit-button.btn.btn-default {
+  width:100%;
+  background-color:#77d3f8;
+}
+
+a.float-right {
+  float:right;
+}
+
+div#submitbtngrp.form-group {
+  margin-bottom:30px;
+}
+
+div#main-content.col-md-6.col-md-offset-3 {
+  margin-top:60px;
+}
+
+div.form-body {
+  border-style:solid;
+  border-width:thin;
+  border-color:#b5b1b1;
+  margin-top:10px;
+}
+
+div.footer-basic.footer-min {
+  border-top-style:solid;
+  border-top-width:thin;
+  border-top-color:#c9c2c2;
+  margin-top:30px;
+  /*background-color:#f9f9f9;*/
+  height:100%;
+}
+
+.annex{
+    background-color: #ffffff;
+}
+
+.sbtBtn {
+    color: white;
+    border-color: transparent;
+    background-color: #85dafa;
+    margin-right: 10px;
+    margin-top: 20px;
+    width: 100%;
+}

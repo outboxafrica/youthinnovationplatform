@@ -16,3 +16,17 @@ class UNDPMailer():
                                 + "\">here</a> to activate your account", "text/html")
 
         mail.send()
+
+    def sendResetEmail(self, email, code, url):
+        mail = EmailMultiAlternatives(
+            subject="Password Reset",
+            body="Please open " + url + "users/verify/" + code
+                 + " in your browser.",
+            from_email="UNDP Django <undp_django@gmail.com>",
+            to=[email],
+            headers={"Reply-To": "undp_django@gmail.com"}
+        )
+        mail.attach_alternative("Click <a href=\"" + url + "confirm_password/" + code
+                                + "\">here</a> to reset your password", "text/html")
+
+        mail.send()

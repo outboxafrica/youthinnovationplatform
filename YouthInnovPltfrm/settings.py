@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'contact_us',
     'index',
     'events',
-    'crispy_forms'
+    'crispy_forms',
+    'axes',
 
 ]
 
@@ -154,3 +155,10 @@ EMAIL_HOST_PASSWORD = 'Django_undp'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'undp_django@gmail.com'
+
+# Axes configuration
+AXES_LOGIN_FAILURE_LIMIT = 3
+# AXES_LOCKOUT_TEMPLATE = 'index/reset_password.html'
+AXES_LOCKOUT_URL = '/password'
+
+AXES_ONLY_USER_FAILURES = True
