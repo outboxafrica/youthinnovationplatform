@@ -1,8 +1,8 @@
 from django.conf.urls import url
-from index.views import HomePageView, verify, verify_key, logout, ResetPasswordView, signin, register, confirm_password
+from index.views import homepage, verify, verify_key, logout, ResetPasswordView, signin, register, confirm_password
 
 urlpatterns = [
-    url(r'^$', HomePageView.as_view(), name='home'),
+    url(r'^$', homepage, name='home'),
     url(r'^verify$', verify, name='verify'),
     url(r'^signin$', signin, name='signin'),
     url(r'^register$', register, name='register'),

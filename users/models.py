@@ -4,8 +4,6 @@ from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
 from YouthInnovPltfrm import settings
 
-from projects.models import InvestmentCompany, CommunityHub, Innovation
-
 from django.db import models
 
 # Create your models here.
@@ -55,12 +53,11 @@ class Mentor(User):
 
 class Investor(User):
     resume = models.FileField(upload_to='static/uploads/%Y/%m/%d/', blank=True)
-    company = models.ForeignKey(InvestmentCompany, null=True)  # to the investment company table
+    has_company = models.BooleanField(default=False)
 
 
 class Innovator(User):
     experience = models.TextField()
-    team = models.ForeignKey(Innovation, null=True)  # to the innovation table
     has_startup = models.BooleanField(default=False)
 
 
@@ -69,7 +66,7 @@ class ProgramManager(User):
 
 
 class HubManager(User):
-    hub = models.ForeignKey(CommunityHub, null=True)  # to the community hub table
+    has_hub = models.BooleanField(default=False)
 
 
 

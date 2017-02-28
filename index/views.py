@@ -19,8 +19,16 @@ from projects.models import Innovation
 from index.forms import RegisterForm, UserForm, ResetPasswordForm, ConfirmPasswordForm, SignInForm
 from index.mailer import UNDPMailer
 from users.models import Innovator, Investor, HubManager, ProgramManager, Mentor, User
+from projects.decorators import check_profile_complete
 
 # Create your views here.
+
+
+def homepage(request):
+    events = Event.objects.for_period(from_date=timezone.now())
+    innovations = Innovation.objects.all().order_by("-id")[:4]
+    blog_posts = Post.objects.all()[:3]
+    return render(request, 'index/index.html', {'events':events, 'innovations': innovations, 'blog_posts': blog_posts})
 
 
 class HomePageView(TemplateView):

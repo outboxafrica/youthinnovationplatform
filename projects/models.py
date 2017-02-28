@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
-
+from users.models import Innovator
 # Create your models here.
 
 
@@ -46,6 +46,7 @@ class CommunityHub(models.Model):
 
 
 class Innovation(models.Model):
+    lead = models.ForeignKey(Innovator, null=True)
     stage = models.CharField(max_length=1, blank=True)
     name = models.CharField(max_length=50, blank=True)
     description = models.TextField(blank=True)

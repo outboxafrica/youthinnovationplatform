@@ -1,0 +1,40 @@
+{% extends 'layouts/index.html' %}
+{% load project_extras %}
+{% load zinnia %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+            <div class="banner">
+            <div class="burn">
+                <div class="title"> <span id="startupTitle">Create Startup Profile</span>
+                    <div class="desc_separator" id="title_separator"></div>
+                </div>
+            </div>
+        </div>
+        <div class="sidebar pull-left">
+            <div class="people_role pull-left">
+                <p>Stage</p>
+            </div>
+            <div class="startup-logo"> <img src="/static/img/StartupLogo.png" alt="startup logo"> </div>
+            <span id="startup-name"> My Startup</span>
+            <div class="sidebar_separator"></div>
+            <div class="social-media-icons"> <img id="linkedinBtn" src="/static/img/LinkedIn.png" alt="linkedin">
+                <img id="facebookBtn" src="/static/img/Facebook.png" alt="facebook"> </div>
+            <span id="startup-telephone">+256 75 555 5555</span>
+            <span id="startup-website">www.mystartup.com</span>
+            <button class="contact-ownerBtn" type="button">Contact Owner</button>
+        </div>
+        <div class="content-container">
+            <div class="tab-forms">
+                <ul class="nav red nav-pills left-margin" data-tabs="tabs">
+                    <li class="active"><a data-toggle="tab" href="#stage">Stage</a></li>
+
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="stage">
+                        {% crispy form %}
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}

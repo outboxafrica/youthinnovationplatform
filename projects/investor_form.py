@@ -4,7 +4,7 @@ from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Div, Submit, HTML, Button, Row, Field
 from crispy_forms.bootstrap import AppendedText, PrependedText, FormActions, InlineCheckboxes
-from users.models import InvestmentCompany
+from projects.models import InvestmentCompany
 
 from projects.validators import validate_img
 

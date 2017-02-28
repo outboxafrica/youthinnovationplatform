@@ -8,14 +8,16 @@ from . forms import CommentForm
 
 def post_list(request):
     posts = Post.objects.all().filter(status="published")
-    latest_post = posts[0]
-    posts = posts[1:]
+    if len(posts) == 0:
+        latest_post = None
+    elif len(posts) > 0:
+        latest_post = posts[0]
+        posts = posts[1:]
     return render(request,
                   'blog/post_list.html',
-                  {'posts': posts, 'latest_post':latest_post})
+                  {'posts': posts, 'latest_post': latest_post})
 
 
-#def post_detail(request, year, month, day, post):
 def post_detail(request, post):
     post = get_object_or_404(Post, slug=post)
     if request.method == 'POST':
@@ -38,8 +40,12 @@ class PostList(ListView):
     def get_context_data(self, **kwargs):
         context = super(PostList, self).get_context_data(**kwargs)
         posts = Post.objects.all().filter(status="published")
-        latest_post = posts[0]
-        posts = posts[1:]
+        if posts > 0:
+            latest_post = posts[0]
+            posts = posts[1:]
+        else:
+            posts = None
+            latest_post = None
         context['posts'] = posts
         context['latest_post'] = latest_post
         return context
