@@ -10,6 +10,7 @@ from django.contrib.auth import login as django_login
 from django.contrib.auth import logout as django_logout
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from django.core.exceptions import PermissionDenied
 from django.core.validators import RegexValidator, URLValidator, EmailValidator, ValidationError
 from django.contrib import messages
 from axes.decorators import watch_login
@@ -206,31 +207,30 @@ def confirm_password(request, key):
 
 @watch_login
 def signin(request):
-    login_form = SignInForm()
+    print 'form data valid'
     if request.method == 'POST':
         login_form = SignInForm(request.POST)
         if login_form.is_valid():
             print 'form data valid'
             cleaned_cred = login_form.cleaned_data
             print cleaned_cred
+
             user = authenticate(username=cleaned_cred['email'], password=cleaned_cred['password'])
             if user:
                 if user.is_active:
                     django_login(request, user)
-                    # try:
-                    #     return HttpResponseRedirect(reverse('index:home'))
-                    # except KeyError, e:
-                    #     print e
                     return render(request, 'index/index.html')
                 else:
                     raise ValidationError("Please check your email and validate your account")
             else:
-                # raise ValidationError("User does not exist. Please create an account")
                 print 'incorrect login'
                 messages.error(request, 'Invalid login details')
                 return HttpResponseRedirect(reverse('index:signin'))
         else:
+            print login_form.is_valid()
+            print login_form.errors
             return render(request, 'index/signin.html', {'form': login_form})
     else:
+        login_form = SignInForm()
         return render(request, 'index/signin.html', {'form': login_form})
 

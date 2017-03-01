@@ -2,6 +2,8 @@ import re
 from django import forms
 from users.models import User
 from crispy_forms.helper import FormHelper
+from django.contrib.auth import authenticate
+from django.core.exceptions import PermissionDenied
 from crispy_forms.layout import Layout, Div, Submit, HTML, Button, Row, Field
 from django.core.validators import RegexValidator, URLValidator, EmailValidator, ValidationError
 
@@ -14,6 +16,7 @@ class SignInForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(SignInForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
+        self.error_class = 'errors'
         self.helper.form_method = 'post'
         self.helper.layout = Layout(
             Div(
@@ -37,6 +40,25 @@ class SignInForm(forms.Form):
 
         )
 
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            raise forms.ValidationError(u'This email is not registered on this platform')
+
+        return email
+
+    def clean(self):
+        email = self.cleaned_data['email']
+        password = self.cleaned_data['password']
+
+        user = authenticate(username=email, password=password)
+        if not user:
+            print "clean not user"
+            raise ValidationError("Wrong email or password combination")
+        return self.cleaned_data
+
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
@@ -53,11 +75,10 @@ class RegisterForm(forms.Form):
     confirm_password = forms.CharField(widget=forms.PasswordInput())
     roles = forms.ChoiceField(
         choices=(('innovator', "I am an Entrepreneur/Innovator"), ('mentor', "I am a Mentor"),
-                 ('investor', "I am an Investor"), ('hub_manager', "I am a Community Hub"), ))
+                 ('investor', "I am an Investor"), ('hub_manager', "I am a Community Hub Manager"), ))
 
     def __init__(self, *args, **kwargs):
         super(RegisterForm, self).__init__(*args, **kwargs)
-
         self.helper = FormHelper()
         self.helper.form_method = 'post'
         self.helper.layout = Layout(
@@ -69,16 +90,6 @@ class RegisterForm(forms.Form):
                 Field('roles', css_class='form-control in-selector'),
                 css_class='form-group'
             ),
-            # HTML(
-            #     '<div class="form-group"><label class="control-label">Role </label>'
-            #     '<select class="form-control" name="roles">'
-            #     '<optgroup label="Select a role">'
-            #     '<option value="innovator">Innovator</option>'
-            #     '<option value="investor">Investor</option>'
-            #     '<option value="mentor">Mentor</option>'
-            #     '<option value="hub_manager">Hub Manager</option>'
-            #     '</optgroup></select></div>'
-            # ),
             Div(
                 Field('email', css_class='form-control'),
                 css_class="form-group"
@@ -92,7 +103,7 @@ class RegisterForm(forms.Form):
                 css_class="form-group"
             ),
             HTML('<div class="form-group" id="submitbtngrp">'
-                 '<button class="btn sbtBtn" type="submit" id="">Sign in</button></div>'),
+                 '<button class="btn sbtBtn" type="submit" id="">Sign Up</button></div>'),
             HTML('<a href="{% url "index:signin" %}">Already have an account? Sign in</a>'),
 
             # Field('full_names', css_class='sign_text'),

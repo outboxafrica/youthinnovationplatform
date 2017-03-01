@@ -2341,3 +2341,6 @@ div.footer-basic.footer-min {
 .in-selector{
     color: #000;
 }
+.errors{
+    color:red;
+}

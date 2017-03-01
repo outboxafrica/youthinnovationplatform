@@ -149,8 +149,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 MEDIA_URL = '/media/'
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'undpdjango@gmail.com'
+SERVER_EMAIL = 'undpdjango@gmail.com'
 EMAIL_HOST_PASSWORD = 'Django_undp'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
