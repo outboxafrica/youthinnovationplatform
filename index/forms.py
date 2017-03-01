@@ -139,13 +139,14 @@ class ResetPasswordForm(forms.Form):
         super(ResetPasswordForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_method = 'post'
+        self.fields['email'].label = "Please enter your email address"
         self.helper.layout = Layout(
             Div(
                 Field('email', css_class='form-control'),
                 css_class="form-group"
             ),
             HTML('<div class="form-group" id="submitbtngrp">'
-                 '<button class="btn sbtBtn" type="submit" id="">Send reset link</button></div>'),
+                 '<button class="btn sbtBtn" type="submit" id="">Submit</button></div>'),
         )
 
     def clean_email(self):
