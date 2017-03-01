@@ -120,7 +120,7 @@ def register(request):
             messages.success(request,
                              'Your account has been successfully created, check you email to verify your account')
             # Add analytics hit for completed project
-            return HttpResponseRedirect('/signin')
+            return HttpResponseRedirect('/email-sent')
 
         else:
             return render(request, 'index/register.html', {'registerform': register_form})
@@ -133,9 +133,13 @@ def verify(request):
     return render(request, 'index/confirm.html')
 
 
+def email_sent(request):
+    return render(request, 'index/verify.html')
+
+
 def verify_key(request, key):
     user = get_object_or_404(User, activation_key=key)
-    if user.key_expires < timezone.now():
+    if user.key_expires > timezone.now():
         return render(request, 'index/confirm_expired.html')
     user.is_active = True
     user.save()

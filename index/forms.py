@@ -51,6 +51,9 @@ class RegisterForm(forms.Form):
     email = forms.EmailField()
     password = forms.CharField(widget=forms.PasswordInput())
     confirm_password = forms.CharField(widget=forms.PasswordInput())
+    roles = forms.ChoiceField(
+        choices=(('innovator', "I am an Entrepreneur/Innovator"), ('mentor', "I am a Mentor"),
+                 ('investor', "I am an Investor"), ('hub_manager', "I am a Community Hub"), ))
 
     def __init__(self, *args, **kwargs):
         super(RegisterForm, self).__init__(*args, **kwargs)
@@ -62,16 +65,20 @@ class RegisterForm(forms.Form):
                 Field('full_names', css_class='form-control'),
                 css_class="form-group"
                 ),
-            HTML(
-                '<div class="form-group"><label class="control-label">Role </label>'
-                '<select class="form-control" name="roles">'
-                '<optgroup label="Select a role">'
-                '<option value="innovator">Innovator</option>'
-                '<option value="investor">Investor</option>'
-                '<option value="mentor">Mentor</option>'
-                '<option value="hub_manager">Hub Manager</option>'
-                '</optgroup></select></div>'
+            Div(
+                Field('roles', css_class='form-control in-selector'),
+                css_class='form-group'
             ),
+            # HTML(
+            #     '<div class="form-group"><label class="control-label">Role </label>'
+            #     '<select class="form-control" name="roles">'
+            #     '<optgroup label="Select a role">'
+            #     '<option value="innovator">Innovator</option>'
+            #     '<option value="investor">Investor</option>'
+            #     '<option value="mentor">Mentor</option>'
+            #     '<option value="hub_manager">Hub Manager</option>'
+            #     '</optgroup></select></div>'
+            # ),
             Div(
                 Field('email', css_class='form-control'),
                 css_class="form-group"
@@ -101,8 +108,9 @@ class RegisterForm(forms.Form):
         try:
             user = User.objects.get(email=email)
         except User.DoesNotExist:
-            raise forms.ValidationError(u'This email address is already taken')
-        return email
+            return email
+        raise forms.ValidationError(u'This email address is already taken')
+
 
     def clean(self):
         data = self.cleaned_data
