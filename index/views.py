@@ -208,6 +208,7 @@ def confirm_password(request, key):
 @watch_login
 def signin(request):
     print 'form data valid'
+    print request.body
     if request.method == 'POST':
         login_form = SignInForm(request.POST)
         if login_form.is_valid():

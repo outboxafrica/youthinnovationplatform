@@ -2341,7 +2341,7 @@ div.footer-basic.footer-min {
 .in-selector{
     color: #000;
 }
-.errors{
+.error{
     color:red;
 }
 .form-title{
@@ -2355,4 +2355,9 @@ div.footer-basic.footer-min {
 
 .help-logo{
     margin-bottom: 40px;
+}
+
+.alert > ul > li{
+    color: red;
+    list-style: none;
 }

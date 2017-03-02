@@ -6,17 +6,28 @@ from django.contrib.auth import authenticate
 from django.core.exceptions import PermissionDenied
 from crispy_forms.layout import Layout, Div, Submit, HTML, Button, Row, Field
 from django.core.validators import RegexValidator, URLValidator, EmailValidator, ValidationError
+from django.forms.utils import ErrorList
+
+
+class DivErrorList(ErrorList):
+    def __unicode__(self):
+        return self.as_divs()
+
+    def as_divs(self):
+        if not self:
+            return u''
+        return u'<div class="errorlist">%s</div>' % ''.join([u'<div class="error">%s</div>' % e for e in self])
 
 
 class SignInForm(forms.Form):
-    email = forms.EmailField()
-    password = forms.CharField(widget=forms.PasswordInput())
+    email = forms.EmailField(required=True)
+    password = forms.CharField(widget=forms.PasswordInput(), required=True)
     remember = forms.CharField(widget=forms.CheckboxInput, label="Remember Me", required=False)
 
     def __init__(self, *args, **kwargs):
         super(SignInForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
-        self.error_class = 'errors'
+        self.error_class = DivErrorList
         self.helper.form_method = 'post'
         self.helper.layout = Layout(
             Div(
@@ -50,8 +61,8 @@ class SignInForm(forms.Form):
         return email
 
     def clean(self):
-        email = self.cleaned_data['email']
-        password = self.cleaned_data['password']
+        password = self.cleaned_data.get('password')
+        email = self.cleaned_data.get('email')
 
         user = authenticate(username=email, password=password)
         if not user:
@@ -133,12 +144,13 @@ class RegisterForm(forms.Form):
 
 
 class ResetPasswordForm(forms.Form):
-    email = forms.EmailField()
+    email = forms.EmailField(required=True)
 
     def __init__(self, *args, **kwargs):
         super(ResetPasswordForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_method = 'post'
+        self.error_class = DivErrorList
         self.fields['email'].label = "Please enter your email address"
         self.helper.layout = Layout(
             Div(
@@ -160,8 +172,8 @@ class ResetPasswordForm(forms.Form):
 
 
 class ConfirmPasswordForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput())
-    confirm_password = forms.CharField(widget=forms.PasswordInput())
+    password = forms.CharField(widget=forms.PasswordInput(), required=True)
+    confirm_password = forms.CharField(widget=forms.PasswordInput(), required=True)
 
     def __init__(self, *args, **kwargs):
         super(ConfirmPasswordForm, self).__init__(*args, **kwargs)

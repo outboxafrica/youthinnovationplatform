@@ -7,6 +7,7 @@ from django.core.validators import RegexValidator, URLValidator, EmailValidator,
 from django.core.files.images import get_image_dimensions
 from projects.validators import validate_img, validate_doc
 from users.models import Mentor, Innovator, Investor, HubManager, ProgramManager
+from index.forms import DivErrorList
 
 
 class BaseForm(forms.ModelForm):
@@ -30,6 +31,7 @@ class BaseForm(forms.ModelForm):
 class InnovatorProfileForm(BaseForm):
     def __init__(self, *args, **kwargs):
         super(InnovatorProfileForm, self).__init__(*args, **kwargs)
+        self.error_class = DivErrorList
         self.fields['full_names'].label = "Full names"
         self.fields['phone'].label = "Mobile contact"
         self.fields['summary'].label = "Please provide a summary about your educational, professional and" \
@@ -111,6 +113,7 @@ class InnovatorProfileForm(BaseForm):
 class MentorProfileForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(MentorProfileForm, self).__init__(*args, **kwargs)
+        self.error_class = DivErrorList
         self.fields['full_names'].label = "Full names"
         self.fields['phone'].label = "Mobile contact"
         self.fields['summary'].label = "Please provide a summary about your educational, professional and" \
@@ -241,6 +244,7 @@ class MentorProfileForm(forms.ModelForm):
 class InvestorProfileForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(InvestorProfileForm, self).__init__(*args, **kwargs)
+        self.error_class = DivErrorList
         self.fields['full_names'].label = "Full names"
         self.fields['phone'].label = "Mobile contact"
         self.fields['summary'].label = "Please provide a summary about your educational, professional and" \
@@ -333,6 +337,7 @@ class InvestorProfileForm(forms.ModelForm):
 class HubManagerProfileForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(HubManagerProfileForm, self).__init__(*args, **kwargs)
+        self.error_class = DivErrorList
         self.fields['full_names'].label = "Full names"
         self.fields['phone'].label = "Mobile contact"
         self.fields['summary'].label = "Please provide a summary about your educational, professional and" \
