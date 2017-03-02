@@ -121,7 +121,7 @@ def register(request):
             messages.success(request,
                              'Your account has been successfully created, check you email to verify your account')
             # Add analytics hit for completed project
-            return HttpResponseRedirect('/email-sent')
+            return HttpResponseRedirect('/signup-success')
 
         else:
             return render(request, 'index/register.html', {'registerform': register_form})
@@ -136,6 +136,10 @@ def verify(request):
 
 def email_sent(request):
     return render(request, 'index/reset-help.html')
+
+
+def signup_success(request):
+    return render(request, 'index/signup-success.html')
 
 
 def verify_key(request, key):
@@ -157,7 +161,7 @@ def logout(request):
 class ResetPasswordView(FormView):
     form_class = ResetPasswordForm
     template_name = 'index/reset_password.html'
-    success_url = 'email-sent.html'
+    success_url = '/email-sent'
 
     def get(self, request, *args, **kwargs):
         form = self.form_class
@@ -208,7 +212,6 @@ def confirm_password(request, key):
 @watch_login
 def signin(request):
     print 'form data valid'
-    print request.body
     if request.method == 'POST':
         login_form = SignInForm(request.POST)
         if login_form.is_valid():

@@ -1,9 +1,11 @@
 from django.conf.urls import url
-from index.views import homepage, verify, verify_key, logout, ResetPasswordView, signin, register, confirm_password, email_sent
+from index.views import homepage, verify, verify_key, logout, ResetPasswordView, signin, register, confirm_password,\
+    email_sent, signup_success
 
 urlpatterns = [
     url(r'^$', homepage, name='home'),
     url(r'^verify$', verify, name='verify'),
+    url(r'^signup-success$', signup_success, name='signup-success'),
     url(r'^email-sent$', email_sent, name='email-sent'),
     url(r'^signin$', signin, name='signin'),
     url(r'^register$', register, name='register'),
