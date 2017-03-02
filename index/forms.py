@@ -51,14 +51,14 @@ class SignInForm(forms.Form):
 
         )
 
-    def clean_email(self):
-        email = self.cleaned_data['email']
-        try:
-            user = User.objects.get(email=email)
-        except User.DoesNotExist:
-            raise forms.ValidationError(u'This email is not registered on this platform')
-
-        return email
+    # def clean_email(self):
+    #     email = self.cleaned_data['email']
+    #     try:
+    #         user = User.objects.get(email=email)
+    #     except User.DoesNotExist:
+    #         raise forms.ValidationError(u'This email is not registered on this platform')
+    #
+    #     return email
 
     def clean(self):
         password = self.cleaned_data.get('password')
