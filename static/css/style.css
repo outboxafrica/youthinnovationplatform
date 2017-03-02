@@ -2361,3 +2361,7 @@ div.footer-basic.footer-min {
     color: red;
     list-style: none;
 }
+
+.alert{
+    padding: 15px 5px;
+}
