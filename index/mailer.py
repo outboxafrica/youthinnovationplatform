@@ -13,7 +13,7 @@ class UNDPMailer():
             headers={"Reply-To": "undp_django@gmail.com"}
         )
         mail.attach_alternative("Click <a href=\"" + url + "verify/" + code
-                                + "\">here</a> to activate your account", "text/html")
+                                + "\">here</a> to activate your account. This link expires in 24 hours.", "text/html")
 
         mail.send()
 
@@ -27,6 +27,6 @@ class UNDPMailer():
             headers={"Reply-To": "undp_django@gmail.com"}
         )
         mail.attach_alternative("Click <a href=\"" + url + "confirm_password/" + code
-                                + "\">here</a> to reset your password", "text/html")
+                                + "\">here</a> to reset your password. This link expires in 24 hours.", "text/html")
 
         mail.send()
