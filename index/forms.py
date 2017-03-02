@@ -133,7 +133,6 @@ class RegisterForm(forms.Form):
             return email
         raise forms.ValidationError(u'This email address is already taken')
 
-
     def clean(self):
         data = self.cleaned_data
         password = data.get('password')
@@ -178,6 +177,8 @@ class ConfirmPasswordForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ConfirmPasswordForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
+        self.fields['password'].label = "New password"
+        self.fields['confirm_password'].label = "Retype new password"
         self.helper.form_method = 'post'
         self.helper.layout = Layout(
             Div(
@@ -189,7 +190,7 @@ class ConfirmPasswordForm(forms.ModelForm):
                 css_class="form-group"
             ),
             HTML('<div class="form-group" id="submitbtngrp">'
-                 '<button class="btn sbtBtn" type="submit" id="">Reset Password</button></div>'),
+                 '<button class="btn sbtBtn" type="submit" id="">Save</button></div>'),
         )
 
     class Meta:
