@@ -135,7 +135,7 @@ def verify(request):
 
 
 def email_sent(request):
-    return render(request, 'index/verify.html')
+    return render(request, 'index/reset-help.html')
 
 
 def verify_key(request, key):
@@ -157,7 +157,7 @@ def logout(request):
 class ResetPasswordView(FormView):
     form_class = ResetPasswordForm
     template_name = 'index/reset_password.html'
-    success_url = 'home.html'
+    success_url = 'email-sent.html'
 
     def get(self, request, *args, **kwargs):
         form = self.form_class

@@ -2347,3 +2347,12 @@ div.footer-basic.footer-min {
 .form-title{
     margin-bottom: 40px;
 }
+
+.help-text{
+    padding: 40px 0px;
+    text-align: center;
+}
+
+.help-logo{
+    margin-bottom: 40px;
+}
