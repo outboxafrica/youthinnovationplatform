@@ -191,7 +191,7 @@ class ResetPasswordView(FormView):
 def confirm_password(request, key):
     form = ConfirmPasswordForm(request.POST)
     user = get_object_or_404(User, activation_key=key)
-    if user.key_expires < timezone.now():
+    if user.key_expires > timezone.now():
         if request.method == 'POST':
             form = ConfirmPasswordForm(request.POST)
             if form.is_valid():
@@ -199,7 +199,7 @@ def confirm_password(request, key):
                 password = cleaned_cred['password']
                 user.set_password(password)
                 user.save()
-                return HttpResponseRedirect(reverse('index:signin'))
+                return HttpResponseRedirect(reverse('index:home'))
             else:
                 return render(request, 'index/confirm_password.html', {'form': form})
         else:
@@ -223,7 +223,19 @@ def signin(request):
             if user:
                 if user.is_active:
                     django_login(request, user)
-                    return render(request, 'index/index.html')
+                    # check if the user has created entity profile
+                    if not user.has_created_entity:
+                        if user.role == 'innovator':
+                            return HttpResponseRedirect(reverse('projects:select-startup-stage'))
+                            # todo redirect to create innovation wizard
+                        elif user.role == 'investor':
+                            pass
+                            # todo redirect to create investment company wizard
+                        elif user.role == 'hub_manager':
+                            pass
+                            # todo redirect to create community hub wizard
+                    else:
+                        return render(request, 'index/index.html')
                 else:
                     raise ValidationError("Please check your email and validate your account")
             else:

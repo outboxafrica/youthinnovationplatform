@@ -8,7 +8,7 @@ from projects.models import Innovation
 class StartupStageForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(StartupStageForm, self).__init__(*args, **kwargs)
-        self.fields['idea_stage'].label = "Please select the stage of your startup*"
+        self.fields['idea_stage'].label = "Please select the stage of your startup"
     idea_stage = forms.ChoiceField(
         choices=(('1', "I have an idea"),
                  ('2', "I have an idea and have something to show"),
@@ -16,7 +16,7 @@ class StartupStageForm(forms.ModelForm):
                  ('4', "I'm testing my business with actual users"),
                  ('5', "I'm looking to grow my business"),
                  ('6', "I'm looking to maintain growth"), ),
-        widget=forms.RadioSelect, )
+        widget=forms.RadioSelect, required=True)
 
     helper = FormHelper()
     helper.form_class = 'form-horizontal'
@@ -26,7 +26,7 @@ class StartupStageForm(forms.ModelForm):
             Button('cancel','Cancel', css_class='cancelBtn'),
             Submit(
                 'next',
-                'Submit',
+                'Save and Next',
                 css_class="cancelBtn"
             ),
         ),

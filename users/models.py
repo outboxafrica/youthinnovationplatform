@@ -31,6 +31,10 @@ class User(AbstractUser):
     activation_key = models.CharField(max_length=40, blank=True)
     key_expires = models.DateTimeField(auto_now=True)
     role = models.CharField(max_length=50, null=True)
+    """
+    check whether a user has created a company, community hub or innovation profile
+    """
+    has_created_entity = models.BooleanField(default=False)
 
     def get_picture(self):
             try:
@@ -53,12 +57,10 @@ class Mentor(User):
 
 class Investor(User):
     resume = models.FileField(upload_to='static/uploads/%Y/%m/%d/', blank=True)
-    has_company = models.BooleanField(default=False)
 
 
 class Innovator(User):
     experience = models.TextField()
-    has_startup = models.BooleanField(default=False)
 
 
 class ProgramManager(User):

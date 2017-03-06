@@ -47,7 +47,7 @@ def select_startup_stage(request):
             prof.lead = innov
             prof.save()
 
-            innov.has_startup = True
+            innov.has_created_entity = True
             innov.save()
 
             if stage == 1:
@@ -71,7 +71,7 @@ def select_startup_stage(request):
 
         else:
             form = StartupStageForm(request.POST)
-            return render(request, 'users/startup_stage.html', {'form': form})
+            return render(request, 'projects/startup_stage.html', {'form': form})
 
     else:
-        return render(request, 'users/startup_stage.html', {'form': form})
+        return render(request, 'projects/startup_stage.html', {'form': form})
