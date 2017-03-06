@@ -7,7 +7,7 @@ from django.core.validators import RegexValidator, URLValidator, EmailValidator,
 from django.core.files.images import get_image_dimensions
 from projects.validators import validate_img, validate_doc
 from users.models import Mentor, Innovator, Investor, HubManager, ProgramManager
-from index.forms import DivErrorList
+from YouthInnovPltfrm.forms import DivErrorList
 
 
 class BaseForm(forms.ModelForm):
@@ -517,3 +517,9 @@ class ProgramManagerProfileForm(forms.ModelForm):
             return image
         else:
             raise ValidationError("Image file can not be read")
+
+
+class FormT(forms.Form):
+    name = forms.CharField(max_length=100)
+    error_css_class='error'
+    required_css_class = 'req'

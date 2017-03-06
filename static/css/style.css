@@ -2343,6 +2343,7 @@ div.footer-basic.footer-min {
 }
 .error{
     color:red;
+    font-family: "FiraSans-Thin;
 }
 .form-title{
     margin-bottom: 40px;
@@ -2364,4 +2365,8 @@ div.footer-basic.footer-min {
 
 .alert{
     padding: 15px 5px;
+}
+
+.error input, .error select {
+    border: 1px #ff4515 solid;
 }

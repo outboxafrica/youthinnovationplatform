@@ -1,25 +1,13 @@
-import re
 from django import forms
 from users.models import User
 from crispy_forms.helper import FormHelper
 from django.contrib.auth import authenticate
-from django.core.exceptions import PermissionDenied
 from crispy_forms.layout import Layout, Div, Submit, HTML, Button, Row, Field
-from django.core.validators import RegexValidator, URLValidator, EmailValidator, ValidationError
-from django.forms.utils import ErrorList
+from django.core.validators import ValidationError
+from YouthInnovPltfrm.forms import BaseForm
 
 
-class DivErrorList(ErrorList):
-    def __unicode__(self):
-        return self.as_divs()
-
-    def as_divs(self):
-        if not self:
-            return u''
-        return u'<div class="errorlist">%s</div>' % ''.join([u'<div class="error">%s</div>' % e for e in self])
-
-
-class SignInForm(forms.Form):
+class SignInForm(BaseForm):
     email = forms.EmailField(required=True)
     password = forms.CharField(widget=forms.PasswordInput(), required=True)
     remember = forms.CharField(widget=forms.CheckboxInput, label="Remember Me", required=False)
@@ -27,7 +15,6 @@ class SignInForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(SignInForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
-        self.error_class = DivErrorList
         self.helper.form_method = 'post'
         self.helper.layout = Layout(
             Div(
@@ -64,11 +51,19 @@ class SignInForm(forms.Form):
         password = self.cleaned_data.get('password')
         email = self.cleaned_data.get('email')
 
-        user = authenticate(username=email, password=password)
-        if not user:
-            print "clean not user"
-            raise ValidationError("Wrong email or password combination")
-        return self.cleaned_data
+        if not (password and email):
+            self.add_error('email', '')
+            self.add_error('password', '')
+            return self.cleaned_data
+
+        else:
+            user = authenticate(username=email, password=password)
+            if not user:
+                print "clean not user"
+                self.add_error('email', '')
+                self.add_error('password', '')
+                raise ValidationError("Wrong email or password combination")
+            return self.cleaned_data
 
 
 class UserForm(forms.ModelForm):
@@ -79,7 +74,7 @@ class UserForm(forms.ModelForm):
         fields = ('first_name', 'last_name', 'email', )
 
 
-class RegisterForm(forms.Form):
+class RegisterForm(BaseForm):
     full_names = forms.CharField(max_length=300, required=True)
     email = forms.EmailField()
     password = forms.CharField(widget=forms.PasswordInput())
@@ -131,25 +126,28 @@ class RegisterForm(forms.Form):
             user = User.objects.get(email=email)
         except User.DoesNotExist:
             return email
-        raise forms.ValidationError(u'This email address is already taken')
+        # raise forms.ValidationError(u'This email address is already taken')
+        self.add_error('email', 'This email address is already taken')
 
     def clean(self):
         data = self.cleaned_data
         password = data.get('password')
         passwordConfirm = data.get('confirm_password')
+        msg = u"The passwords do not match."
         if password != passwordConfirm:
-            raise forms.ValidationError(u"The passwords do not match.")
+            self.add_error('confirm_password', msg)
+            self.add_error('password', msg)
+            # raise forms.ValidationError(u"The passwords do not match.")
         return self.cleaned_data
 
 
-class ResetPasswordForm(forms.Form):
+class ResetPasswordForm(BaseForm):
     email = forms.EmailField(required=True)
 
     def __init__(self, *args, **kwargs):
         super(ResetPasswordForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_method = 'post'
-        self.error_class = DivErrorList
         self.fields['email'].label = "Please enter your email address"
         self.helper.layout = Layout(
             Div(
@@ -173,6 +171,7 @@ class ResetPasswordForm(forms.Form):
 class ConfirmPasswordForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput(), required=True)
     confirm_password = forms.CharField(widget=forms.PasswordInput(), required=True)
+    error_css_class = 'error'
 
     def __init__(self, *args, **kwargs):
         super(ConfirmPasswordForm, self).__init__(*args, **kwargs)
@@ -200,9 +199,10 @@ class ConfirmPasswordForm(forms.ModelForm):
     def clean(self):
         password = self.cleaned_data['password']
         confirm_password = self.cleaned_data['confirm_password']
-
+        msg = u"The passwords do not match."
         if password != confirm_password:
-            raise ValidationError(u"The passwords do not match.")
+            self.add_error('confirm_password', msg)
+            self.add_error('password', msg)
         return self.cleaned_data
 
 
