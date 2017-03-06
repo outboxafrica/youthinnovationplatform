@@ -29,7 +29,7 @@ class User(AbstractUser):
     age = models.IntegerField(blank=True, default=20)
     timestamp = models.DateTimeField(auto_now=True)
     activation_key = models.CharField(max_length=40, blank=True)
-    key_expires = models.DateTimeField(auto_now=True)
+    key_expires = models.DateTimeField(default=timezone.now())
     role = models.CharField(max_length=50, null=True)
     """
     check whether a user has created a company, community hub or innovation profile

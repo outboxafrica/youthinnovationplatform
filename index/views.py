@@ -173,6 +173,7 @@ class ResetPasswordView(FormView):
         salt = hashlib.sha1(str(random.random())).hexdigest()[:5]
         activation_key = hashlib.sha1(salt + email).hexdigest()
         key_expires = datetime.datetime.today() + datetime.timedelta(hours=24)
+        print key_expires
 
         user = get_object_or_404(User, email=email)
         user.activation_key = activation_key
