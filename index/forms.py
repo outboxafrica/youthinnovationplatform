@@ -134,11 +134,16 @@ class RegisterForm(BaseForm):
         password = data.get('password')
         passwordConfirm = data.get('confirm_password')
         msg = u"The passwords do not match."
-        if not (password and passwordConfirm):
-            if password != passwordConfirm:
+        if password != passwordConfirm:
+            if passwordConfirm is not None:
+                print passwordConfirm
                 self.add_error('confirm_password', msg)
                 self.add_error('password', msg)
-                # raise forms.ValidationError(u"The passwords do not match.")
+            elif password is not None:
+                self.add_error('confirm_password', msg)
+                self.add_error('password', msg)
+            # raise forms.ValidationError(u"The passwords do not match.")
+
         return self.cleaned_data
 
 
