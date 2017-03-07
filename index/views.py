@@ -210,7 +210,6 @@ def confirm_password(request, key):
         return render(request, 'index/confirm_expired.html')
 
 
-@watch_login
 def signin(request):
     print 'form data valid'
     if request.method == 'POST':
