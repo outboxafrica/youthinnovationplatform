@@ -136,7 +136,7 @@ class RegisterForm(BaseForm):
         msg = u"The passwords do not match."
         # print passwordConfirm
         # check if the confirm password field is not empty
-        if passwordConfirm is not None or password is not None:
+        if passwordConfirm is not None and password is not None:
             if password != passwordConfirm:
                 if passwordConfirm is not None:
                     self.add_error('confirm_password', msg)
