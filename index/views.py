@@ -200,7 +200,7 @@ def confirm_password(request, key):
                 password = cleaned_cred['password']
                 user.set_password(password)
                 user.save()
-                return HttpResponseRedirect(reverse('index:home'))
+                return HttpResponseRedirect(reverse('index:signin'))
             else:
                 return render(request, 'index/confirm_password.html', {'form': form})
         else:
