@@ -147,7 +147,10 @@ def signup_success(request):
 
 def verify_key(request, key):
     user = get_object_or_404(User, activation_key=key)
-    if user.key_expires > timezone.now():
+    print user.key_expires
+    print timezone.now()
+    if user.key_expires < timezone.now():
+        print "should be expired"
         return render(request, 'index/confirm_expired.html')
     user.is_active = True
     user.save()
@@ -281,7 +284,7 @@ class RecoverAccountView(FormView):
         user.save()
 
         mailer = UNDPMailer()
-        mailer.sendResetEmail(email, activation_key, self.request.build_absolute_uri("/"))
+        mailer.send_account_recover_email(email, activation_key, self.request.build_absolute_uri("/"))
 
         return super(RecoverAccountView, self).form_valid(form)
 
