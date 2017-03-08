@@ -19,7 +19,7 @@ class UNDPMailer():
 
     def sendResetEmail(self, email, code, url):
         mail = EmailMultiAlternatives(
-            subject="UNDP Password reset link",
+            subject="UNDP Password Reset Link",
             body="Please open " + url + "users/verify/" + code
                  + " in your browser.",
             from_email="UNDP Django <undp_django@gmail.com>",

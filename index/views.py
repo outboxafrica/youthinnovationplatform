@@ -44,6 +44,7 @@ class HomePageView(TemplateView):
 
 
 def register(request):
+
     if request.method == "POST":
         register_form = RegisterForm(request.POST)
         if register_form.is_valid():
@@ -126,8 +127,10 @@ def register(request):
         else:
             return render(request, 'index/register.html', {'registerform': register_form})
     else:
-        register_form = RegisterForm()
-        return render(request, 'index/register.html', {'registerform': register_form})
+        pass
+
+    register_form = RegisterForm()
+    return render(request, 'index/register.html', {'registerform': register_form})
 
 
 def verify(request):
@@ -207,7 +210,11 @@ def confirm_password(request, key):
             form = ConfirmPasswordForm()
             return render(request, 'index/confirm_password.html', {'form': form})
     else:
-        return render(request, 'index/confirm_expired.html')
+        return HttpResponseRedirect(reverse('index:password-reset-expired'))
+
+
+def password_reset_expired(request):
+    return render(request, 'index/password_reset_expired.html')
 
 
 def signin(request):
@@ -249,4 +256,35 @@ def signin(request):
     else:
         login_form = SignInForm()
         return render(request, 'index/signin.html', {'form': login_form})
+
+
+class RecoverAccountView(FormView):
+    form_class = ResetPasswordForm
+    template_name = 'index/recover_account.html'
+    success_url = '/email-sent'
+
+    def get(self, request, *args, **kwargs):
+        form = self.form_class
+        return render(request, self.template_name, {'form':self.form_class})
+
+    def form_valid(self, form):
+        email = form.cleaned_data.get('email')
+        # generate verification code
+        salt = hashlib.sha1(str(random.random())).hexdigest()[:5]
+        activation_key = hashlib.sha1(salt + email).hexdigest()
+        key_expires = datetime.datetime.today() + datetime.timedelta(hours=24)
+        print key_expires
+
+        user = get_object_or_404(User, email=email)
+        user.activation_key = activation_key
+        user.key_expires = key_expires
+        user.save()
+
+        mailer = UNDPMailer()
+        mailer.sendResetEmail(email, activation_key, self.request.build_absolute_uri("/"))
+
+        return super(RecoverAccountView, self).form_valid(form)
+
+    def form_invalid(self, form):
+        return super(RecoverAccountView, self).form_invalid(form)
 

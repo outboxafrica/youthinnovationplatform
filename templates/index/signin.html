@@ -17,7 +17,7 @@
     <div class="container">
         <div class="col-md-4 col-md-offset-4" id="main-content">
             <div class="row">
-                <div class="col-md-12"><img class="logo_image" src="/static/img/yip_logo.png" width="300"></div>
+                <div class="col-md-12"><a href="{% url 'index:home' %}"><img class="logo_image" src="/static/img/yip_logo.png" width="300"></a></div>
             </div>
             <div class="row">
                 <div class="col-md-12 form-body">
@@ -31,11 +31,11 @@
         <footer>
             <div class="social"><a href="#"><i class="icon ion-social-instagram"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-facebook"></i></a></div>
             <ul class="list-inline">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Blog </a></li>
+                <li><a href="{% url 'index:home' %}">Home</a></li>
+                <li><a href="{% url 'blog:post_list' %}">Blog </a></li>
                 <li><a href="#">About</a></li>
-                <li><a href="#">Events </a></li>
-                <li><a href="#">Contact Us</a></li>
+                <li><a href="{% url 'events:events_index' %}">Events </a></li>
+                <li><a href="{% url 'contact_us:contact_index' %}">Contact Us</a></li>
             </ul>
             <p class="copyright">Youth Innovation Platform © 2017</p>
         </footer>
