@@ -54,21 +54,41 @@ class Mentor(User):
     support_type = models.TextField()
     experience = models.TextField()
 
+    class Meta:
+        verbose_name = "Mentor"
+        verbose_name_plural = "Mentors"
+
 
 class Investor(User):
     resume = models.FileField(upload_to='static/uploads/%Y/%m/%d/', blank=True)
+
+    class Meta:
+        verbose_name = "Investor"
+        verbose_name_plural = "Investors"
 
 
 class Innovator(User):
     experience = models.TextField()
 
+    class Meta:
+        verbose_name = "Innovator"
+        verbose_name_plural = "Innovators"
+
 
 class ProgramManager(User):
     program = models.CharField(max_length=100, null=True, blank=True)
 
+    class Meta:
+        verbose_name = "Program Manager"
+        verbose_name_plural = "Program Managers"
+
 
 class HubManager(User):
     has_hub = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name = "Hub Manager"
+        verbose_name_plural = "Hub Managers"
 
 
 
