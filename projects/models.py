@@ -89,6 +89,10 @@ class Innovation(models.Model):
 
     costs = models.TextField(max_length=50, blank=True)
 
+    yr_1_projected_earnings = models.CharField(max_length=50, default=0)
+    yr_2_projected_earnings = models.CharField(max_length=50, default=0)
+    yr_3_projected_earnings = models.CharField(max_length=50, default=0)
+
     do_really_well = models.TextField(blank=True)
     key_resources = models.TextField(blank=True)
     key_partners = models.TextField(blank=True)
