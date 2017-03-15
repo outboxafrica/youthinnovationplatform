@@ -251,7 +251,7 @@ def signin(request):
             else:
                 print 'incorrect login'
                 messages.error(request, 'Invalid login details')
-                return HttpResponseRedirect(reverse('index:signin'))
+                return HttpResponseRedirect(reverse('projects:view-startup'))
         else:
             print login_form.is_valid()
             print login_form.errors

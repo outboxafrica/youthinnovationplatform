@@ -1,10 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, reverse, get_object_or_404
 from django.http import HttpResponseRedirect
-from django.views.generic import FormView, TemplateView
-from projects.models import InvestmentCompany
+from django.views.generic import FormView, TemplateView, UpdateView
+from projects.models import InvestmentCompany, Innovation
 from users.models import User, Innovator
 from projects.investor_form import InvestorForm
-from projects.forms import StartupStageForm
+from projects.forms import StartupStageForm, IdeationStage
 
 # Create your views here.
 
@@ -52,7 +52,7 @@ def select_startup_stage(request):
 
             if stage == 1:
                 # idea
-                return HttpResponseRedirect('/projects/idea_wizard/')
+                return HttpResponseRedirect(reverse("projects:ideation"))
             elif stage == 2:
                 # idea something to show
                 return HttpResponseRedirect('/projects/idea_show/')
@@ -75,3 +75,60 @@ def select_startup_stage(request):
 
     else:
         return render(request, 'projects/startup_stage.html', {'form': form})
+
+
+def ideation(request):
+    form = IdeationStage()
+    if request.method == "POST":
+        form = IdeationStage(request.POST)
+        if form.is_valid():
+            proj = Innovation.objects.get(lead__email=request.user.email)
+            cleaned_data = form.cleaned_data
+            print cleaned_data
+            proj.name = cleaned_data.get('name')
+            proj.description = cleaned_data.get('description')
+            proj.sectors = cleaned_data.get('sectors')
+            proj.other_sectors = cleaned_data.get('other_sectors')
+            proj.logo = cleaned_data.get('logo')
+            proj.challenge_faced = cleaned_data.get("challenge_faced")
+            proj.challenge_to_solve = cleaned_data.get("challenge_to_solve")
+
+            proj.stage = 0
+            proj.save()
+            return HttpResponseRedirect(reverse("index:home"))
+        else:
+            return render(request, "projects/idea_wizard.html", {'form': form})
+    else:
+        return render(request, "projects/idea_wizard.html", {'form': form})
+
+
+def view_startup(request):
+    innovation_profile = get_object_or_404(Innovation, lead=request.user.id)
+    return render(request, 'projects/view_startup.html', {'project': innovation_profile})
+
+
+def edit_startup_profile(request):
+    innovation_profile = get_object_or_404(Innovation, lead=request.user.id)
+    if request.method == 'POST':
+        form = IdeationStage(request.POST, instance=innovation_profile)
+        if form.is_valid():
+            idea_form = form.save(commit=False)
+            idea_form.idea_stage = 1
+            try:
+                idea_form.save()
+            except:
+                print 'errors'
+            # print idea_form
+            return HttpResponseRedirect(reverse('projects:view-startup'))
+
+        else:
+            print 'errors'
+            print form.errors
+    else:
+        form = IdeationStage(instance=innovation_profile)
+    form = IdeationStage(instance=innovation_profile)
+    return render(request, 'projects/idea_wizard.html', {'form': form})
+
+
+class EditIdeationProfile(UpdateView):
+    form_class = IdeationStage

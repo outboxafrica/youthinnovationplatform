@@ -1,0 +1,73 @@
+{% extends 'layouts/base.html' %}
+{% load crispy_forms_tags %}
+{% load project_extras %}
+
+{% block content %}
+    <div class="banner">
+            <div class="burn">
+                <div class="title"> <span id="startupTitle">{{ project.name }}</span>
+                    <div class="desc_separator" id="title_separator"></div>
+                </div>
+            </div>
+        </div>
+        <div class="sidebar pull-left">
+            <div class="people_role pull-left">
+                <p>{{ project.idea_stage|status }}</p>
+            </div>
+            <div class="startup-logo"> <img src="/static/img/StartupLogo.png" alt="startup logo"> </div>
+            <span id="startup-name"> {{ project.name }}</span>
+            <div class="sidebar_separator"></div>
+            <div class="social-media-icons"> <img id="linkedinBtn" src="/static/img/LinkedIn.png" alt="linkedin">
+                <img id="facebookBtn" src="/static/img/Facebook.png" alt="facebook"> </div>
+            <span id="startup-telephone">+256 75 555 5555</span>
+            <span id="startup-website">{{ project.url }}</span>
+            <button class="contact-ownerBtn" type="button">Contact Owner</button>
+        </div>
+        <div class="content-container">
+            <div class="overview pull-right">
+                <div class="startup-image pull-left"> </div>
+                <div class="vertical-separator"></div>
+                <div class="text-overview">
+                    <div class="overview-title">
+                        <p>Overview</p>
+                        <div class="overview-separator" id="overview-margin"></div>
+                    </div>
+                    <div class="main_text_content">
+                        <p>{{ project.description }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="team-members pull-right">
+                <div class="overview-title marginalise">
+                    <p>Team Members</p>
+                </div>
+                <div class="overview-separator"></div>
+                <div class="circular left-align" id="first-team-member"> <img class="avatar" src="/static/img/avatar-m-41.png"> </div>
+                <div class="circular left-align"> <img class="avatar" src="/static/img/avatar-m-02%20copy.png"> </div>
+                <div class="circular left-align"> <img class="avatar" src="/static/img/avatar-m-83.png"> </div>
+                <div class="circular left-align"> <img class="avatar" src="/static/img/avatar-m-37.png"> </div>
+            </div>
+            <div class="market pull-right">
+                <div class="text-overview">
+                    <div class="overview-title marginalise">
+                        <p>Market</p>
+                    </div>
+                    <div class="overview-separator"></div>
+                    <div class="main_text_content">
+                        <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vitae nisi vel nibh convallis consequat id eget odio. Cras ac pharetra neque. Aliquam vel leo massa. Praesent porttitor nulla vitae libero iaculis, vel vulputate dolor semper. Nam quis aliquet augue. In et risus vitae leo tempus faucibus vitae et est. Praesent nec dapibus metus. Integer ut venenatis libero. Aliquam at magna posuere, finibus sem id, dictum erat. Donec at mi ut turpis blandit tristique ac pulvinar sapien. Aliquam ultrices mattis nunc, tempus faucibus lacus vestibulum sit amet. Vivamus non laoreet ligula. Mauris vehicula purus non convallis tristique. Vestibulum ex dui, ultrices at pretium a, porttitor at diam. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam semper sagittis diam ac iaculis. Vestibulum sed libero tristique, elementum libero id, ultricies ex. Nam laoreet pulvinar mi, finibus sagittis magna elementum non. Donec pretium nisl ut tempor dictum. </p>
+                    </div>
+                </div>
+            </div>
+            <div class="financials pull-right">
+                <div class="text-overview">
+                    <div class="overview-title marginalise">
+                        <p>Financials</p>
+                    </div>
+                    <div class="overview-separator"></div>
+                    <div class="main_text_content">
+                        <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vitae nisi vel nibh convallis consequat id eget odio. Cras ac pharetra neque. Aliquam vel leo massa. Praesent porttitor nulla vitae libero iaculis, vel vulputate dolor semper. Nam quis aliquet augue. In et risus vitae leo tempus faucibus vitae et est. Praesent nec dapibus metus. Integer ut venenatis libero. Aliquam at magna posuere, finibus sem id, dictum erat. Donec at mi ut turpis blandit tristique ac pulvinar sapien. Aliquam ultrices mattis nunc, tempus faucibus lacus vestibulum sit amet. Vivamus non laoreet ligula. Mauris vehicula purus non convallis tristique. Vestibulum ex dui, ultrices at pretium a, porttitor at diam. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam semper sagittis diam ac iaculis. Vestibulum sed libero tristique, elementum libero id, ultricies ex. Nam laoreet pulvinar mi, finibus sagittis magna elementum non. Donec pretium nisl ut tempor dictum. </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}

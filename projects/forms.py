@@ -3,6 +3,8 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Div, Submit, HTML, Button, Row, Field
 from crispy_forms.bootstrap import AppendedText, PrependedText, FormActions, InlineCheckboxes
 from projects.models import Innovation
+from projects.validators import validate_img
+from YouthInnovPltfrm.forms import BaseForm, BaseModelForm
 
 
 class StartupStageForm(forms.ModelForm):
@@ -35,3 +37,71 @@ class StartupStageForm(forms.ModelForm):
     class Meta:
         model = Innovation
         fields = ('idea_stage', )
+
+
+class IdeationStage(BaseModelForm):
+    def __init__(self, *args, **kwargs):
+        super(IdeationStage, self).__init__(*args, **kwargs)
+        self.fields['name'].label = "Idea name"
+        self.fields['description'].label = "Please describe your idea"
+        self.fields['sectors'].label = "What sectors do you operate in?"
+        self.fields['challenge_to_solve'].label = "What problems/Challenges or needs is your idea trying to solve?"
+        self.fields['challenge_faced'].label = "What challenges are you facing?"
+
+    name = forms.CharField(widget=forms.TextInput(attrs={'class': "", 'placeholder': 'name of idea'}))
+    description = forms.CharField(widget=forms.Textarea())
+    idea_stage = forms.CharField(required=False)
+    sectors = forms.MultipleChoiceField(
+        choices=(
+            ('agriculture', "Agriculture"),
+            ('manufacturing', "Manufacturing and Assembly"),
+            ('financial', "Financial Services"),
+            ('renewable', "Renewable Energy"),
+            ('information security', "Information Security"),
+            ('education', "Education"),
+            ('health', "Healthcare & Services"),
+            ('infrastructure', "Infrastructure"),
+            ('transport', "Transport"),
+        ),
+        widget=forms.CheckboxSelectMultiple,
+    )
+    other_sectors = forms.CharField(required=False, max_length=2000)
+    challenge_to_solve = forms.CharField(widget=forms.Textarea())
+    challenge_faced = forms.MultipleChoiceField(
+        choices=(
+            ('mentorship', "Mentorship"),
+            ('office space', "Office Space"),
+            ('networking', "To network"),
+            ('training', "Training on how to run a business"),
+            ('technical', "Technical Training"),
+            ('team', "To build a team"),
+            ('funding', "Funding"),
+        ),
+        widget=forms.CheckboxSelectMultiple,
+    )
+    logo = forms.ImageField(validators=[validate_img], required=False)
+
+    helper = FormHelper()
+    helper.form_class = 'form-horizontal'
+    helper.layout = Layout(
+        Field('name', css_class='text-small'),
+        Field('description', rows="4", css_class='text-large'),
+        Field('sectors', ),
+        Field('other_sectors',
+              css_class='text-small'),
+        Field('challenge_to_solve', rows="4", css_class='text-large'),
+        Field('challenge_faced', css_class=''),
+        Field('logo', css_class='file-upload'),
+        FormActions(
+            Button('cancel', 'Cancel', css_class='cancelBtn'),
+            Submit(
+                'next',
+                'Finish',
+                css_class="cancelBtn"
+            ),
+        ),
+    )
+
+    class Meta:
+        model = Innovation
+        fields = ('name', 'description', 'sectors', 'other_sectors', 'challenge_faced', 'challenge_to_solve', 'logo')

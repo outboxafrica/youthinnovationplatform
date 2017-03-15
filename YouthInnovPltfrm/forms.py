@@ -1,4 +1,4 @@
-from django.forms import Form
+from django.forms import Form, ModelForm
 from django.forms.utils import ErrorList
 
 
@@ -18,5 +18,14 @@ class BaseForm(Form):
 
     def __init__(self, *args, **kwargs):
         super(BaseForm, self).__init__(*args, **kwargs)
+        self.error_class = DivErrorList
+
+
+class BaseModelForm(ModelForm):
+    error_css_class = 'error'
+    required_css_class = 'required'
+
+    def __init__(self, *args, **kwargs):
+        super(BaseModelForm, self).__init__(*args, **kwargs)
         self.error_class = DivErrorList
 
