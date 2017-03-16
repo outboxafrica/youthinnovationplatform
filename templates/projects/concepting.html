@@ -1,0 +1,45 @@
+{% extends 'layouts/base.html' %}
+{% load crispy_forms_tags %}
+{% load project_extras %}
+{% block content %}
+    <div class="banner">
+        <div class="burn">
+            <div class="title"><span id="startupTitle">I have an idea and I'm thinking about target and direction</span>
+                <div class="desc_separator" id="title_separator"></div>
+            </div>
+        </div>
+    </div>
+    <div class="sidebar pull-left">
+        <div class="people_role pull-left">
+            <p>Validation</p>
+        </div>
+        <div class="startup-logo"><img src="static/images/StartupLogo.png" alt="startup logo"></div>
+        <span id="startup-name"> My Startup</span>
+        <div class="sidebar_separator"></div>
+        <div class="social-media-icons"><img id="linkedinBtn" src="static/images/LinkedIn.png" alt="linkedin"> <img
+                id="facebookBtn" src="static/images/Facebook.png" alt="facebook"></div>
+        <span id="startup-telephone">+256 75 555 5555</span> <span id="startup-website">www.mystartup.com</span>
+        <button class="contact-ownerBtn" type="button">Contact Owner</button>
+    </div>
+    <div class="content-container">
+        <div class="tab-forms">
+            <ul class="nav red nav-pills left-margin" data-tabs="tabs">
+                <li class="{% if active_form == 'form_1' %}active{% endif %}"><a data-toggle="tab" href="#details">Details</a></li>
+                <li class="{% if active_form == 'form_2' %}active{% endif %}"><a data-toggle="tab" href="#market">Market</a></li>
+                <li class="{% if active_form == 'form_3' %}active{% endif %}"><a data-toggle="tab" href="#financials">Financials</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane {% if active_form == 'form_1' %}active{% endif %}" id="details">
+                    {% crispy form1 %}
+                </div>
+                <div class="tab-pane {% if active_form == 'form_2' %}active{% endif %}" id="market">
+                    {% crispy form2 %}
+                </div>
+                <div class="tab-pane {% if active_form == 'form_3' %}active{% endif %}" id="financials">
+                    {% crispy form3 %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

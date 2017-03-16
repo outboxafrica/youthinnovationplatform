@@ -5,6 +5,11 @@ from projects.models import InvestmentCompany, Innovation
 from users.models import User, Innovator
 from projects.investor_form import InvestorForm
 from projects.forms import StartupStageForm, IdeationStage
+from projects.commitment_form import CommitmentForm1, CommitmentForm2, CommitmentForm3
+from projects.concepting_form import ConceptingForm1, ConceptingForm2, ConceptingForm3
+from projects.validation_form import ValidationForm1, ValidationForm2, ValidationForm3
+from projects.scaling_form import ScalingForm1, ScalingForm2, ScalingForm3
+from projects.establishing_form import EstablishingForm1, EstablishingForm2, EstablishingForm3
 
 # Create your views here.
 
@@ -55,19 +60,19 @@ def select_startup_stage(request):
                 return HttpResponseRedirect(reverse("projects:ideation"))
             elif stage == 2:
                 # idea something to show
-                return HttpResponseRedirect('/projects/idea_show/')
+                return HttpResponseRedirect(reverse("projects:commitment"))
             elif stage == 3:
                 # target and direction
-                return HttpResponseRedirect('/projects/target_direction/')
+                return HttpResponseRedirect(reverse("projects:concepting"))
             elif stage == 4:
                 # testing with actual users
-                return HttpResponseRedirect('/projects/testing_users/')
+                return HttpResponseRedirect(reverse("projects:validation"))
             elif stage == 5:
                 # grow business
-                return HttpResponseRedirect('/projects/grow_business/')
+                return HttpResponseRedirect(reverse("projects:scaling"))
             elif stage == 6:
                 # maintain growth
-                return HttpResponseRedirect('/projects/maintain_growth/')
+                return HttpResponseRedirect(reverse("projects:establishing"))
 
         else:
             form = StartupStageForm(request.POST)
@@ -93,7 +98,7 @@ def ideation(request):
             proj.challenge_faced = cleaned_data.get("challenge_faced")
             proj.challenge_to_solve = cleaned_data.get("challenge_to_solve")
 
-            proj.stage = 0
+            proj.stage = 1
             proj.save()
             return HttpResponseRedirect(reverse("index:home"))
         else:
@@ -132,3 +137,486 @@ def edit_startup_profile(request):
 
 class EditIdeationProfile(UpdateView):
     form_class = IdeationStage
+
+
+def commitment_view(request):
+    commitment_form_1 = CommitmentForm1()
+    commitment_form_2 = CommitmentForm2()
+    commitment_form_3 = CommitmentForm3()
+
+    active_form = 'form_1'
+
+    if request.method == 'POST':
+        if 'commitment_form_1' in request.POST:
+            commitment_form_1 = CommitmentForm1(request.POST)
+            if commitment_form_1.is_valid():
+                proj = Innovation.objects.get(lead__email=request.user.email)
+                cleaned_data = commitment_form_1.cleaned_data
+                proj.name = cleaned_data.get('name')
+                proj.description = cleaned_data.get('description')
+                proj.sectors = cleaned_data.get('sectors')
+                proj.other_sectors = cleaned_data.get('other_sectors')
+                proj.logo = cleaned_data.get('logo')
+                proj.service_pic = cleaned_data.get('service_pic')
+                proj.service_videos = cleaned_data.get('service_videos')
+                proj.challenge_faced = cleaned_data.get("challenge_faced")
+                proj.challenge_to_solve = cleaned_data.get("challenge_to_solve")
+
+                proj.stage = 2
+                proj.save()
+
+                active_form = 'form_2'
+
+                return render(request, 'projects/commitment.html', {
+                    'active_form': active_form,
+                    'form1': commitment_form_1,
+                    'form2': commitment_form_2,
+                    'form3': commitment_form_3
+                })
+
+            else:
+                active_form = 'form_1'
+                return render(request, 'projects/commitment.html', {
+                    'active_form': active_form,
+                    'form1': commitment_form_1,
+                    'form2': commitment_form_2,
+                    'form3': commitment_form_3
+                })
+
+        elif 'commitment_form_2' in request.POST:
+            proj = Innovation.objects.get(lead__email=request.user.email)
+            form_2 = CommitmentForm2(request.POST, instance=proj)
+            if form_2.is_valid():
+                proj_form = form_2.save(commit=False)
+                proj_form.save()
+
+                active_form = 'form_3'
+
+                return render(request, 'projects/commitment.html', {
+                    'active_form': active_form,
+                    'form1': commitment_form_1,
+                    'form2': commitment_form_2,
+                    'form3': commitment_form_3
+                })
+
+            else:
+                active_form = 'form_2'
+                return render(request, 'projects/commitment.html', {
+                    'active_form': active_form,
+                    'form1': commitment_form_1,
+                    'form2': commitment_form_2,
+                    'form3': commitment_form_3
+                })
+
+        elif 'commitment_form_3' in request.POST:
+            proj = Innovation.objects.get(lead__email=request.user.email)
+            form_3 = CommitmentForm3(request.POST, instance=proj)
+
+            if form_3.is_valid():
+                proj_form = form_3.save(commit=False)
+                proj_form.save()
+
+                return HttpResponseRedirect(reverse('projects:view-startup'))
+
+            else:
+                active_form = 'form_3'
+                return render(request, 'projects/commitment.html', {
+                    'active_form': active_form,
+                    'form1': commitment_form_1,
+                    'form2': commitment_form_2,
+                    'form3': commitment_form_3
+                })
+
+    else:
+        return render(request, 'projects/commitment.html', {
+            'active_form': active_form,
+            'form1': commitment_form_1,
+            'form2': commitment_form_2,
+            'form3': commitment_form_3
+        })
+
+
+def concepting_view(request):
+    concepting_form_1 = ConceptingForm1()
+    concepting_form_2 = ConceptingForm2()
+    concepting_form_3 = ConceptingForm3()
+
+    active_form = 'form_1'
+
+    if request.method == 'POST':
+        if 'concepting_form_1' in request.POST:
+            concepting_form_1 = ConceptingForm1(request.POST)
+            if concepting_form_1.is_valid():
+                proj = Innovation.objects.get(lead__email=request.user.email)
+                cleaned_data = concepting_form_1.cleaned_data
+                proj.name = cleaned_data.get('name')
+                proj.description = cleaned_data.get('description')
+                proj.sectors = cleaned_data.get('sectors')
+                proj.other_sectors = cleaned_data.get('other_sectors')
+                proj.logo = cleaned_data.get('logo')
+                proj.service_pic = cleaned_data.get('service_pic')
+                proj.service_videos = cleaned_data.get('service_videos')
+                proj.challenge_faced = cleaned_data.get("challenge_faced")
+                proj.challenge_to_solve = cleaned_data.get("challenge_to_solve")
+
+                proj.stage = 3
+                proj.save()
+
+                active_form = 'form_2'
+
+                return render(request, 'projects/concepting.html', {
+                    'active_form': active_form,
+                    'form1': concepting_form_1,
+                    'form2': concepting_form_2,
+                    'form3': concepting_form_3
+                })
+
+            else:
+                active_form = 'form_1'
+                return render(request, 'projects/concepting.html', {
+                    'active_form': active_form,
+                    'form1': concepting_form_1,
+                    'form2': concepting_form_2,
+                    'form3': concepting_form_3
+                })
+
+        elif 'concepting_form_2' in request.POST:
+            proj = Innovation.objects.get(lead__email=request.user.email)
+            form_2 = ConceptingForm2(request.POST, instance=proj)
+            if form_2.is_valid():
+                proj_form = form_2.save(commit=False)
+                proj_form.save()
+
+                active_form = 'form_3'
+
+                return render(request, 'projects/concepting.html', {
+                    'active_form': active_form,
+                    'form1': concepting_form_1,
+                    'form2': concepting_form_2,
+                    'form3': concepting_form_3
+                })
+
+            else:
+                active_form = 'form_2'
+                return render(request, 'projects/concepting.html', {
+                    'active_form': active_form,
+                    'form1': concepting_form_1,
+                    'form2': concepting_form_2,
+                    'form3': concepting_form_3
+                })
+
+        elif 'concepting_form_3' in request.POST:
+            proj = Innovation.objects.get(lead__email=request.user.email)
+            form_3 = ConceptingForm3(request.POST, instance=proj)
+
+            if form_3.is_valid():
+                proj_form = form_3.save(commit=False)
+                proj_form.save()
+
+                return HttpResponseRedirect(reverse('projects:view-startup'))
+
+            else:
+                active_form = 'form_3'
+                return render(request, 'projects/concepting.html', {
+                    'active_form': active_form,
+                    'form1': concepting_form_1,
+                    'form2': concepting_form_2,
+                    'form3': concepting_form_3
+                })
+
+    else:
+        return render(request, 'projects/concepting.html', {
+            'active_form': active_form,
+            'form1': concepting_form_1,
+            'form2': concepting_form_2,
+            'form3': concepting_form_3
+        })
+
+def validation_view(request):
+    validation_form_1 = ValidationForm1()
+    validation_form_2 = ValidationForm2()
+    validation_form_3 = ValidationForm3()
+
+    active_form = 'form_1'
+
+    if request.method == 'POST':
+        if 'validation_form_1' in request.POST:
+            validation_form_1 = ValidationForm1(request.POST)
+            if validation_form_1.is_valid():
+                proj = Innovation.objects.get(lead__email=request.user.email)
+                cleaned_data = validation_form_1.cleaned_data
+                proj.name = cleaned_data.get('name')
+                proj.description = cleaned_data.get('description')
+                proj.sectors = cleaned_data.get('sectors')
+                proj.other_sectors = cleaned_data.get('other_sectors')
+                proj.logo = cleaned_data.get('logo')
+                proj.service_pic = cleaned_data.get('service_pic')
+                proj.service_videos = cleaned_data.get('service_videos')
+                proj.challenge_faced = cleaned_data.get("challenge_faced")
+                proj.challenge_to_solve = cleaned_data.get("challenge_to_solve")
+
+                proj.stage = 3
+                proj.save()
+
+                active_form = 'form_2'
+
+                return render(request, 'projects/validation.html', {
+                    'active_form': active_form,
+                    'form1': validation_form_1,
+                    'form2': validation_form_2,
+                    'form3': validation_form_3
+                })
+
+            else:
+                active_form = 'form_1'
+                return render(request, 'projects/validation.html', {
+                    'active_form': active_form,
+                    'form1': validation_form_1,
+                    'form2': validation_form_2,
+                    'form3': validation_form_3
+                })
+
+        elif 'validation_form_2' in request.POST:
+            proj = Innovation.objects.get(lead__email=request.user.email)
+            form_2 = ValidationForm2(request.POST, instance=proj)
+            if form_2.is_valid():
+                proj_form = form_2.save(commit=False)
+                proj_form.save()
+
+                active_form = 'form_3'
+
+                return render(request, 'projects/validation.html', {
+                    'active_form': active_form,
+                    'form1': validation_form_1,
+                    'form2': validation_form_2,
+                    'form3': validation_form_3
+                })
+
+            else:
+                active_form = 'form_2'
+                return render(request, 'projects/validation.html', {
+                    'active_form': active_form,
+                    'form1': validation_form_1,
+                    'form2': validation_form_2,
+                    'form3': validation_form_3
+                })
+
+        elif 'validation_form_3' in request.POST:
+            proj = Innovation.objects.get(lead__email=request.user.email)
+            form_3 = ValidationForm3(request.POST, instance=proj)
+
+            if form_3.is_valid():
+                proj_form = form_3.save(commit=False)
+                proj_form.save()
+
+                return HttpResponseRedirect(reverse('projects:view-startup'))
+
+            else:
+                active_form = 'form_3'
+                return render(request, 'projects/validation.html', {
+                    'active_form': active_form,
+                    'form1': validation_form_1,
+                    'form2': validation_form_2,
+                    'form3': validation_form_3
+                })
+
+    else:
+        return render(request, 'projects/validation.html', {
+            'active_form': active_form,
+            'form1': validation_form_1,
+            'form2': validation_form_2,
+            'form3': validation_form_3
+        })
+
+def scaling_view(request):
+    scaling_form_1 = ScalingForm1()
+    scaling_form_2 = ScalingForm2()
+    scaling_form_3 = ScalingForm3()
+
+    active_form = 'form_1'
+
+    if request.method == 'POST':
+        if 'scaling_form_1' in request.POST:
+            scaling_form_1 = ScalingForm1(request.POST)
+            if scaling_form_1.is_valid():
+                proj = Innovation.objects.get(lead__email=request.user.email)
+                cleaned_data = scaling_form_1.cleaned_data
+                proj.name = cleaned_data.get('name')
+                proj.description = cleaned_data.get('description')
+                proj.sectors = cleaned_data.get('sectors')
+                proj.other_sectors = cleaned_data.get('other_sectors')
+                proj.logo = cleaned_data.get('logo')
+                proj.service_pic = cleaned_data.get('service_pic')
+                proj.service_videos = cleaned_data.get('service_videos')
+                proj.challenge_faced = cleaned_data.get("challenge_faced")
+                proj.challenge_to_solve = cleaned_data.get("challenge_to_solve")
+
+                proj.stage = 3
+                proj.save()
+
+                active_form = 'form_2'
+
+                return render(request, 'projects/scaling.html', {
+                    'active_form': active_form,
+                    'form1': scaling_form_1,
+                    'form2': scaling_form_2,
+                    'form3': scaling_form_3
+                })
+
+            else:
+                active_form = 'form_1'
+                return render(request, 'projects/scaling.html', {
+                    'active_form': active_form,
+                    'form1': scaling_form_1,
+                    'form2': scaling_form_2,
+                    'form3': scaling_form_3
+                })
+
+        elif 'scaling_form_2' in request.POST:
+            proj = Innovation.objects.get(lead__email=request.user.email)
+            form_2 = ScalingForm2(request.POST, instance=proj)
+            if form_2.is_valid():
+                proj_form = form_2.save(commit=False)
+                proj_form.save()
+
+                active_form = 'form_3'
+
+                return render(request, 'projects/scaling.html', {
+                    'active_form': active_form,
+                    'form1': scaling_form_1,
+                    'form2': scaling_form_2,
+                    'form3': scaling_form_3
+                })
+
+            else:
+                active_form = 'form_2'
+                return render(request, 'projects/scaling.html', {
+                    'active_form': active_form,
+                    'form1': scaling_form_1,
+                    'form2': scaling_form_2,
+                    'form3': scaling_form_3
+                })
+
+        elif 'scaling_form_3' in request.POST:
+            proj = Innovation.objects.get(lead__email=request.user.email)
+            form_3 = ScalingForm3(request.POST, instance=proj)
+
+            if form_3.is_valid():
+                proj_form = form_3.save(commit=False)
+                proj_form.save()
+
+                return HttpResponseRedirect(reverse('projects:view-startup'))
+
+            else:
+                active_form = 'form_3'
+                return render(request, 'projects/scaling.html', {
+                    'active_form': active_form,
+                    'form1': scaling_form_1,
+                    'form2': scaling_form_2,
+                    'form3': scaling_form_3
+                })
+
+    else:
+        return render(request, 'projects/scaling.html', {
+            'active_form': active_form,
+            'form1': scaling_form_1,
+            'form2': scaling_form_2,
+            'form3': scaling_form_3
+        })
+
+
+def establishing_view(request):
+    establishing_form_1 = EstablishingForm1()
+    establishing_form_2 = EstablishingForm2()
+    establishing_form_3 = EstablishingForm3()
+
+    active_form = 'form_1'
+
+    if request.method == 'POST':
+        if 'establishing_form_1' in request.POST:
+            establishing_form_1 = EstablishingForm1(request.POST)
+            if establishing_form_1.is_valid():
+                proj = Innovation.objects.get(lead__email=request.user.email)
+                cleaned_data = establishing_form_1.cleaned_data
+                proj.name = cleaned_data.get('name')
+                proj.description = cleaned_data.get('description')
+                proj.sectors = cleaned_data.get('sectors')
+                proj.other_sectors = cleaned_data.get('other_sectors')
+                proj.logo = cleaned_data.get('logo')
+                proj.service_pic = cleaned_data.get('service_pic')
+                proj.service_videos = cleaned_data.get('service_videos')
+                proj.challenge_faced = cleaned_data.get("challenge_faced")
+                proj.challenge_to_solve = cleaned_data.get("challenge_to_solve")
+
+                proj.stage = 3
+                proj.save()
+
+                active_form = 'form_2'
+
+                return render(request, 'projects/establishing.html', {
+                    'active_form': active_form,
+                    'form1': establishing_form_1,
+                    'form2': establishing_form_2,
+                    'form3': establishing_form_3
+                })
+
+            else:
+                active_form = 'form_1'
+                return render(request, 'projects/establishing.html', {
+                    'active_form': active_form,
+                    'form1': establishing_form_1,
+                    'form2': establishing_form_2,
+                    'form3': establishing_form_3
+                })
+
+        elif 'establishing_form_2' in request.POST:
+            proj = Innovation.objects.get(lead__email=request.user.email)
+            form_2 = EstablishingForm2(request.POST, instance=proj)
+            if form_2.is_valid():
+                proj_form = form_2.save(commit=False)
+                proj_form.save()
+
+                active_form = 'form_3'
+
+                return render(request, 'projects/establishing.html', {
+                    'active_form': active_form,
+                    'form1': establishing_form_1,
+                    'form2': establishing_form_2,
+                    'form3': establishing_form_3
+                })
+
+            else:
+                active_form = 'form_2'
+                return render(request, 'projects/establishing.html', {
+                    'active_form': active_form,
+                    'form1': establishing_form_1,
+                    'form2': establishing_form_2,
+                    'form3': establishing_form_3
+                })
+
+        elif 'establishing_form_3' in request.POST:
+            proj = Innovation.objects.get(lead__email=request.user.email)
+            form_3 = EstablishingForm3(request.POST, instance=proj)
+
+            if form_3.is_valid():
+                proj_form = form_3.save(commit=False)
+                proj_form.save()
+
+                return HttpResponseRedirect(reverse('projects:view-startup'))
+
+            else:
+                active_form = 'form_3'
+                return render(request, 'projects/establishing.html', {
+                    'active_form': active_form,
+                    'form1': establishing_form_1,
+                    'form2': establishing_form_2,
+                    'form3': establishing_form_3
+                })
+
+    else:
+        return render(request, 'projects/establishing.html', {
+            'active_form': active_form,
+            'form1': establishing_form_1,
+            'form2': establishing_form_2,
+            'form3': establishing_form_3
+        })

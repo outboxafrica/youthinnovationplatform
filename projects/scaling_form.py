@@ -80,20 +80,9 @@ class ScalingForm1(BaseModelForm):
         InlineCheckboxes('challenge_faced'),
         Field('logo',
               css_class='file-upload'),
-        Div(
-            Div(css_class="col-md-3 as-formactions-wrap as-top-20"), Div(css_class="col-md-6 as-form-progress as-top-20"),
-            Div(
-                FormActions(
-                    Submit(
-                        'next',
-                        'Next',
-                        css_class="btn-primary btn btn-block"
-                    )
-                ),
-                css_class="col-md-3 as-top-20"
-            ),
-            css_class="row",
-        ),
+        FormActions(
+            Submit('scaling_form_1', 'Next', css_class="cancelBtn btnNext"),
+        )
     )
 
     class Meta:
@@ -159,20 +148,10 @@ class ScalingForm2(BaseModelForm):
         Field('major_wrongs',
               rows="3",
               css_class='form-control'),
-        Div(
-            Div(css_class="col-md-3 as-formactions-wrap as-top-20"), Div(css_class="col-md-6 as-form-progress as-top-20"),
-            Div(
-                FormActions(
-                    Submit(
-                        'next',
-                        'Next',
-                        css_class="btn-primary btn btn-block"
-                    )
-                ),
-                css_class="col-md-3 as-top-20"
-            ),
-            css_class="row",
-        ),
+        FormActions(
+            Button('Cancel', 'Previous', css_class="cancelBtn btnPrevious"),
+            Submit('scaling_form_2', 'Next', css_class="cancelBtn btnNext"),
+        )
     )
 
     class Meta:
@@ -252,20 +231,9 @@ class ScalingForm3(BaseModelForm):
         Field('capital_type'),
         Field('capital_use',
               css_class='input-length1 form-control'),
-        Div(
-            Div(css_class="col-md-3 as-formactions-wrap as-top-20"), Div(css_class="col-md-6 as-form-progress as-top-20"),
-            Div(
-                FormActions(
-                    Submit(
-                        'next',
-                        'Submit',
-                        css_class="btn-primary btn btn-block"
-                    )
-                ),
-                css_class="col-md-3 as-top-20"
-            ),
-            css_class="row",
-        ),
+        FormActions(
+            Submit('scaling_form_3', 'Finish', css_class="cancelBtn btnNext"),
+        )
     )
 
     class Meta:

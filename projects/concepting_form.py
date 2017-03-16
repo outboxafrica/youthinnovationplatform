@@ -65,7 +65,7 @@ class ConceptingForm1(BaseModelForm):
         FormActions(
             Button('cancel', 'Cancel', css_class='cancelBtn'),
             Submit(
-                'next',
+                'concepting_form_1',
                 'Finish',
                 css_class="cancelBtn"
             ),
@@ -128,20 +128,10 @@ class ConceptingForm2(BaseModelForm):
         Field('key_partners',
               rows="3",
               css_class='form-control'),
-        Div(
-            Div(css_class="col-md-3 as-formactions-wrap as-top-20"), Div(css_class="col-md-6 as-form-progress as-top-20"),
-            Div(
-                FormActions(
-                    Submit(
-                        'next',
-                        'Next',
-                        css_class="btn-primary btn btn-block"
-                    )
-                ),
-                css_class="col-md-3 as-top-20"
-            ),
-            css_class="row",
-        ),
+        FormActions(
+            Button('Cancel', 'Previous', css_class="cancelBtn btnPrevious"),
+            Submit('concepting_form_2', 'Next', css_class="cancelBtn btnNext"),
+        )
     )
 
     class Meta:
@@ -169,20 +159,9 @@ class ConceptingForm3(BaseModelForm):
         Field('costs',
               rows="3",
               css_class='input-length2 form-control'),
-        Div(
-            Div(css_class="col-md-3 as-formactions-wrap as-top-20"), Div(css_class="col-md-6 as-form-progress as-top-20"),
-            Div(
-                FormActions(
-                    Submit(
-                        'next',
-                        'Submit',
-                        css_class="btn-primary btn btn-block"
-                    )
-                ),
-                css_class="col-md-3 as-top-20"
-            ),
-            css_class="row",
-        ),
+        FormActions(
+            Submit('concepting_form_3', 'Finish', css_class="cancelBtn btnNext"),
+        )
     )
 
     class Meta:

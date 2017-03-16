@@ -27,7 +27,7 @@ class CommitmentForm1(BaseModelForm):
             'challenge_faced'].label = "What challenges are you facing?"
 
     name = forms.CharField()
-    logo = forms.ImageField(validators=[validate_img])
+    logo = forms.ImageField(validators=[validate_img], required=False)
     service_pic = forms.ImageField(required=False)
     service_videos = forms.URLField(required=False)
     url = forms.URLField(required=False)
@@ -79,21 +79,7 @@ class CommitmentForm1(BaseModelForm):
         InlineCheckboxes('challenge_faced'),
         Field('logo',
               css_class='file-upload'),
-        Div(
-            Div(css_class="col-md-3 as-formactions-wrap as-top-20"),
-            Div(css_class="col-md-6 as-form-progress as-top-20"),
-            Div(
-                FormActions(
-                    Submit(
-                        'next',
-                        'Next',
-                        css_class="btn-primary btn btn-block"
-                    )
-                ),
-                css_class="col-md-3 as-top-20"
-            ),
-            css_class="row",
-        ),
+        Submit('commitment_form_1', 'Next', css_class="cancelBtn btnNext"),
     )
 
     class Meta:
@@ -139,7 +125,7 @@ class CommitmentForm2(BaseModelForm):
         Field('business_differentiator', rows='3', css_class='text-large'),
         FormActions(
             Button('Cancel', 'Previous', css_class="cancelBtn btnPrevious"),
-            Button('Cancel', 'Next', css_class="cancelBtn btnNext"),
+            Submit('commitment_form_2', 'Next', css_class="cancelBtn btnNext"),
         )
         ,
     )
@@ -168,23 +154,11 @@ class CommitmentForm3(forms.ModelForm):
         Field('costs',
               rows="3",
               css_class='input-length2 form-control'),
-        Div(
-            Div(css_class="col-md-3 as-formactions-wrap as-top-20"),
-            Div(css_class="col-md-6 as-form-progress as-top-20"),
-            Div(
-                FormActions(
-                    Submit(
-                        'next',
-                        'Submit',
-                        css_class="btn-primary btn btn-block"
-                    )
-                ),
-                css_class="col-md-3 as-top-20"
-            ),
-            css_class="row",
-        ),
+        Submit('commitment_form_3', 'Finish', css_class="cancelBtn btnNext"),
     )
 
     class Meta:
         model = Innovation
         fields = ('revenue', 'costs')
+
+

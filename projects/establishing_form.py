@@ -21,7 +21,8 @@ class EstablishingForm1(BaseModelForm):
         self.fields[
             'service_pic'].label = "Please provide a picture that shows your product/service (jpeg, png, gif)"
         self.fields[
-            'service_videos'].label = "Please provide a link to the video that shows your product/service. [This can be a link to youtube or vimeo]"
+            'service_videos'].label = "Please provide a link to the video that shows your product/service. " \
+                                      "[This can be a link to youtube or vimeo]"
         self.fields[
             'challenge_to_solve'].label = "What problems/Challenges or needs is your idea trying to solve?"
         self.fields[
@@ -80,20 +81,9 @@ class EstablishingForm1(BaseModelForm):
         InlineCheckboxes('challenge_faced'),
         Field('logo',
               css_class='file-upload'),
-        Div(
-            Div(css_class="col-md-3 as-formactions-wrap as-top-20"), Div(css_class="col-md-6 as-form-progress as-top-20"),
-            Div(
-                FormActions(
-                    Submit(
-                        'next',
-                        'Next',
-                        css_class="btn-primary btn btn-block"
-                    )
-                ),
-                css_class="col-md-3 as-top-20"
-            ),
-            css_class="row",
-        ),
+        FormActions(
+            Submit('establishing_form_1', 'Next', css_class="cancelBtn btnNext"),
+        )
     )
 
     class Meta:
@@ -155,20 +145,10 @@ class EstablishingForm2(BaseModelForm):
         Field('major_wrongs',
               rows="3",
               css_class='form-control'),
-        Div(
-            Div(css_class="col-md-3 as-formactions-wrap as-top-20"), Div(css_class="col-md-6 as-form-progress as-top-20"),
-            Div(
-                FormActions(
-                    Submit(
-                        'next',
-                        'Next',
-                        css_class="btn-primary btn btn-block"
-                    )
-                ),
-                css_class="col-md-3 as-top-20"
-            ),
-            css_class="row",
-        ),
+        FormActions(
+            Button('Cancel', 'Previous', css_class="cancelBtn btnPrevious"),
+            Submit('establishing_form_2', 'Next', css_class="cancelBtn btnNext"),
+        )
     )
 
     class Meta:
@@ -259,20 +239,9 @@ class EstablishingForm3(BaseModelForm):
         Field('capital_type'),
         Field('capital_use',
               css_class='input-length1 form-control'),
-        Div(
-            Div(css_class="col-md-3 as-formactions-wrap as-top-20"), Div(css_class="col-md-6 as-form-progress as-top-20"),
-            Div(
-                FormActions(
-                    Submit(
-                        'next',
-                        'Submit',
-                        css_class="btn-primary btn btn-block"
-                    )
-                ),
-                css_class="col-md-3 as-top-20"
-            ),
-            css_class="row",
-        ),
+        FormActions(
+            Submit('establishing_form_3', 'Finish', css_class="cancelBtn btnNext"),
+        )
     )
 
     class Meta:
