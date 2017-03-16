@@ -254,8 +254,6 @@ def concepting_view(request):
                 proj.sectors = cleaned_data.get('sectors')
                 proj.other_sectors = cleaned_data.get('other_sectors')
                 proj.logo = cleaned_data.get('logo')
-                proj.service_pic = cleaned_data.get('service_pic')
-                proj.service_videos = cleaned_data.get('service_videos')
                 proj.challenge_faced = cleaned_data.get("challenge_faced")
                 proj.challenge_to_solve = cleaned_data.get("challenge_to_solve")
 
@@ -427,6 +425,7 @@ def validation_view(request):
             'form2': validation_form_2,
             'form3': validation_form_3
         })
+
 
 def scaling_view(request):
     scaling_form_1 = ScalingForm1()
