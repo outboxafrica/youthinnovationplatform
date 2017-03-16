@@ -140,17 +140,24 @@ class EditIdeationProfile(UpdateView):
 
 
 def commitment_view(request):
-    commitment_form_1 = CommitmentForm1()
-    commitment_form_2 = CommitmentForm2()
-    commitment_form_3 = CommitmentForm3()
+    proj = Innovation.objects.get(lead__email=request.user.email)
+
+    commitment_form_1 = CommitmentForm1(instance=proj)
+    commitment_form_2 = CommitmentForm2(instance=proj)
+    commitment_form_3 = CommitmentForm3(instance=proj)
 
     active_form = 'form_1'
 
     if request.method == 'POST':
+        print "form is post"
+        proj = Innovation.objects.get(lead__email=request.user.email)
+        commitment_form_1 = CommitmentForm1(request.POST, instance=proj)
+        commitment_form_2 = CommitmentForm2(request.POST, instance=proj)
+        commitment_form_3 = CommitmentForm3(request.POST, instance=proj)
         if 'commitment_form_1' in request.POST:
             commitment_form_1 = CommitmentForm1(request.POST)
             if commitment_form_1.is_valid():
-                proj = Innovation.objects.get(lead__email=request.user.email)
+
                 cleaned_data = commitment_form_1.cleaned_data
                 proj.name = cleaned_data.get('name')
                 proj.description = cleaned_data.get('description')
@@ -228,6 +235,7 @@ def commitment_view(request):
                 })
 
     else:
+        print 'not post method'
         return render(request, 'projects/commitment.html', {
             'active_form': active_form,
             'form1': commitment_form_1,
@@ -237,13 +245,15 @@ def commitment_view(request):
 
 
 def concepting_view(request):
-    concepting_form_1 = ConceptingForm1()
-    concepting_form_2 = ConceptingForm2()
-    concepting_form_3 = ConceptingForm3()
+    proj = Innovation.objects.get(lead__email=request.user.email)
+    concepting_form_1 = ConceptingForm1(instance=proj)
+    concepting_form_2 = ConceptingForm2(instance=proj)
+    concepting_form_3 = ConceptingForm3(instance=proj)
 
     active_form = 'form_1'
 
     if request.method == 'POST':
+
         if 'concepting_form_1' in request.POST:
             concepting_form_1 = ConceptingForm1(request.POST)
             if concepting_form_1.is_valid():
@@ -330,14 +340,20 @@ def concepting_view(request):
             'form3': concepting_form_3
         })
 
+
 def validation_view(request):
-    validation_form_1 = ValidationForm1()
-    validation_form_2 = ValidationForm2()
-    validation_form_3 = ValidationForm3()
+    proj = Innovation.objects.get(lead__email=request.user.email)
+    validation_form_1 = ValidationForm1(instance=proj)
+    validation_form_2 = ValidationForm2(instance=proj)
+    validation_form_3 = ValidationForm3(instance=proj)
 
     active_form = 'form_1'
 
     if request.method == 'POST':
+        proj = Innovation.objects.get(lead__email=request.user.email)
+        validation_form_1 = ValidationForm1(request.POST, instance=proj)
+        validation_form_2 = ValidationForm2(request.POST, instance=proj)
+        validation_form_3 = ValidationForm3(request.POST, instance=proj)
         if 'validation_form_1' in request.POST:
             validation_form_1 = ValidationForm1(request.POST)
             if validation_form_1.is_valid():
@@ -428,13 +444,15 @@ def validation_view(request):
 
 
 def scaling_view(request):
-    scaling_form_1 = ScalingForm1()
-    scaling_form_2 = ScalingForm2()
-    scaling_form_3 = ScalingForm3()
+    proj = Innovation.objects.get(lead__email=request.user.email)
+    scaling_form_1 = ScalingForm1(instance=proj)
+    scaling_form_2 = ScalingForm2(instance=proj)
+    scaling_form_3 = ScalingForm3(instance=proj)
 
     active_form = 'form_1'
 
     if request.method == 'POST':
+
         if 'scaling_form_1' in request.POST:
             scaling_form_1 = ScalingForm1(request.POST)
             if scaling_form_1.is_valid():
@@ -525,13 +543,18 @@ def scaling_view(request):
 
 
 def establishing_view(request):
-    establishing_form_1 = EstablishingForm1()
-    establishing_form_2 = EstablishingForm2()
-    establishing_form_3 = EstablishingForm3()
+    proj = Innovation.objects.get(lead__email=request.user.email)
+    establishing_form_1 = EstablishingForm1(instance=proj)
+    establishing_form_2 = EstablishingForm2(instance=proj)
+    establishing_form_3 = EstablishingForm3(instance=proj)
 
     active_form = 'form_1'
 
     if request.method == 'POST':
+        proj = Innovation.objects.get(lead__email=request.user.email)
+        establishing_form_1 = EstablishingForm1(request.POST, instance=proj)
+        establishing_form_2 = EstablishingForm2(request.POST, instance=proj)
+        establishing_form_3 = EstablishingForm3(request.POST, instance=proj)
         if 'establishing_form_1' in request.POST:
             establishing_form_1 = EstablishingForm1(request.POST)
             if establishing_form_1.is_valid():
