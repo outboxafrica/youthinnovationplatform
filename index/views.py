@@ -27,7 +27,7 @@ from projects.decorators import check_profile_complete
 
 def homepage(request):
     events = Event.objects.for_period(from_date=timezone.now())
-    innovations = Innovation.objects.all().order_by("-id")[:4]
+    innovations = Innovation.objects.all().order_by("id")[:4]
     blog_posts = Post.objects.all()[:3]
     return render(request, 'index/index.html', {'events':events, 'innovations': innovations, 'blog_posts': blog_posts})
 
@@ -38,7 +38,7 @@ class HomePageView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(HomePageView, self).get_context_data(**kwargs)
         context['events'] = Event.objects.for_period(from_date=timezone.now())
-        context['innovations'] = Innovation.objects.all().order_by("-id")[:4]
+        context['innovations'] = Innovation.objects.all().order_by("-id")[0:4]
         context['blog_posts'] = Post.objects.all()[:3]
         return context
 

@@ -12,9 +12,9 @@
         </div>
         <div class="sidebar pull-left">
             <div class="people_role pull-left">
-                <p>{{ project.idea_stage|status }}</p>
+                <p>{{ project.stage | status }}</p>
             </div>
-            <div class="startup-logo"> <img src="/static/img/StartupLogo.png" alt="startup logo"> </div>
+            <div class="startup-logo"> <img src="/media/{{ project.logo }}" alt="startup logo"> </div>
             <span id="startup-name"> {{ project.name }}</span>
             <div class="sidebar_separator"></div>
             <div class="social-media-icons"> <img id="linkedinBtn" src="/static/img/LinkedIn.png" alt="linkedin">

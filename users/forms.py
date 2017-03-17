@@ -12,20 +12,8 @@ from YouthInnovPltfrm.forms import DivErrorList
 
 class BaseForm(forms.ModelForm):
     def clean_picture(self):
-        try:
-            image = self.cleaned_data.get('picture')
-            print image
-            w, h = get_image_dimensions(image)
-            aspect_ratio = w/h
-
-            if aspect_ratio != 1:
-                raise ValidationError("Image must have an aspect ratio of 1:1")
-
-            else:
-
-                return image
-        except:
-            raise ValidationError("Image file can not be read")
+        image = self.cleaned_data.get('picture')
+        return image
 
 
 class InnovatorProfileForm(BaseForm):
@@ -521,5 +509,5 @@ class ProgramManagerProfileForm(forms.ModelForm):
 
 class FormT(forms.Form):
     name = forms.CharField(max_length=100)
-    error_css_class='error'
+    error_css_class = 'error'
     required_css_class = 'req'

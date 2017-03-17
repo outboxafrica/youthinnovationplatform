@@ -19,7 +19,7 @@ class Post(models.Model):
     slug = AutoSlugField(populate_from='title', unique_with='publish')
     author = models.ForeignKey(User, related_name='blog_posts')
     body = models.TextField()
-    blog_pic = models.ImageField(upload_to='media', null=True)
+    blog_pic = models.ImageField(upload_to='media/blog/', null=True)
     publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)

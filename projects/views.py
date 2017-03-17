@@ -85,7 +85,7 @@ def select_startup_stage(request):
 def ideation(request):
     form = IdeationStage()
     if request.method == "POST":
-        form = IdeationStage(request.POST)
+        form = IdeationStage(request.POST, request.FILES)
         if form.is_valid():
             proj = Innovation.objects.get(lead__email=request.user.email)
             cleaned_data = form.cleaned_data
@@ -115,8 +115,9 @@ def view_startup(request):
 def edit_startup_profile(request):
     innovation_profile = get_object_or_404(Innovation, lead=request.user.id)
     if request.method == 'POST':
-        form = IdeationStage(request.POST, instance=innovation_profile)
+        form = IdeationStage(request.POST, request.FILES, instance=innovation_profile)
         if form.is_valid():
+            print form.cleaned_data
             idea_form = form.save(commit=False)
             idea_form.idea_stage = 1
             try:
@@ -343,19 +344,19 @@ def concepting_view(request):
 
 def validation_view(request):
     proj = Innovation.objects.get(lead__email=request.user.email)
-    validation_form_1 = ValidationForm1(instance=proj)
-    validation_form_2 = ValidationForm2(instance=proj)
-    validation_form_3 = ValidationForm3(instance=proj)
+    validation_form_1 = ValidationForm1(request.FILES, instance=proj)
+    validation_form_2 = ValidationForm2(request.FILES, instance=proj)
+    validation_form_3 = ValidationForm3(request.FILES, instance=proj)
 
     active_form = 'form_1'
 
     if request.method == 'POST':
         proj = Innovation.objects.get(lead__email=request.user.email)
-        validation_form_1 = ValidationForm1(request.POST, instance=proj)
-        validation_form_2 = ValidationForm2(request.POST, instance=proj)
-        validation_form_3 = ValidationForm3(request.POST, instance=proj)
+        validation_form_1 = ValidationForm1(request.POST, request.FILES, instance=proj)
+        validation_form_2 = ValidationForm2(request.POST, request.FILES, instance=proj)
+        validation_form_3 = ValidationForm3(request.POST, request.FILES, instance=proj)
         if 'validation_form_1' in request.POST:
-            validation_form_1 = ValidationForm1(request.POST)
+            validation_form_1 = ValidationForm1(request.POST, request.FILES)
             if validation_form_1.is_valid():
                 proj = Innovation.objects.get(lead__email=request.user.email)
                 cleaned_data = validation_form_1.cleaned_data
@@ -392,7 +393,7 @@ def validation_view(request):
 
         elif 'validation_form_2' in request.POST:
             proj = Innovation.objects.get(lead__email=request.user.email)
-            form_2 = ValidationForm2(request.POST, instance=proj)
+            form_2 = ValidationForm2(request.POST, request.FILES, instance=proj)
             if form_2.is_valid():
                 proj_form = form_2.save(commit=False)
                 proj_form.save()
@@ -417,7 +418,7 @@ def validation_view(request):
 
         elif 'validation_form_3' in request.POST:
             proj = Innovation.objects.get(lead__email=request.user.email)
-            form_3 = ValidationForm3(request.POST, instance=proj)
+            form_3 = ValidationForm3(request.POST, request.FILES, instance=proj)
 
             if form_3.is_valid():
                 proj_form = form_3.save(commit=False)
@@ -445,16 +446,16 @@ def validation_view(request):
 
 def scaling_view(request):
     proj = Innovation.objects.get(lead__email=request.user.email)
-    scaling_form_1 = ScalingForm1(instance=proj)
-    scaling_form_2 = ScalingForm2(instance=proj)
-    scaling_form_3 = ScalingForm3(instance=proj)
+    scaling_form_1 = ScalingForm1(request.FILES, instance=proj)
+    scaling_form_2 = ScalingForm2(request.FILES, instance=proj)
+    scaling_form_3 = ScalingForm3(request.FILES, instance=proj)
 
     active_form = 'form_1'
 
     if request.method == 'POST':
 
         if 'scaling_form_1' in request.POST:
-            scaling_form_1 = ScalingForm1(request.POST)
+            scaling_form_1 = ScalingForm1(request.POST, request.FILES)
             if scaling_form_1.is_valid():
                 proj = Innovation.objects.get(lead__email=request.user.email)
                 cleaned_data = scaling_form_1.cleaned_data
@@ -491,7 +492,7 @@ def scaling_view(request):
 
         elif 'scaling_form_2' in request.POST:
             proj = Innovation.objects.get(lead__email=request.user.email)
-            form_2 = ScalingForm2(request.POST, instance=proj)
+            form_2 = ScalingForm2(request.POST, request.FILES, instance=proj)
             if form_2.is_valid():
                 proj_form = form_2.save(commit=False)
                 proj_form.save()
@@ -516,7 +517,7 @@ def scaling_view(request):
 
         elif 'scaling_form_3' in request.POST:
             proj = Innovation.objects.get(lead__email=request.user.email)
-            form_3 = ScalingForm3(request.POST, instance=proj)
+            form_3 = ScalingForm3(request.POST, request.FILES, instance=proj)
 
             if form_3.is_valid():
                 proj_form = form_3.save(commit=False)
@@ -544,19 +545,19 @@ def scaling_view(request):
 
 def establishing_view(request):
     proj = Innovation.objects.get(lead__email=request.user.email)
-    establishing_form_1 = EstablishingForm1(instance=proj)
-    establishing_form_2 = EstablishingForm2(instance=proj)
-    establishing_form_3 = EstablishingForm3(instance=proj)
+    establishing_form_1 = EstablishingForm1(request.FILES, instance=proj)
+    establishing_form_2 = EstablishingForm2(request.FILES, instance=proj)
+    establishing_form_3 = EstablishingForm3(request.FILES, instance=proj)
 
     active_form = 'form_1'
 
     if request.method == 'POST':
         proj = Innovation.objects.get(lead__email=request.user.email)
-        establishing_form_1 = EstablishingForm1(request.POST, instance=proj)
-        establishing_form_2 = EstablishingForm2(request.POST, instance=proj)
-        establishing_form_3 = EstablishingForm3(request.POST, instance=proj)
+        establishing_form_1 = EstablishingForm1(request.POST, request.FILES, instance=proj)
+        establishing_form_2 = EstablishingForm2(request.POST, request.FILES, instance=proj)
+        establishing_form_3 = EstablishingForm3(request.POST, request.FILES, instance=proj)
         if 'establishing_form_1' in request.POST:
-            establishing_form_1 = EstablishingForm1(request.POST)
+            establishing_form_1 = EstablishingForm1(request.POST, request.FILES)
             if establishing_form_1.is_valid():
                 proj = Innovation.objects.get(lead__email=request.user.email)
                 cleaned_data = establishing_form_1.cleaned_data
@@ -593,7 +594,7 @@ def establishing_view(request):
 
         elif 'establishing_form_2' in request.POST:
             proj = Innovation.objects.get(lead__email=request.user.email)
-            form_2 = EstablishingForm2(request.POST, instance=proj)
+            form_2 = EstablishingForm2(request.POST, request.FILES, instance=proj)
             if form_2.is_valid():
                 proj_form = form_2.save(commit=False)
                 proj_form.save()
@@ -618,7 +619,7 @@ def establishing_view(request):
 
         elif 'establishing_form_3' in request.POST:
             proj = Innovation.objects.get(lead__email=request.user.email)
-            form_3 = EstablishingForm3(request.POST, instance=proj)
+            form_3 = EstablishingForm3(request.POST, request.FILES, instance=proj)
 
             if form_3.is_valid():
                 proj_form = form_3.save(commit=False)
