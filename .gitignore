@@ -1,3 +1,5 @@
 .idea/
 *.pyc
-media/*
+media/**/.jpg
+media/**/.png
+media/**/.jpeg

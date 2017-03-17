@@ -91,7 +91,7 @@
         <div class="featured_startup_cards">
             {% for project in innovations %}
                 <div class="featured_startup_card1">
-                    <div class="startup_pic"><img class="card_img" src="/media/{{ project.service_pic }}">
+                    <div class="startup_pic"><img class="card_img img-responsive" src="/media/{{ project.service_pic }}">
                         <div class="startup_stage pull-right">
                             <p>{{ project.stage|status }}</p>
                         </div>
@@ -116,7 +116,7 @@
                 <div class="blog_card1">
                     <a class="no_link" href="{{ entry.get_absolute_url }}">
                         <div class="blog_pic">
-                            <img class="card_img" src="/media/{{ entry.blog_pic }}" width="304" height="175">
+                            <img class="card_img img-responsive" src="/media/{{ entry.blog_pic }}">
                             <div class="blog_date">
                                 <p>{{ entry.publish | date:"d M Y" }}</p>
                             </div>
@@ -137,27 +137,27 @@
         <div class="separator_featured_wrapper">
             <div class="featured_startups_separator"></div>
         </div>
-{#        <div class="featured_startup_cards">#}
-{#            {% for event in events %}#}
-{#                <div class="event_card11">#}
-{#                    <div class="event_pic"><img class="card_img" src="/static/img/events1.png">#}
-{#                        <div class="event_date">#}
-{#                            <p>{% for time in event.occurrence_set.all %}#}
-{#                                {{ time.start | date:"d M Y" }}#}
-{#                            {% endfor %}</p>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                    <div class="desc_separator"></div>#}
-{#                    <div class="startup_description">#}
-{#                        <p class="title-index">{{ event.title }}</p>#}
-{#                        <p class="sector">Location - {{ event.venue }}</p>#}
-{#                        <p class="desc">{{ event.introduction }}</p>#}
-{#                    </div>#}
-{#                    <img class="share_btn" src="/static/img/Share_icon2x_1_24x21.png">#}
-{#                    <div class="attend_btn_index"><span>Attend</span> <img src="/static/img/left_icon_events2x_50.png">#}
-{#                    </div>#}
-{#                </div>#}
-{#            {% endfor %}#}
-{#        </div>#}
+        <div class="featured_startup_cards">
+            {% for event in events %}
+                <div class="event_card11">
+                    <div class="event_pic"><img class="card_img img-responsive" src="/static/img/events1.png">
+                        <div class="event_date">
+                            <p>{% for time in event.occurrence_set.all %}
+                                {{ time.start | date:"d M Y" }}
+                            {% endfor %}</p>
+                        </div>
+                    </div>
+                    <div class="desc_separator"></div>
+                    <div class="startup_description">
+                        <p class="title-index">{{ event.title }}</p>
+                        <p class="sector">Location - {{ event.venue }}</p>
+                        <p class="desc">{{ event.introduction }}</p>
+                    </div>
+                    <img class="share_btn" src="/static/img/Share_icon2x_1_24x21.png">
+                    <div class="attend_btn_index"><span>Attend</span> <img src="/static/img/left_icon_events2x_50.png">
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}
