@@ -140,7 +140,7 @@
         <div class="featured_startup_cards">
             {% for event in events %}
                 <div class="event_card11">
-                    <div class="event_pic"><img class="card_img img-responsive" src="/static/img/events1.png">
+                    <div class="event_pic"><img class="card_img img-responsive" src="/media/{{ event.event_pic }}">
                         <div class="event_date">
                             <p>{% for time in event.occurrence_set.all %}
                                 {{ time.start | date:"d M Y" }}
