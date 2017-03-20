@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from cloudinary.models import CloudinaryField
 from users.models import Innovator
 # Create your models here.
 
@@ -12,7 +13,7 @@ class InvestmentCompany(models.Model):
     investment_stage = models.CharField(max_length=200, blank=True)
     ticket_size = models.CharField(max_length=200, blank=True)
     url = models.CharField(max_length=200, blank=True)
-    logo = models.FileField(upload_to='media/logos/%Y/%m/%d/', blank=True)
+    logo = CloudinaryField('image', blank=True)
     organisation_name = models.CharField(max_length=200, blank=True)
     description = models.TextField(blank=True)
     support_type = models.CharField(max_length=255, blank=True)
@@ -39,7 +40,7 @@ class CommunityHub(models.Model):
     investment_stage = models.CharField(max_length=200, blank=True)
     support_type = models.CharField(max_length=255, blank=True)
     url = models.CharField(max_length=200, blank=True)
-    logo = models.FileField(upload_to='media/logos/%Y/%m/%d/', blank=True)
+    logo = CloudinaryField('image', blank=True)
 
     def __unicode__(self):
         return self.organisation_name
@@ -51,14 +52,13 @@ class Innovation(models.Model):
     name = models.CharField(max_length=50, blank=True)
     description = models.TextField(blank=True)
     url = models.CharField(max_length=200, blank=True)
-    service_pic = models.ImageField(upload_to='media/service_pics/%Y/%m/%d/',
-                                    blank=True)
+    service_pic = CloudinaryField('image', blank=True)
     service_videos = models.TextField(blank=True)
     sectors = models.TextField(blank=True)
     other_sectors = models.CharField(max_length=30, blank=True)
     challenge_to_solve = models.TextField(blank=True)
     challenge_faced = models.TextField(blank=True)
-    logo = models.ImageField(upload_to='media/logos/%Y/%m/%d', blank=True)
+    logo = CloudinaryField('image', blank=True)
 
     target_customers = models.TextField(blank=True)
     market_size = models.TextField(blank=True)
@@ -70,8 +70,8 @@ class Innovation(models.Model):
     major_wrongs = models.TextField(blank=True)
 
     revenue = models.TextField(blank=True)
-    monthly_costs = models.FileField(upload_to='media/uploads/%Y/%m/%d/', blank=True)
-    annual_costs = models.FileField(upload_to='media/uploads/%Y/%m/%d/', blank=True)
+    monthly_costs = CloudinaryField('raw', blank=True)
+    annual_costs = CloudinaryField('raw', blank=True)
 
     growth_ambitions = models.TextField(blank=True)
     milestones = models.TextField(blank=True)
@@ -103,12 +103,8 @@ class Innovation(models.Model):
     performance = models.TextField(blank=True)
     test_learnings = models.TextField(blank=True)
 
-    monthly_cashflow = models.FileField(
-        upload_to='media/cashflows/%Y/%m/%d/',
-        blank=True)
-    income_statement = models.FileField(
-        upload_to='media/income_statements/%Y/%m/%d/',
-        blank=True)
+    monthly_cashflow = CloudinaryField('raw', blank=True)
+    income_statement = CloudinaryField('raw', blank=True)
     published = models.BooleanField(default=False)
 
     def get_logo(self):

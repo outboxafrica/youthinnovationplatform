@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 import datetime
 from django.contrib.auth.models import AbstractUser
+from cloudinary.models import CloudinaryField
 from django.utils import timezone
 from YouthInnovPltfrm import settings
 
@@ -16,11 +17,7 @@ class User(AbstractUser):
     phone = models.CharField(max_length=15, blank=True)
     gender = models.CharField(max_length=10)
     country = models.CharField(max_length=50)
-    picture = models.ImageField(
-        upload_to='static/profile_images',
-        blank=True,
-        default=settings.STATIC_URL + 'img/user-placeholder.png'
-    )
+    picture = CloudinaryField('image', default=settings.STATIC_URL + 'img/user-placeholder.png', null=True)
     website = models.URLField(null=True, blank=True)
     blog = models.URLField(null=True, blank=True)
     linkedin = models.CharField(max_length=200, blank=True)
@@ -60,7 +57,7 @@ class Mentor(User):
 
 
 class Investor(User):
-    resume = models.FileField(upload_to='static/uploads/%Y/%m/%d/', blank=True)
+    resume = CloudinaryField('raw', blank=True)
 
     class Meta:
         verbose_name = "Investor"

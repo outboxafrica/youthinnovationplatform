@@ -91,7 +91,7 @@
         <div class="featured_startup_cards">
             {% for project in innovations %}
                 <div class="featured_startup_card1">
-                    <div class="startup_pic"><img class="card_img img-responsive" src="/media/{{ project.service_pic }}">
+                    <div class="startup_pic"><img class="card_img img-responsive" src="{{ project.service_pic.url }}">
                         <div class="startup_stage pull-right">
                             <p>{{ project.stage|status }}</p>
                         </div>

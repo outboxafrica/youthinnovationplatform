@@ -293,7 +293,6 @@ def concepting_view(request):
             proj = Innovation.objects.get(lead__email=request.user.email)
             form_2 = ConceptingForm2(request.POST, instance=proj)
             if form_2.is_valid():
-
                 proj_form = form_2.save(commit=False)
                 proj_form.save()
 
