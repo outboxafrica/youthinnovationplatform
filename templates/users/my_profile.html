@@ -26,11 +26,12 @@
                 <img id="facebookBtn" src="/static/img/Facebook.png" alt="facebook"> </div>
             <span id="startup-telephone">{{ userprofile.phone }}</span>
             <span id="startup-website">{{ userprofile.website }}</span>
-            {% if userprofile.roles == 'Investor' %}
-                <button class="contact-ownerBtn" type="button">Company profile</button>
-            {% elif userprofile.roles == 'Innovator' %}
-                <button class="contact-ownerBtn" type="button">Innovator profile</button>
-            {% elif userprofile.roles == 'Community Hub' %}
+            {% if userprofile.role == 'investor' %}
+                <a href="{% url 'projects:view-startup' %}"><button class="contact-ownerBtn" type="button">Company profile</button></a>
+
+            {% elif userprofile.role == 'innovator' %}
+                <a href="{% url 'projects:view-startup' %}"><button class="contact-ownerBtn" type="button">Startup Profile</button></a>
+            {% elif userprofile.role == 'Community Hub' %}
                 <button class="contact-ownerBtn" type="button">Hub profile</button>
             {% endif%}
         </div>

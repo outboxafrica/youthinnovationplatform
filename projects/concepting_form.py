@@ -9,7 +9,7 @@ from projects.validators import validate_img, validate_xls
 from YouthInnovPltfrm.forms import BaseModelForm
 
 
-class ConceptingForm1(BaseModelForm):
+class ConceptingForm1(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ConceptingForm1, self).__init__(*args, **kwargs)
         self.fields['name'].label = "Idea name"
@@ -66,7 +66,7 @@ class ConceptingForm1(BaseModelForm):
             Button('cancel', 'Cancel', css_class='cancelBtn'),
             Submit(
                 'concepting_form_1',
-                'Finish',
+                'Save and Next',
                 css_class="cancelBtn"
             ),
         ),

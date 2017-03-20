@@ -2341,6 +2341,11 @@ div.footer-basic.footer-min {
 .in-selector{
     color: #000;
 }
+
+.controls{
+    color: black;
+}
+
 .error{
     color:red;
     font-family: "FiraSans-Thin;
@@ -2367,6 +2372,12 @@ div.footer-basic.footer-min {
     padding: 15px 5px;
 }
 
-.error input, .error select {
+.error input, .error select, .error#label {
     border: 1px #ff4515 solid;
 }
+
+.text-overview{
+    height: 15.0em;
+}
+
+

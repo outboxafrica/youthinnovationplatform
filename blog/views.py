@@ -40,7 +40,8 @@ class PostList(ListView):
     def get_context_data(self, **kwargs):
         context = super(PostList, self).get_context_data(**kwargs)
         posts = Post.objects.all().filter(status="published")
-        if posts > 0:
+        print "Posts ", len(posts)
+        if len(posts) > 0:
             latest_post = posts[0]
             posts = posts[1:]
         else:

@@ -245,7 +245,7 @@ def signin(request):
                             pass
                             # todo redirect to create community hub wizard
                     else:
-                        return render(request, 'index/index.html')
+                        return HttpResponseRedirect(reverse('index:home'))
                 else:
                     raise ValidationError("Please check your email and validate your account")
             else:

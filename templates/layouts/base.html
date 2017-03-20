@@ -109,6 +109,8 @@
                                                                              height=45></div>
                             </a>
                         </li>
+                        {% else %}
+                        <li><a href="{% url 'index:signin' %}">Sign In</a></li>
                     {% endif %}
                 </ul>
             </div>
