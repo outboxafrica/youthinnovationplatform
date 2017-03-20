@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from eventtools.models import BaseEvent, BaseOccurrence
-
+from cloudinary.models import CloudinaryField
 # Create your models here.
 
 
@@ -10,7 +10,7 @@ class Event(BaseEvent):
     title = models.CharField(max_length=100)
     venue = models.CharField(max_length=100)
     price = models.CharField(max_length=100)
-    event_pic = models.ImageField(upload_to='media/events/', null=True)
+    event_pic = CloudinaryField('image')
     introduction = models.TextField(blank=True)
     objectives = models.TextField(blank=True)
     target = models.TextField(blank=True)

@@ -7,7 +7,7 @@
 {% block content %}
     <div class="blog-main-content">
         <div class="blog-image">
-            <img id="blog-image" src="/media/{{ post.blog_pic }}" width="600" height="400">
+            <img id="blog-image" src="{{ post.blog_pic.url }}" width="600" height="400">
         </div>
         <div class="blog-text-content">
             <div class="blog-title">{{ post.title }}</div>
