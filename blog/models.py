@@ -4,6 +4,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.core.urlresolvers import reverse
+from cloudinary.models import CloudinaryField
 from autoslug import AutoSlugField
 from users.models import User
 # Create your models here.
@@ -19,7 +20,7 @@ class Post(models.Model):
     slug = AutoSlugField(populate_from='title', unique_with='publish')
     author = models.ForeignKey(User, related_name='blog_posts')
     body = models.TextField()
-    blog_pic = models.ImageField(upload_to='media/blog/', null=True)
+    blog_pic = CloudinaryField('image')
     publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)

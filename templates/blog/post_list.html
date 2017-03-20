@@ -1,5 +1,6 @@
 {% extends 'layouts/base.html' %}
 {% load project_extras %}
+{% load cloudinary %}
 
 {% block content %}
     <div class="banner">
@@ -16,7 +17,8 @@
                 <!-- blog date -->
                 <p>{{ latest_post.publish | date:"d M Y" }}</p>
             </div>
-            <div class="blog-image2 pull-left"><img src="/media/{{ latest_post.blog_pic }}" height="299" width="448">
+            <div class="blog-image2 pull-left">
+                <img src="{{ latest_post.blog_pic.url }}" height="299" width="448">
             </div>
             <div class="vertical-separator"></div>
             <div class="text-overview">
@@ -43,7 +45,7 @@
                 <div class="blogcard ">
 
                     <div class="blogcard-pic">
-                        <img src="/media/{{ post.blog_pic }}" height="211" width="314">
+                        <img src="{{ post.blog_pic.url }}" height="211" width="314">
                         <div class="blog_date">
                             <p>{{ post.publish | date:"d M Y" }}</p>
                         </div>

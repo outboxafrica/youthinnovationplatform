@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 import os
 import dj_database_url
 import urlparse
+import cloudinary
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -48,6 +49,7 @@ INSTALLED_APPS = [
     'events',
     'crispy_forms',
     'axes',
+    'cloudinary',
 
 ]
 
@@ -168,3 +170,11 @@ AXES_LOGIN_FAILURE_LIMIT = 3
 AXES_LOCKOUT_URL = '/password'
 
 AXES_ONLY_USER_FAILURES = True
+
+
+url = urlparse.urlparse(os.environ["CLOUDINARY_URL"])
+cloudinary.config(
+  cloud_name=url.netloc.split('@')[1],
+  api_key=url.username,
+  api_secret=url.password
+)
