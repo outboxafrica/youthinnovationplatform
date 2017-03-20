@@ -116,7 +116,7 @@
                 <div class="blog_card1">
                     <a class="no_link" href="{{ entry.get_absolute_url }}">
                         <div class="blog_pic">
-                            <img class="card_img img-responsive" src="/media/{{ entry.blog_pic }}">
+                            <img class="card_img img-responsive" src="{{ entry.blog_pic.url }}">
                             <div class="blog_date">
                                 <p>{{ entry.publish | date:"d M Y" }}</p>
                             </div>
@@ -141,7 +141,7 @@
             {% for event in events %}
                 <div class="event_card11">
                     <div class="event_pic">
-                        <img class="card_img img-responsive" src="/media/{{ event.event_pic }}" alt="startup pic">
+                        <img class="card_img img-responsive" src="{{ event.event_pic.url }}" alt="startup pic">
                         <div class="event_date">
                             <p>{% for time in event.occurrence_set.all %}
                                 {{ time.start | date:"d M Y" }}
