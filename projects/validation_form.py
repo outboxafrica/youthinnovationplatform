@@ -22,14 +22,15 @@ class ValidationForm1(BaseModelForm):
         self.fields[
             'challenge_faced'].label = "What challenges are you facing?"
         self.fields[
-            'service_pic'].label = "Please provide a picture that shows your product/service (jpeg, png, gif)"
+            'service_pic'].label = "Please provide a picture that shows yrour product/service (jpeg, png, gif)"
         self.fields[
-            'service_videos'].label = "Please provide a link to the video that shows your product/service. [This can be a link to youtube or vimeo]"
+            'service_videos'].label = "Please provide a link to the video that shows your product/service. " \
+                                      "[This can be a link to youtube or vimeo]"
 
     name = forms.CharField()
     description = forms.CharField(widget=forms.Textarea())
     url = forms.CharField()
-    service_pic = forms.ImageField()
+    service_pic = forms.ImageField(required=False)
     service_videos = forms.CharField()
     sectors = forms.MultipleChoiceField(
         choices=(('agriculture', "Agriculture"),
@@ -53,7 +54,7 @@ class ValidationForm1(BaseModelForm):
                  ('funding', "Funding"),
                  ('office', "Office Space"), ),
         widget=forms.CheckboxSelectMultiple, )
-    logo = forms.ImageField(validators=[validate_img])
+    logo = forms.ImageField(validators=[validate_img], required=False)
 
     helper = FormHelper()
     helper.form_class = 'form-horizontal'
@@ -108,13 +109,17 @@ class ValidationForm2(BaseModelForm):
         self.fields[
             'test_plan'].label = "How did or are you currently testing with your customers?"
         self.fields[
-            'performance'].label = "Please share share some figures on how your product has performed while testing with actual users"
+            'performance'].label = "Please share share some figures on how your product has performed while testing " \
+                                   "with actual users"
         self.fields[
-            'test_learnings'].label = "Can you please share your biggest learnings after testing your product with customers?"
+            'test_learnings'].label = "Can you please share your biggest learnings after testing your product with " \
+                                      "customers?"
         self.fields[
-            'potential_competitors'].label = "Who are your potential competitors (or what other products/services address the same issue as yourself)?"
+            'potential_competitors'].label = "Who are your potential competitors (or what other products/services " \
+                                             "address the same issue as yourself)?"
         self.fields[
-            'business_differentiator'].label = "What differentiates your idea/business from alternative products/services?"
+            'business_differentiator'].label = "What differentiates your idea/business from alternative " \
+                                               "products/services?"
 
     target_customers = forms.CharField(widget=forms.Textarea())
     problem_change = forms.CharField(widget=forms.Textarea())

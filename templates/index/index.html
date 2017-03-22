@@ -91,7 +91,8 @@
         <div class="featured_startup_cards">
             {% for project in innovations %}
                 <div class="featured_startup_card1">
-                    <div class="startup_pic"><img class="card_img img-responsive" src="{{ project.service_pic.url }}">
+                    <div class="startup_pic">
+                        <img class="card_img img-responsive img" src="{{ project.service_pic.url }}">
                         <div class="startup_stage pull-right">
                             <p>{{ project.stage|status }}</p>
                         </div>
@@ -116,7 +117,7 @@
                 <div class="blog_card1">
                     <a class="no_link" href="{{ entry.get_absolute_url }}">
                         <div class="blog_pic">
-                            <img class="card_img img-responsive" src="{{ entry.blog_pic.url }}">
+                            <img class="card_img img-responsive img" src="{{ entry.blog_pic.url }}">
                             <div class="blog_date">
                                 <p>{{ entry.publish | date:"d M Y" }}</p>
                             </div>
@@ -141,7 +142,7 @@
             {% for event in events %}
                 <div class="event_card11">
                     <div class="event_pic">
-                        <img class="card_img img-responsive" src="{{ event.event_pic.url }}" alt="startup pic">
+                        <img class="card_img img-responsive img" src="{{ event.event_pic.url }}" alt="startup pic">
                         <div class="event_date">
                             <p>{% for time in event.occurrence_set.all %}
                                 {{ time.start | date:"d M Y" }}

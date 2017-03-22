@@ -1574,6 +1574,7 @@ textarea:-moz-placeholder {
     margin-top: 50px;
     width: auto;
     margin-bottom: 50px;
+    text-align: center;
 }
 
 #blog-image {
@@ -2378,6 +2379,11 @@ div.footer-basic.footer-min {
 
 .text-overview{
     height: 15.0em;
+}
+
+.img{
+    height: 100%;
+    width: 100%;
 }
 
 

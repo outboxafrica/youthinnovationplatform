@@ -344,6 +344,7 @@ def concepting_view(request):
 
 def validation_view(request):
     proj = Innovation.objects.get(lead__email=request.user.email)
+
     validation_form_1 = ValidationForm1(request.FILES, instance=proj)
     validation_form_2 = ValidationForm2(request.FILES, instance=proj)
     validation_form_3 = ValidationForm3(request.FILES, instance=proj)
@@ -351,10 +352,10 @@ def validation_view(request):
     active_form = 'form_1'
 
     if request.method == 'POST':
+        print request.POST
         proj = Innovation.objects.get(lead__email=request.user.email)
         validation_form_1 = ValidationForm1(request.POST, request.FILES, instance=proj)
-        validation_form_2 = ValidationForm2(request.POST, request.FILES, instance=proj)
-        validation_form_3 = ValidationForm3(request.POST, request.FILES, instance=proj)
+
         if 'validation_form_1' in request.POST:
             validation_form_1 = ValidationForm1(request.POST, request.FILES)
             if validation_form_1.is_valid():
@@ -369,6 +370,7 @@ def validation_view(request):
                 proj.service_videos = cleaned_data.get('service_videos')
                 proj.challenge_faced = cleaned_data.get("challenge_faced")
                 proj.challenge_to_solve = cleaned_data.get("challenge_to_solve")
+                proj.url = cleaned_data.get('url')
 
                 proj.stage = 3
                 proj.save()
@@ -377,9 +379,9 @@ def validation_view(request):
 
                 return render(request, 'projects/validation.html', {
                     'active_form': active_form,
-                    'form1': validation_form_1,
-                    'form2': validation_form_2,
-                    'form3': validation_form_3
+                    'form1': ValidationForm1(instance=proj),
+                    'form2': ValidationForm2(),
+                    'form3': ValidationForm3()
                 })
 
             else:
@@ -387,8 +389,8 @@ def validation_view(request):
                 return render(request, 'projects/validation.html', {
                     'active_form': active_form,
                     'form1': validation_form_1,
-                    'form2': validation_form_2,
-                    'form3': validation_form_3
+                    'form2': ValidationForm2(),
+                    'form3': ValidationForm3()
                 })
 
         elif 'validation_form_2' in request.POST:
@@ -402,18 +404,18 @@ def validation_view(request):
 
                 return render(request, 'projects/validation.html', {
                     'active_form': active_form,
-                    'form1': validation_form_1,
-                    'form2': validation_form_2,
-                    'form3': validation_form_3
+                    'form1': ValidationForm1(instance=proj),
+                    'form2': ValidationForm2(instance=proj),
+                    'form3': ValidationForm3()
                 })
 
             else:
                 active_form = 'form_2'
                 return render(request, 'projects/validation.html', {
                     'active_form': active_form,
-                    'form1': validation_form_1,
+                    'form1': ValidationForm1(instance=proj),
                     'form2': validation_form_2,
-                    'form3': validation_form_3
+                    'form3': ValidationForm3()
                 })
 
         elif 'validation_form_3' in request.POST:
@@ -430,16 +432,17 @@ def validation_view(request):
                 active_form = 'form_3'
                 return render(request, 'projects/validation.html', {
                     'active_form': active_form,
-                    'form1': validation_form_1,
-                    'form2': validation_form_2,
+                    'form1': ValidationForm1(instance=proj),
+                    'form2': ValidationForm2(instance=proj),
                     'form3': validation_form_3
                 })
 
     else:
+        print "validation get"
         return render(request, 'projects/validation.html', {
             'active_form': active_form,
-            'form1': validation_form_1,
-            'form2': validation_form_2,
+            'form1': ValidationForm1(instance=proj),
+            'form2': ValidationForm2(instance=proj),
             'form3': validation_form_3
         })
 

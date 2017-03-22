@@ -450,7 +450,9 @@ class ProgramManagerProfileForm(forms.ModelForm):
         widget=forms.RadioSelect,
         initial='female', )
 
-    age = forms.IntegerField(min_value=20, widget=forms.TextInput(attrs={'placeholder': '20'}))
+    age = forms.ChoiceField(
+        choices=(('18-23', "18-23"), ('24-29', "24-29"), ('30-35', "30-35"), ('36-41', "36-41"), ('42-47', "42-47"), ('48-53', "48-53")
+            , ('54-59', "54-59"), ('60+', "60+"), ))
 
     helper = FormHelper()
     helper.form_method = 'post'
