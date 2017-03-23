@@ -68,7 +68,7 @@ class ConceptingForm1(forms.ModelForm):
         Field('logo',
               css_class='file-upload'),
         FormActions(
-            Submit('scaling_form_1', 'Next', css_class="cancelBtn btnNext"),
+            Submit('concepting_form_1', 'Next', css_class="cancelBtn btnNext"),
         )
     )
 

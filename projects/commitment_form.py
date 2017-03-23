@@ -46,7 +46,7 @@ class CommitmentForm1(BaseModelForm):
         widget=forms.CheckboxSelectMultiple,
     )
 
-    challenge_to_solve = forms.CharField(widget=forms.Textarea(), )
+    challenge_to_solve = forms.CharField(widget=forms.Textarea(),)
 
     challenge_faced = forms.MultipleChoiceField(
         choices=(('financial_articulation', "I can't articulate my financials"),
@@ -55,6 +55,7 @@ class CommitmentForm1(BaseModelForm):
                  ('business_differentiator', "Figuring out why my business is different"),
                  ('team_members', "Getting qualified team members"),),
         widget=forms.CheckboxSelectMultiple, )
+    other_sectors = forms.CharField(required=False, max_length=2000)
 
     helper = FormHelper()
     helper.form_class = 'form-horizontal'
@@ -72,6 +73,8 @@ class CommitmentForm1(BaseModelForm):
               css_class='input-length3 form-control text-small',
               placeholder='https://www.youtube.com/watch?v=eedeXTWZUn8'),
         InlineCheckboxes('sectors'),
+        Field('other_sectors',
+              css_class='text-small'),
         Field('challenge_to_solve',
               rows="3",
               css_class='input-length3 form-control text-large'),
