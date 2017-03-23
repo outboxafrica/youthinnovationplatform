@@ -29,7 +29,7 @@ class EstablishingForm1(BaseModelForm):
             'challenge_faced'].label = "What challenges are you facing?"
 
     name = forms.CharField()
-    logo = forms.ImageField(validators=[validate_img])
+    logo = forms.ImageField(validators=[validate_img], required=False)
     service_pic = forms.ImageField(required=False)
     service_videos = forms.URLField(required=False)
     url = forms.URLField(required=False)
@@ -62,27 +62,28 @@ class EstablishingForm1(BaseModelForm):
     helper.form_class = 'form-horizontal'
     helper.layout = Layout(
         Field('name',
-              css_class='input-length form-control'),
+              css_class='input-length3 form-control text-small'),
         Field('description',
               rows="3",
-              css_class='input-length form-control'),
+              css_class='input-length3 form-control text-large'),
         Field('url',
-              css_class='input-length form-control'),
+              css_class='input-length3 form-control text-small', placeholder='https://innovation.com'),
         Field('service_pic',
-              css_class='input-length file-ubload'),
+              css_class='file-upload'),
         Field('service_videos',
-              css_class='input-length form-control'),
+              css_class='input-length3 form-control text-small',
+              placeholder='https://www.youtube.com/watch?v=eedeXTWZUn8'),
         InlineCheckboxes('sectors'),
         Field('other_sectors',
-              css_class='input-length3 form-control'),
+              css_class='input-length3 form-control text-small'),
         Field('challenge_to_solve',
               rows="3",
-              css_class='input-length form-control'),
-        InlineCheckboxes('challenge_faced'),
+              css_class='input-length3 form-control text-large'),
+        InlineCheckboxes('challenge_faced', ),
         Field('logo',
               css_class='file-upload'),
         FormActions(
-            Submit('establishing_form_1', 'Next', css_class="cancelBtn btnNext"),
+            Submit('validation_form_1', 'Next', css_class="cancelBtn btnNext"),
         )
     )
 
@@ -126,25 +127,25 @@ class EstablishingForm2(BaseModelForm):
     helper.layout = Layout(
         Field('target_customers',
               rows="3",
-              css_class='form-control'),
+              css_class='form-control text-large'),
         Field('market_size',
               rows="3",
-              css_class='form-control'),
+              css_class='form-control text-large'),
         Field('acquisition_plan',
               rows="3",
-              css_class='form-control'),
+              css_class='form-control text-large'),
         Field('potential_competitors',
               rows="3",
-              css_class='form-control'),
+              css_class='form-control text-large'),
         Field('competitive_advantage',
               rows="3",
-              css_class='form-control'),
+              css_class='form-control text-large'),
         Field('business_differentiator',
               rows="3",
-              css_class='form-control'),
+              css_class='form-control text-large'),
         Field('major_wrongs',
               rows="3",
-              css_class='form-control'),
+              css_class='form-control text-large'),
         FormActions(
             Button('Cancel', 'Previous', css_class="cancelBtn btnPrevious"),
             Submit('establishing_form_2', 'Next', css_class="cancelBtn btnNext"),
@@ -184,7 +185,7 @@ class EstablishingForm3(BaseModelForm):
         self.fields['yr_2_projected_earnings'].label = ""
         self.fields['yr_3_projected_earnings'].label = ""
 
-    revenue = forms.CharField(widget=forms.Textarea())
+    revenue = forms.CharField()
 
     mcosts = forms.FileField(validators=[validate_xls])
     ycosts = forms.FileField(validators=[validate_xls])
@@ -211,34 +212,33 @@ class EstablishingForm3(BaseModelForm):
     helper.form_class = 'form-horizontal'
     helper.layout = Layout(
         Field('revenue',
-              rows="3",
-              css_class='input-length1 form-control'),
+              css_class='input-length1 form-control text-small'),
         # Field('monthly_cashflow', css_class='file-upload'),
         # Field('income_statement', css_class='file-upload'),
         Field('mcosts'),
         Field('ycosts'),
         Field('growth_ambitions',
               rows="3",
-              css_class='input-length1 form-control'),
+              css_class='input-length1 form-control text-large'),
         Field('milestones',
               rows="3",
-              css_class='input-length1 form-control'),
+              css_class='input-length1 form-control text-large'),
         Field('total_sales',
-              css_class='input-length1 form-control'),
+              css_class='input-length1 form-control text-small'),
         Field('yr_1_projected_earnings',
-              css_class='input-length1 form-control'),
+              css_class='input-length1 form-control text-small'),
         Field('yr_2_projected_earnings',
-              css_class='input-length1 form-control'),
+              css_class='input-length1 form-control text-small'),
         Field('yr_3_projected_earnings',
-              css_class='input-length1 form-control'),
+              css_class='input-length1 form-control text-small'),
         Field('do_you_have_auditedbooks'),
         Field('total_capital',
-              css_class='input-length1 form-control'),
+              css_class='input-length1 form-control text-small'),
         Field('expected_capital',
-              css_class='input-length1 form-control'),
+              css_class='input-length1 form-control text-small'),
         Field('capital_type'),
         Field('capital_use',
-              css_class='input-length1 form-control'),
+              css_class='input-length1 form-control text-small'),
         FormActions(
             Submit('establishing_form_3', 'Finish', css_class="cancelBtn btnNext"),
         )

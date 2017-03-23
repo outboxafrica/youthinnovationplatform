@@ -143,22 +143,21 @@ class EditIdeationProfile(UpdateView):
 def commitment_view(request):
     proj = Innovation.objects.get(lead__email=request.user.email)
 
-    commitment_form_1 = CommitmentForm1(instance=proj)
-    commitment_form_2 = CommitmentForm2(instance=proj)
-    commitment_form_3 = CommitmentForm3(instance=proj)
+    commitment_form_1 = CommitmentForm1(request.FILES, instance=proj)
+    commitment_form_2 = CommitmentForm2(request.FILES, instance=proj)
+    commitment_form_3 = CommitmentForm3(request.FILES, instance=proj)
 
     active_form = 'form_1'
 
     if request.method == 'POST':
-        print "form is post"
+        print request.POST
         proj = Innovation.objects.get(lead__email=request.user.email)
-        commitment_form_1 = CommitmentForm1(request.POST, instance=proj)
-        commitment_form_2 = CommitmentForm2(request.POST, instance=proj)
-        commitment_form_3 = CommitmentForm3(request.POST, instance=proj)
-        if 'commitment_form_1' in request.POST:
-            commitment_form_1 = CommitmentForm1(request.POST)
-            if commitment_form_1.is_valid():
+        commitment_form_1 = CommitmentForm1(request.POST, request.FILES, instance=proj)
 
+        if 'commitment_form_1' in request.POST:
+            commitment_form_1 = CommitmentForm1(request.POST, request.FILES)
+            if commitment_form_1.is_valid():
+                proj = Innovation.objects.get(lead__email=request.user.email)
                 cleaned_data = commitment_form_1.cleaned_data
                 proj.name = cleaned_data.get('name')
                 proj.description = cleaned_data.get('description')
@@ -169,17 +168,18 @@ def commitment_view(request):
                 proj.service_videos = cleaned_data.get('service_videos')
                 proj.challenge_faced = cleaned_data.get("challenge_faced")
                 proj.challenge_to_solve = cleaned_data.get("challenge_to_solve")
+                proj.url = cleaned_data.get('url')
 
-                proj.stage = 2
+                proj.stage = 3
                 proj.save()
 
                 active_form = 'form_2'
 
                 return render(request, 'projects/commitment.html', {
                     'active_form': active_form,
-                    'form1': commitment_form_1,
-                    'form2': commitment_form_2,
-                    'form3': commitment_form_3
+                    'form1': CommitmentForm1(instance=proj),
+                    'form2': CommitmentForm2(),
+                    'form3': CommitmentForm3()
                 })
 
             else:
@@ -187,13 +187,13 @@ def commitment_view(request):
                 return render(request, 'projects/commitment.html', {
                     'active_form': active_form,
                     'form1': commitment_form_1,
-                    'form2': commitment_form_2,
-                    'form3': commitment_form_3
+                    'form2': CommitmentForm2(),
+                    'form3': CommitmentForm3()
                 })
 
         elif 'commitment_form_2' in request.POST:
             proj = Innovation.objects.get(lead__email=request.user.email)
-            form_2 = CommitmentForm2(request.POST, instance=proj)
+            form_2 = CommitmentForm2(request.POST, request.FILES, instance=proj)
             if form_2.is_valid():
                 proj_form = form_2.save(commit=False)
                 proj_form.save()
@@ -202,23 +202,23 @@ def commitment_view(request):
 
                 return render(request, 'projects/commitment.html', {
                     'active_form': active_form,
-                    'form1': commitment_form_1,
-                    'form2': commitment_form_2,
-                    'form3': commitment_form_3
+                    'form1': CommitmentForm1(instance=proj),
+                    'form2': CommitmentForm2(instance=proj),
+                    'form3': CommitmentForm3()
                 })
 
             else:
                 active_form = 'form_2'
                 return render(request, 'projects/commitment.html', {
                     'active_form': active_form,
-                    'form1': commitment_form_1,
+                    'form1': CommitmentForm1(instance=proj),
                     'form2': commitment_form_2,
-                    'form3': commitment_form_3
+                    'form3': CommitmentForm3()
                 })
 
         elif 'commitment_form_3' in request.POST:
             proj = Innovation.objects.get(lead__email=request.user.email)
-            form_3 = CommitmentForm3(request.POST, instance=proj)
+            form_3 = CommitmentForm3(request.POST, request.FILES, instance=proj)
 
             if form_3.is_valid():
                 proj_form = form_3.save(commit=False)
@@ -230,33 +230,37 @@ def commitment_view(request):
                 active_form = 'form_3'
                 return render(request, 'projects/commitment.html', {
                     'active_form': active_form,
-                    'form1': commitment_form_1,
-                    'form2': commitment_form_2,
+                    'form1': CommitmentForm1(instance=proj),
+                    'form2': CommitmentForm2(instance=proj),
                     'form3': commitment_form_3
                 })
 
     else:
-        print 'not post method'
+        print "commitment get"
         return render(request, 'projects/commitment.html', {
             'active_form': active_form,
-            'form1': commitment_form_1,
-            'form2': commitment_form_2,
+            'form1': CommitmentForm1(instance=proj),
+            'form2': CommitmentForm2(instance=proj),
             'form3': commitment_form_3
         })
 
 
 def concepting_view(request):
     proj = Innovation.objects.get(lead__email=request.user.email)
-    concepting_form_1 = ConceptingForm1(instance=proj)
-    concepting_form_2 = ConceptingForm2(instance=proj)
-    concepting_form_3 = ConceptingForm3(instance=proj)
+
+    concepting_form_1 = ConceptingForm1(request.FILES, instance=proj)
+    concepting_form_2 = ConceptingForm2(request.FILES, instance=proj)
+    concepting_form_3 = ConceptingForm3(request.FILES, instance=proj)
 
     active_form = 'form_1'
 
     if request.method == 'POST':
+        print request.POST
+        proj = Innovation.objects.get(lead__email=request.user.email)
+        concepting_form_1 = ConceptingForm1(request.POST, request.FILES, instance=proj)
 
         if 'concepting_form_1' in request.POST:
-            concepting_form_1 = ConceptingForm1(request.POST)
+            concepting_form_1 = ConceptingForm1(request.POST, request.FILES)
             if concepting_form_1.is_valid():
                 proj = Innovation.objects.get(lead__email=request.user.email)
                 cleaned_data = concepting_form_1.cleaned_data
@@ -265,8 +269,11 @@ def concepting_view(request):
                 proj.sectors = cleaned_data.get('sectors')
                 proj.other_sectors = cleaned_data.get('other_sectors')
                 proj.logo = cleaned_data.get('logo')
+                proj.service_pic = cleaned_data.get('service_pic')
+                proj.service_videos = cleaned_data.get('service_videos')
                 proj.challenge_faced = cleaned_data.get("challenge_faced")
                 proj.challenge_to_solve = cleaned_data.get("challenge_to_solve")
+                proj.url = cleaned_data.get('url')
 
                 proj.stage = 3
                 proj.save()
@@ -275,9 +282,9 @@ def concepting_view(request):
 
                 return render(request, 'projects/concepting.html', {
                     'active_form': active_form,
-                    'form1': concepting_form_1,
-                    'form2': concepting_form_2,
-                    'form3': concepting_form_3
+                    'form1': ConceptingForm1(instance=proj),
+                    'form2': ConceptingForm2(),
+                    'form3': ConceptingForm3()
                 })
 
             else:
@@ -285,13 +292,13 @@ def concepting_view(request):
                 return render(request, 'projects/concepting.html', {
                     'active_form': active_form,
                     'form1': concepting_form_1,
-                    'form2': concepting_form_2,
-                    'form3': concepting_form_3
+                    'form2': ConceptingForm2(),
+                    'form3': ConceptingForm3()
                 })
 
         elif 'concepting_form_2' in request.POST:
             proj = Innovation.objects.get(lead__email=request.user.email)
-            form_2 = ConceptingForm2(request.POST, instance=proj)
+            form_2 = ConceptingForm2(request.POST, request.FILES, instance=proj)
             if form_2.is_valid():
                 proj_form = form_2.save(commit=False)
                 proj_form.save()
@@ -300,23 +307,23 @@ def concepting_view(request):
 
                 return render(request, 'projects/concepting.html', {
                     'active_form': active_form,
-                    'form1': concepting_form_1,
-                    'form2': concepting_form_2,
-                    'form3': concepting_form_3
+                    'form1': ConceptingForm1(instance=proj),
+                    'form2': ConceptingForm2(instance=proj),
+                    'form3': ConceptingForm3()
                 })
 
             else:
                 active_form = 'form_2'
                 return render(request, 'projects/concepting.html', {
                     'active_form': active_form,
-                    'form1': concepting_form_1,
+                    'form1': ConceptingForm1(instance=proj),
                     'form2': concepting_form_2,
-                    'form3': concepting_form_3
+                    'form3': ConceptingForm3()
                 })
 
         elif 'concepting_form_3' in request.POST:
             proj = Innovation.objects.get(lead__email=request.user.email)
-            form_3 = ConceptingForm3(request.POST, instance=proj)
+            form_3 = ConceptingForm3(request.POST, request.FILES, instance=proj)
 
             if form_3.is_valid():
                 proj_form = form_3.save(commit=False)
@@ -328,16 +335,17 @@ def concepting_view(request):
                 active_form = 'form_3'
                 return render(request, 'projects/concepting.html', {
                     'active_form': active_form,
-                    'form1': concepting_form_1,
-                    'form2': concepting_form_2,
+                    'form1': ConceptingForm1(instance=proj),
+                    'form2': ConceptingForm2(instance=proj),
                     'form3': concepting_form_3
                 })
 
     else:
+        print "concepting get"
         return render(request, 'projects/concepting.html', {
             'active_form': active_form,
-            'form1': concepting_form_1,
-            'form2': concepting_form_2,
+            'form1': ConceptingForm1(instance=proj),
+            'form2': ConceptingForm2(instance=proj),
             'form3': concepting_form_3
         })
 
@@ -449,6 +457,7 @@ def validation_view(request):
 
 def scaling_view(request):
     proj = Innovation.objects.get(lead__email=request.user.email)
+
     scaling_form_1 = ScalingForm1(request.FILES, instance=proj)
     scaling_form_2 = ScalingForm2(request.FILES, instance=proj)
     scaling_form_3 = ScalingForm3(request.FILES, instance=proj)
@@ -456,6 +465,9 @@ def scaling_view(request):
     active_form = 'form_1'
 
     if request.method == 'POST':
+        print request.POST
+        proj = Innovation.objects.get(lead__email=request.user.email)
+        scaling_form_1 = ScalingForm1(request.POST, request.FILES, instance=proj)
 
         if 'scaling_form_1' in request.POST:
             scaling_form_1 = ScalingForm1(request.POST, request.FILES)
@@ -471,6 +483,7 @@ def scaling_view(request):
                 proj.service_videos = cleaned_data.get('service_videos')
                 proj.challenge_faced = cleaned_data.get("challenge_faced")
                 proj.challenge_to_solve = cleaned_data.get("challenge_to_solve")
+                proj.url = cleaned_data.get('url')
 
                 proj.stage = 3
                 proj.save()
@@ -479,9 +492,9 @@ def scaling_view(request):
 
                 return render(request, 'projects/scaling.html', {
                     'active_form': active_form,
-                    'form1': scaling_form_1,
-                    'form2': scaling_form_2,
-                    'form3': scaling_form_3
+                    'form1': ScalingForm1(instance=proj),
+                    'form2': ScalingForm2(),
+                    'form3': ScalingForm3()
                 })
 
             else:
@@ -489,8 +502,8 @@ def scaling_view(request):
                 return render(request, 'projects/scaling.html', {
                     'active_form': active_form,
                     'form1': scaling_form_1,
-                    'form2': scaling_form_2,
-                    'form3': scaling_form_3
+                    'form2': ScalingForm2(),
+                    'form3': ScalingForm3()
                 })
 
         elif 'scaling_form_2' in request.POST:
@@ -504,18 +517,18 @@ def scaling_view(request):
 
                 return render(request, 'projects/scaling.html', {
                     'active_form': active_form,
-                    'form1': scaling_form_1,
-                    'form2': scaling_form_2,
-                    'form3': scaling_form_3
+                    'form1': ScalingForm1(instance=proj),
+                    'form2': ScalingForm2(instance=proj),
+                    'form3': ScalingForm3()
                 })
 
             else:
                 active_form = 'form_2'
                 return render(request, 'projects/scaling.html', {
                     'active_form': active_form,
-                    'form1': scaling_form_1,
+                    'form1': ScalingForm1(instance=proj),
                     'form2': scaling_form_2,
-                    'form3': scaling_form_3
+                    'form3': ScalingForm3()
                 })
 
         elif 'scaling_form_3' in request.POST:
@@ -532,22 +545,24 @@ def scaling_view(request):
                 active_form = 'form_3'
                 return render(request, 'projects/scaling.html', {
                     'active_form': active_form,
-                    'form1': scaling_form_1,
-                    'form2': scaling_form_2,
+                    'form1': ScalingForm1(instance=proj),
+                    'form2': ScalingForm2(instance=proj),
                     'form3': scaling_form_3
                 })
 
     else:
+        print "scaling get"
         return render(request, 'projects/scaling.html', {
             'active_form': active_form,
-            'form1': scaling_form_1,
-            'form2': scaling_form_2,
+            'form1': ScalingForm1(instance=proj),
+            'form2': ScalingForm2(instance=proj),
             'form3': scaling_form_3
         })
 
 
 def establishing_view(request):
     proj = Innovation.objects.get(lead__email=request.user.email)
+
     establishing_form_1 = EstablishingForm1(request.FILES, instance=proj)
     establishing_form_2 = EstablishingForm2(request.FILES, instance=proj)
     establishing_form_3 = EstablishingForm3(request.FILES, instance=proj)
@@ -555,10 +570,10 @@ def establishing_view(request):
     active_form = 'form_1'
 
     if request.method == 'POST':
+        print request.POST
         proj = Innovation.objects.get(lead__email=request.user.email)
         establishing_form_1 = EstablishingForm1(request.POST, request.FILES, instance=proj)
-        establishing_form_2 = EstablishingForm2(request.POST, request.FILES, instance=proj)
-        establishing_form_3 = EstablishingForm3(request.POST, request.FILES, instance=proj)
+
         if 'establishing_form_1' in request.POST:
             establishing_form_1 = EstablishingForm1(request.POST, request.FILES)
             if establishing_form_1.is_valid():
@@ -573,6 +588,7 @@ def establishing_view(request):
                 proj.service_videos = cleaned_data.get('service_videos')
                 proj.challenge_faced = cleaned_data.get("challenge_faced")
                 proj.challenge_to_solve = cleaned_data.get("challenge_to_solve")
+                proj.url = cleaned_data.get('url')
 
                 proj.stage = 3
                 proj.save()
@@ -581,9 +597,9 @@ def establishing_view(request):
 
                 return render(request, 'projects/establishing.html', {
                     'active_form': active_form,
-                    'form1': establishing_form_1,
-                    'form2': establishing_form_2,
-                    'form3': establishing_form_3
+                    'form1': EstablishingForm1(instance=proj),
+                    'form2': EstablishingForm2(),
+                    'form3': EstablishingForm3()
                 })
 
             else:
@@ -591,8 +607,8 @@ def establishing_view(request):
                 return render(request, 'projects/establishing.html', {
                     'active_form': active_form,
                     'form1': establishing_form_1,
-                    'form2': establishing_form_2,
-                    'form3': establishing_form_3
+                    'form2': EstablishingForm2(),
+                    'form3': EstablishingForm3()
                 })
 
         elif 'establishing_form_2' in request.POST:
@@ -606,18 +622,18 @@ def establishing_view(request):
 
                 return render(request, 'projects/establishing.html', {
                     'active_form': active_form,
-                    'form1': establishing_form_1,
-                    'form2': establishing_form_2,
-                    'form3': establishing_form_3
+                    'form1': EstablishingForm1(instance=proj),
+                    'form2': EstablishingForm2(instance=proj),
+                    'form3': EstablishingForm3()
                 })
 
             else:
                 active_form = 'form_2'
                 return render(request, 'projects/establishing.html', {
                     'active_form': active_form,
-                    'form1': establishing_form_1,
+                    'form1': EstablishingForm1(instance=proj),
                     'form2': establishing_form_2,
-                    'form3': establishing_form_3
+                    'form3': EstablishingForm3()
                 })
 
         elif 'establishing_form_3' in request.POST:
@@ -634,15 +650,16 @@ def establishing_view(request):
                 active_form = 'form_3'
                 return render(request, 'projects/establishing.html', {
                     'active_form': active_form,
-                    'form1': establishing_form_1,
-                    'form2': establishing_form_2,
+                    'form1': EstablishingForm1(instance=proj),
+                    'form2': EstablishingForm2(instance=proj),
                     'form3': establishing_form_3
                 })
 
     else:
+        print "establishing get"
         return render(request, 'projects/establishing.html', {
             'active_form': active_form,
-            'form1': establishing_form_1,
-            'form2': establishing_form_2,
+            'form1': EstablishingForm1(instance=proj),
+            'form2': EstablishingForm2(instance=proj),
             'form3': establishing_form_3
         })

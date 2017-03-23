@@ -20,7 +20,6 @@ class ConceptingForm1(forms.ModelForm):
 
     name = forms.CharField(widget=forms.TextInput(attrs={'class': "", 'placeholder': 'name of idea'}))
     description = forms.CharField(widget=forms.Textarea())
-    idea_stage = forms.CharField(required=False)
     sectors = forms.MultipleChoiceField(
         choices=(
             ('agriculture', "Agriculture"),
@@ -54,22 +53,23 @@ class ConceptingForm1(forms.ModelForm):
     helper = FormHelper()
     helper.form_class = 'form-horizontal'
     helper.layout = Layout(
-        Field('name', css_class='text-small'),
-        Field('description', rows="4", css_class='text-large'),
-        Field('sectors', ),
+        Field('name',
+              css_class='input-length form-control text-small'),
+        Field('description',
+              rows="3",
+              css_class='input-length form-control text-large'),
+        InlineCheckboxes('sectors'),
         Field('other_sectors',
-              css_class='text-small'),
-        Field('challenge_to_solve', rows="4", css_class='text-large'),
-        Field('challenge_faced', css_class=''),
-        Field('logo', css_class='file-upload'),
+              css_class='input-length3 form-control text-small'),
+        Field('challenge_to_solve',
+              rows="3",
+              css_class='input-length form-control text-large'),
+        InlineCheckboxes('challenge_faced'),
+        Field('logo',
+              css_class='file-upload'),
         FormActions(
-            Button('cancel', 'Cancel', css_class='cancelBtn'),
-            Submit(
-                'concepting_form_1',
-                'Save and Next',
-                css_class="cancelBtn"
-            ),
-        ),
+            Submit('scaling_form_1', 'Next', css_class="cancelBtn btnNext"),
+        )
     )
 
     class Meta:
@@ -109,25 +109,25 @@ class ConceptingForm2(BaseModelForm):
     helper.layout = Layout(
         Field('target_customers',
               rows="3",
-              css_class='form-control'),
+              css_class='form-control text-large'),
         Field('acquisition_plan',
               rows="3",
-              css_class='form-control'),
+              css_class='form-control text-large'),
         Field('potential_competitors',
               rows="3",
-              css_class='form-control'),
+              css_class='form-control text-large'),
         Field('business_differentiator',
               rows="3",
-              css_class='form-control'),
+              css_class='form-control text-large'),
         Field('do_really_well',
               rows="3",
-              css_class='form-control'),
+              css_class='form-control text-large'),
         Field('key_resources',
               rows="3",
-              css_class='form-control'),
+              css_class='form-control text-large'),
         Field('key_partners',
               rows="3",
-              css_class='form-control'),
+              css_class='form-control text-large'),
         FormActions(
             Button('Cancel', 'Previous', css_class="cancelBtn btnPrevious"),
             Submit('concepting_form_2', 'Next', css_class="cancelBtn btnNext"),
@@ -147,18 +147,16 @@ class ConceptingForm3(BaseModelForm):
         self.fields['revenue'].label = "How will you generate revenue?"
         self.fields['costs'].label = "What do you envision as your costs?"
 
-    revenue = forms.CharField(widget=forms.Textarea())
-    costs = forms.CharField(widget=forms.Textarea())
+    revenue = forms.CharField()
+    costs = forms.CharField()
 
     helper = FormHelper()
     helper.form_class = 'form-horizontal'
     helper.layout = Layout(
         Field('revenue',
-              rows="3",
-              css_class='input-length2 form-control'),
+              css_class='input-length2 form-control text-small'),
         Field('costs',
-              rows="3",
-              css_class='input-length2 form-control'),
+              css_class='input-length2 form-control text-small'),
         FormActions(
             Submit('concepting_form_3', 'Finish', css_class="cancelBtn btnNext"),
         )

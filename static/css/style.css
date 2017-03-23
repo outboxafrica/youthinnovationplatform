@@ -75,28 +75,28 @@ button:focus {
     color: black;
 }
 
-::-webkit-input-placeholder {
+.text-small::-webkit-input-placeholder {
     /* Chrome */
-    color: white;
+    color: #B0B0B0;
     font-family: "FiraSans-Thin";
 }
 
-:-ms-input-placeholder {
+.text-small:-ms-input-placeholder {
     /* IE 10+ */
-    color: white;
+    color: #B0B0B0;
     font-family: "FiraSans-Thin";
 }
 
-::-moz-placeholder {
+.text-small::-moz-placeholder {
     /* Firefox 19+ */
-    color: white;
+    color: #B0B0B0;
     font-family: "FiraSans-Thin";
     opacity: 1;
 }
 
-:-moz-placeholder {
+.text-small:-moz-placeholder {
     /* Firefox 4 - 18 */
-    color: white;
+    color: #B0B0B0;
     font-family: "FiraSans-Thin";
     opacity: 1;
 }
@@ -828,13 +828,14 @@ footer li:first-child:before {
     border-radius: 30px;
     border-style: none;
     border-color: transparent;
-    background-color: #eee;
+    background-color: #f6f6f6;
     padding-left: 20px;
     padding-right: 20px;
     padding-bottom: 5px;
     padding-top: 5px;
     height: 33px;
     font-family: "FiraSans-Regular";
+    color: #909090;
 }
 
 .text-large {
@@ -842,12 +843,13 @@ footer li:first-child:before {
     border-radius: 15px;
     border-style: none;
     border-color: transparent;
-    background-color: #eee;
+    background-color: #f6f6f6;
     padding-left: 20px;
     padding-right: 20px;
     padding-bottom: 5px;
     padding-top: 5px;
     font-family: "FiraSans-Regular";
+    color: #909090;
 
 }
 
@@ -2386,4 +2388,30 @@ div.footer-basic.footer-min {
     width: 100%;
 }
 
+.control-label{
+    color: #000000;
+}
 
+.error  .help-inline{
+    color: red;
+}
+
+.error > .control-label{
+    color: red;
+}
+
+.error  .help-block {
+    color: red;
+}
+
+label.checkbox.inline{
+    margin-left: 20px;
+}
+
+.error label.checkbox.inline{
+    margin-left: 20px;
+}
+
+.error label{
+    color: red;
+}

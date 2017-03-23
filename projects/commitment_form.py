@@ -60,26 +60,27 @@ class CommitmentForm1(BaseModelForm):
     helper.form_class = 'form-horizontal'
     helper.layout = Layout(
         Field('name',
-              css_class='input-length form-control'),
+              css_class='input-length3 form-control text-small'),
         Field('description',
               rows="3",
-              css_class='input-length form-control'),
+              css_class='input-length3 form-control text-large'),
         Field('url',
-              css_class='input-length form-control'),
+              css_class='input-length3 form-control text-small', placeholder='https://innovation.com'),
         Field('service_pic',
-              css_class='input-length file-ubload'),
+              css_class='file-upload'),
         Field('service_videos',
-              css_class='input-length form-control'),
+              css_class='input-length3 form-control text-small',
+              placeholder='https://www.youtube.com/watch?v=eedeXTWZUn8'),
         InlineCheckboxes('sectors'),
-        Field('other_sectors',
-              css_class='input-length3 form-control'),
         Field('challenge_to_solve',
               rows="3",
-              css_class='input-length form-control'),
-        InlineCheckboxes('challenge_faced'),
+              css_class='input-length3 form-control text-large'),
+        InlineCheckboxes('challenge_faced', ),
         Field('logo',
               css_class='file-upload'),
-        Submit('commitment_form_1', 'Next', css_class="cancelBtn btnNext"),
+        FormActions(
+            Submit('validation_form_1', 'Next', css_class="cancelBtn btnNext"),
+        )
     )
 
     class Meta:
@@ -149,11 +150,9 @@ class CommitmentForm3(forms.ModelForm):
     helper.form_class = 'form-horizontal'
     helper.layout = Layout(
         Field('revenue',
-              rows="3",
-              css_class='input-length2 form-control'),
+              css_class='input-length2 form-control text-small'),
         Field('costs',
-              rows="3",
-              css_class='input-length2 form-control'),
+              css_class='input-length2 form-control text-small'),
         Submit('commitment_form_3', 'Finish', css_class="cancelBtn btnNext"),
     )
 
