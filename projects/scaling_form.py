@@ -70,7 +70,7 @@ class ScalingForm1(BaseModelForm):
         Field('service_pic',
               css_class='input-length file-upload'),
         Field('service_videos',
-              css_class='input-length form-control', placeholder='https://www.youtube.com/watch?v=eedeXTWZUn8'),
+              css_class='input-length form-control text-small', placeholder='https://www.youtube.com/watch?v=eedeXTWZUn8'),
         InlineCheckboxes('sectors'),
         Field('other_sectors',
               css_class='input-length3 form-control text-small'),
@@ -229,7 +229,7 @@ class ScalingForm3(BaseModelForm):
               css_class='input-length1 form-control text-small'),
         Field('capital_type'),
         Field('capital_use',
-              css_class='input-length1 form-control'),
+              css_class='input-length1 form-control text-small'),
         FormActions(
             Submit('scaling_form_3', 'Finish', css_class="cancelBtn btnNext"),
         )

@@ -2415,3 +2415,10 @@ label.checkbox.inline{
 .error label{
     color: red;
 }
+
+.down-10{
+    margin-bottom: 10px;
+   }
+.controls > .radio{
+    margin-left: 20px;}
+

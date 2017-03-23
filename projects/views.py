@@ -241,7 +241,7 @@ def commitment_view(request):
             'active_form': active_form,
             'form1': CommitmentForm1(instance=proj),
             'form2': CommitmentForm2(instance=proj),
-            'form3': commitment_form_3
+            'form3': CommitmentForm3(instance=proj)
         })
 
 
@@ -346,7 +346,7 @@ def concepting_view(request):
             'active_form': active_form,
             'form1': ConceptingForm1(instance=proj),
             'form2': ConceptingForm2(instance=proj),
-            'form3': concepting_form_3
+            'form3': ConceptingForm3(instance=proj)
         })
 
 
@@ -451,7 +451,7 @@ def validation_view(request):
             'active_form': active_form,
             'form1': ValidationForm1(instance=proj),
             'form2': ValidationForm2(instance=proj),
-            'form3': validation_form_3
+            'form3': ValidationForm3(instance=proj)
         })
 
 
@@ -556,7 +556,7 @@ def scaling_view(request):
             'active_form': active_form,
             'form1': ScalingForm1(instance=proj),
             'form2': ScalingForm2(instance=proj),
-            'form3': scaling_form_3
+            'form3': ScalingForm3(instance=proj)
         })
 
 
@@ -661,5 +661,5 @@ def establishing_view(request):
             'active_form': active_form,
             'form1': EstablishingForm1(instance=proj),
             'form2': EstablishingForm2(instance=proj),
-            'form3': establishing_form_3
+            'form3': EstablishingForm3(instance=proj)
         })
