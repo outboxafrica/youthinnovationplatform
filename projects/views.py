@@ -213,7 +213,7 @@ def commitment_view(request):
                 return render(request, 'projects/commitment.html', {
                     'active_form': active_form,
                     'form1': CommitmentForm1(instance=proj),
-                    'form2': commitment_form_2,
+                    'form2': form_2,
                     'form3': CommitmentForm3()
                 })
 
@@ -233,7 +233,7 @@ def commitment_view(request):
                     'active_form': active_form,
                     'form1': CommitmentForm1(instance=proj),
                     'form2': CommitmentForm2(instance=proj),
-                    'form3': commitment_form_3
+                    'form3': form_3
                 })
 
     else:

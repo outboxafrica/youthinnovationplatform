@@ -49,11 +49,16 @@ class CommitmentForm1(BaseModelForm):
     challenge_to_solve = forms.CharField(widget=forms.Textarea(),)
 
     challenge_faced = forms.MultipleChoiceField(
-        choices=(('financial_articulation', "I can't articulate my financials"),
-                 ('risk_management', "I do not know how to manage risk"),
-                 ('runway_ending', "Running out of start up capital"),
-                 ('business_differentiator', "Figuring out why my business is different"),
-                 ('team_members', "Getting qualified team members"),),
+        choices=(
+            ('mentorship', "Mentorship"),
+            ('office', "Office Space"),
+            ('networking', "To network"),
+            ('training', "Training on how to run a business"),
+            ('technical', "Technical Training"),
+            ('team', "To build a team"),
+            ('funding', "Funding"),
+            ('office', "Office Space"),
+        ),
         widget=forms.CheckboxSelectMultiple, )
     other_sectors = forms.CharField(required=False, max_length=2000)
 
