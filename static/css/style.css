@@ -2379,7 +2379,7 @@ div.footer-basic.footer-min {
     border: 1px #ff4515 solid;
 }
 
-.error textarea .error select, .error#label{
+.error textarea{
     border: 1px #ff4515 solid;
 }
 

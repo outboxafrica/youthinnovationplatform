@@ -82,6 +82,7 @@ class CommitmentForm1(BaseModelForm):
         Field('logo',
               css_class='file-upload'),
         FormActions(
+            HTML('<a class="cancelBtn btn btn-primary" href={% url "index:home" %}>Cancel</a>'),
             Submit('commitment_form_1', 'Next', css_class="cancelBtn btnNext"),
         )
     )
@@ -128,7 +129,7 @@ class CommitmentForm2(BaseModelForm):
         Field('potential_competitors', rows='3', css_class='text-large'),
         Field('business_differentiator', rows='3', css_class='text-large'),
         FormActions(
-            Button('Cancel', 'Previous', css_class="cancelBtn btnPrevious"),
+            Button('cancel', 'Previous', css_class='btn-primary cancelBtn btn', onclick="window.history.back()"),
             Submit('commitment_form_2', 'Next', css_class="cancelBtn btnNext"),
         )
         ,
@@ -156,6 +157,7 @@ class CommitmentForm3(forms.ModelForm):
               css_class='input-length2 form-control text-small'),
         Field('costs',
               css_class='input-length2 form-control text-small'),
+        Button('cancel', 'Previous', css_class='btn-primary cancelBtn btn', onclick="window.history.back()"),
         Submit('commitment_form_3', 'Finish', css_class="cancelBtn btnNext"),
     )
 
