@@ -25,7 +25,7 @@ class StartupStageForm(forms.ModelForm):
     helper.layout = Layout(
         Field('idea_stage'),
         FormActions(
-            Button('cancel','Cancel', css_class='cancelBtn'),
+            HTML('<a class="cancelBtn btn btn-primary" href={% url "index:home" %}>Cancel</a>'),
             Submit(
                 'next',
                 'Save and Next',

@@ -2379,6 +2379,10 @@ div.footer-basic.footer-min {
     border: 1px #ff4515 solid;
 }
 
+.error textarea .error select, .error#label{
+    border: 1px #ff4515 solid;
+}
+
 .text-overview{
     height: 15.0em;
 }
@@ -2412,13 +2416,18 @@ label.checkbox.inline{
     margin-left: 20px;
 }
 
-.error label{
-    color: red;
-}
+/*.error label{*/
+    /*color: red;*/
+/*}*/
 
 .down-10{
     margin-bottom: 10px;
    }
 .controls > .radio{
     margin-left: 20px;}
+
+
+.form-control{
+    font-size: inherit;
+}
 

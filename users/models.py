@@ -24,7 +24,7 @@ class User(AbstractUser):
     linkedin = models.CharField(max_length=200, blank=True)
     twitter = models.CharField(max_length=200, blank=True)
     summary = models.TextField()
-    age = models.IntegerField(blank=True, default=20)
+    age = models.CharField(blank=True, max_length=20)
     timestamp = models.DateTimeField(auto_now=True)
     activation_key = models.CharField(max_length=40, blank=True)
     key_expires = models.DateTimeField(default=timezone.now())

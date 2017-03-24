@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.urls import reverse
 from django.views.generic import FormView, TemplateView
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from users.forms import InnovatorProfileForm, InvestorProfileForm, MentorProfileForm, HubManagerProfileForm, ProgramManagerProfileForm

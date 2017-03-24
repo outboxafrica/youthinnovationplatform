@@ -86,7 +86,8 @@ class InnovatorProfileForm(BaseForm):
               css_class='text-small'),
 
         FormActions(
-            Button('Cancel', 'cancel', css_class="cancelBtn"),
+            HTML('<a class="cancelBtn btn btn-primary" href={% url "index:home" %}>Cancel</a>'),
+            # Submit('Cancel', 'cancel', css_class="cancelBtn"),
             Submit(
                 'next',
                 'Save',
@@ -205,7 +206,7 @@ class MentorProfileForm(forms.ModelForm):
         Field('support_stage', css_class='input-xlarge'),
 
         FormActions(
-            Button('Cancel', 'cancel', css_class="cancelBtn"),
+            HTML('<a class="cancelBtn btn btn-primary" href={% url "index:home" %}>Cancel</a>'),
             Submit(
                 'next',
                 'Next',
@@ -303,7 +304,7 @@ class InvestorProfileForm(forms.ModelForm):
               css_class='text-small'),
 
         FormActions(
-            Button('Cancel', 'cancel', css_class="cancelBtn"),
+            HTML('<a class="cancelBtn btn btn-primary" href={% url "index:home" %}>Cancel</a>'),
             Submit(
                 'next',
                 'Next',
@@ -398,7 +399,7 @@ class HubManagerProfileForm(forms.ModelForm):
               css_class='text-small'),
 
         FormActions(
-            Button('Cancel', 'cancel', css_class="cancelBtn"),
+            HTML('<a class="cancelBtn btn btn-primary" href={% url "index:home" %}>Cancel</a>'),
             Submit(
                 'next',
                 'Next',
@@ -492,7 +493,7 @@ class ProgramManagerProfileForm(forms.ModelForm):
               css_class='text-small'),
 
         FormActions(
-            Button('Cancel', 'cancel', css_class="cancelBtn"),
+            HTML('<a class="cancelBtn btn btn-primary" href={% url "index:home" %}>Cancel</a>'),
             Submit(
                 'next',
                 'Next',
