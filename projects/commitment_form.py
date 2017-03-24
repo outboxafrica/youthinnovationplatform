@@ -134,7 +134,7 @@ class CommitmentForm2(BaseModelForm):
         Field('potential_competitors', rows='3', css_class='text-large'),
         Field('business_differentiator', rows='3', css_class='text-large'),
         FormActions(
-            Button('cancel', 'Previous', css_class='btn-primary cancelBtn btn', onclick="window.history.back()"),
+            Button('cancel', 'Previous', css_class='btn-primary cancelBtn btn btnPrevious'),
             Submit('commitment_form_2', 'Next', css_class="cancelBtn btnNext"),
         )
         ,
@@ -162,7 +162,7 @@ class CommitmentForm3(forms.ModelForm):
               css_class='input-length2 form-control text-small'),
         Field('costs',
               css_class='input-length2 form-control text-small'),
-        Button('cancel', 'Previous', css_class='btn-primary cancelBtn btn', onclick="window.history.back()"),
+        Button('cancel', 'Previous', css_class='btn-primary cancelBtn btn btnPrevious', onclick="window.history.back()"),
         Submit('commitment_form_3', 'Finish', css_class="cancelBtn btnNext"),
     )
 

@@ -41,5 +41,11 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        $('.btnPrevious').click(function () {
+            $('.nav-pills > .active').prev('li').find('a').trigger('click');
+            console.log("click previous")
+        });
+    </script>
 {% endblock %}
 
