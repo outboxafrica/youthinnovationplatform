@@ -234,18 +234,11 @@ def signin(request):
                 if user.is_active:
                     django_login(request, user)
                     # check if the user has created entity profile
-                    if not user.has_created_entity:
-                        if user.role == 'innovator':
-                            return HttpResponseRedirect(reverse('projects:select-startup-stage'))
-                            # todo redirect to create innovation wizard
-                        elif user.role == 'investor':
-                            pass
-                            # todo redirect to create investment company wizard
-                        elif user.role == 'hub_manager':
-                            pass
-                            # todo redirect to create community hub wizard
+                    if not request.user.gender:
+                        return HttpResponseRedirect(reverse('users:edit_user'))
                     else:
                         return HttpResponseRedirect(reverse('index:home'))
+
                 else:
                     raise ValidationError("Please check your email and validate your account")
             else:

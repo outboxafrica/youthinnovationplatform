@@ -39,6 +39,8 @@ class InnovatorProfileForm(BaseForm):
     resume = forms.FileField(validators=[validate_doc], required=False)
     linkedin = forms.CharField(required=False,
                                widget=forms.URLInput(attrs={'placeholder': "http://example.com"}))
+    facebook = forms.CharField(required=False,
+                               widget=forms.URLInput(attrs={'placeholder': "http://example.com"}))
     twitter = forms.CharField(required=False,
                               widget=forms.URLInput(attrs={'placeholder': "http://example.com"}))
     blog = forms.CharField(required=False,
@@ -78,6 +80,8 @@ class InnovatorProfileForm(BaseForm):
               css_class='file-upload'),
         Field('linkedin',
               css_class='text-small'),
+        Field('facebook',
+              css_class='text-small'),
         Field('twitter',
               css_class='text-small'),
         Field('blog',
@@ -98,7 +102,7 @@ class InnovatorProfileForm(BaseForm):
     class Meta:
         model = Innovator
         fields = ('gender', 'phone', 'country', 'summary', 'picture',
-                  'resume', 'linkedin', 'twitter', 'blog', 'website', 'full_names', 'age')
+                  'resume', 'linkedin', 'twitter', 'blog', 'website', 'full_names', 'age', 'facebook')
 
 
 class MentorProfileForm(forms.ModelForm):
@@ -450,6 +454,8 @@ class ProgramManagerProfileForm(forms.ModelForm):
                               widget=forms.URLInput(attrs={'placeholder': "http://example.com"}))
     blog = forms.CharField(required=False,
                            widget=forms.URLInput(attrs={'placeholder': "http://example.com"}))
+    facebook = forms.CharField(required=False,
+                           widget=forms.URLInput(attrs={'placeholder': "http://example.com"}))
     website = forms.CharField(
         required=False,
         widget=forms.URLInput(attrs={'placeholder': "http://example.com"}))
@@ -484,6 +490,8 @@ class ProgramManagerProfileForm(forms.ModelForm):
         Field('resume',
               css_class='file-upload'),
         Field('linkedin',
+              css_class='text-small'),
+        Field('facebook',
               css_class='text-small'),
         Field('twitter',
               css_class='text-small'),

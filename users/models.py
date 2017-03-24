@@ -23,6 +23,7 @@ class User(AbstractUser):
     blog = models.URLField(null=True, blank=True)
     linkedin = models.CharField(max_length=200, blank=True)
     twitter = models.CharField(max_length=200, blank=True)
+    facebook = models.CharField(max_length=200, blank=True, null=True)
     summary = models.TextField()
     age = models.CharField(blank=True, max_length=20)
     timestamp = models.DateTimeField(auto_now=True)

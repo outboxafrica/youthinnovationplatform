@@ -58,6 +58,12 @@ class EditUser(FormView):
         except User.DoesNotExist:
             return initial
 
+    def get_context_data(self, **kwargs):
+        context = super(EditUser, self).get_context_data(**kwargs)
+        user = User.objects.get(pk=self.request.user.id)
+        context['userprofile'] = user
+        return context
+
 
 class ViewProfile(TemplateView):
     model = User
@@ -67,6 +73,15 @@ class ViewProfile(TemplateView):
         context = super(ViewProfile, self).get_context_data(**kwargs)
         user = User.objects.get(pk=self.request.user.id)
         context['userprofile'] = user
+        print user.picture
+        print user.role
         return context
 
 
+def view_profile(request):
+
+    if not request.user.has_created_entity:
+        return HttpResponseRedirect(reverse('projects:select-startup-stage'))
+    else:
+        user = User.objects.get(pk=request.user.id)
+        return render(request, 'users/my_profile.html', {'userprofile': user})

@@ -22,10 +22,16 @@
             </div> <span id="startup-name"> {{ userprofile.get_full_name }}</span>
             <!--user name-->
             <div class="sidebar_separator"></div>
-            <div class="social-media-icons"> <img id="linkedinBtn" src="/static/img/LinkedIn.png" alt="linkedin">
-                <img id="facebookBtn" src="/static/img/Facebook.png" alt="facebook"> </div>
+            <div class="social-media-icons">
+                <a href="{{ userprofile.linkedin }}">
+                    <img id="linkedinBtn" src="/static/img/LinkedIn.png" alt="linkedin">
+                </a>
+                <a href="{{ userprofile.facebook }}">
+                    <img id="facebookBtn" src="/static/img/Facebook.png" alt="facebook">
+                </a>
+                 </div>
             <span id="startup-telephone">{{ userprofile.phone }}</span>
-            <span id="startup-website">{{ userprofile.website }}</span>
+            <span id="startup-website">{% if userprofile.website %}{{ userprofile.website }}{% endif %}</span>
             {% if userprofile.role == 'investor' %}
                 <a href="{% url 'projects:view-startup' %}"><button class="contact-ownerBtn" type="button">Company profile</button></a>
 
