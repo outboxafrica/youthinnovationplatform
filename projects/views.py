@@ -179,8 +179,8 @@ def commitment_view(request):
                 return render(request, 'projects/commitment.html', {
                     'active_form': active_form,
                     'form1': CommitmentForm1(instance=proj),
-                    'form2': CommitmentForm2(),
-                    'form3': CommitmentForm3()
+                    'form2': CommitmentForm2(instance=proj),
+                    'form3': CommitmentForm3(instance=proj)
                 })
 
             else:
@@ -188,8 +188,8 @@ def commitment_view(request):
                 return render(request, 'projects/commitment.html', {
                     'active_form': active_form,
                     'form1': commitment_form_1,
-                    'form2': CommitmentForm2(),
-                    'form3': CommitmentForm3()
+                    'form2': CommitmentForm2(instance=proj),
+                    'form3': CommitmentForm3(instance=proj)
                 })
 
         elif 'commitment_form_2' in request.POST:
@@ -205,7 +205,7 @@ def commitment_view(request):
                     'active_form': active_form,
                     'form1': CommitmentForm1(instance=proj),
                     'form2': CommitmentForm2(instance=proj),
-                    'form3': CommitmentForm3()
+                    'form3': CommitmentForm3(instance=proj)
                 })
 
             else:
@@ -214,7 +214,7 @@ def commitment_view(request):
                     'active_form': active_form,
                     'form1': CommitmentForm1(instance=proj),
                     'form2': form_2,
-                    'form3': CommitmentForm3()
+                    'form3': CommitmentForm3(instance=proj)
                 })
 
         elif 'commitment_form_3' in request.POST:
