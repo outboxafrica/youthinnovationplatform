@@ -100,7 +100,7 @@ def ideation(request):
 
             proj.stage = 1
             proj.save()
-            return HttpResponseRedirect(reverse("index:home"))
+            return HttpResponseRedirect(reverse("projects:view-startup"))
         else:
             return render(request, "projects/idea_wizard.html", {'form': form})
     else:
@@ -157,6 +157,7 @@ def commitment_view(request):
         if 'commitment_form_1' in request.POST:
             commitment_form_1 = CommitmentForm1(request.POST, request.FILES)
             if commitment_form_1.is_valid():
+                print 'form is valid'
                 proj = Innovation.objects.get(lead__email=request.user.email)
                 cleaned_data = commitment_form_1.cleaned_data
                 proj.name = cleaned_data.get('name')

@@ -17,7 +17,8 @@ class User(AbstractUser):
     phone = models.CharField(max_length=15, blank=True)
     gender = models.CharField(max_length=10)
     country = models.CharField(max_length=50)
-    picture = CloudinaryField('image', default=settings.STATIC_URL + 'img/user-placeholder.png', null=True)
+    picture = CloudinaryField('image',
+                              default='http://res.cloudinary.com/hk2g31enw/image/upload/v1490338695/user-placeholder_z27xge.png', null=True)
     website = models.URLField(null=True, blank=True)
     blog = models.URLField(null=True, blank=True)
     linkedin = models.CharField(max_length=200, blank=True)
