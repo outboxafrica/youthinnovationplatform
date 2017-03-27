@@ -23,7 +23,7 @@ class ScalingForm1(BaseModelForm):
         self.fields[
             'service_videos'].label = "Please provide a link to the video that shows your product/service. [This can be a link to youtube or vimeo]"
         self.fields[
-            'challenge_to_solve'].label = "What problems/Challenges or needs is your idea trying to solve?"
+            'challenge_to_solve'].label = "What challenges or need is your idea trying to solve?"
         self.fields[
             'challenge_faced'].label = "What challenges are you facing?"
 
@@ -34,7 +34,7 @@ class ScalingForm1(BaseModelForm):
     url = forms.URLField(required=False)
     description = forms.CharField(widget=forms.Textarea(), )
     sectors = forms.MultipleChoiceField(
-        required=False,
+        required=True,
         choices=(('agriculture', "Agriculture"),
                  ('manufacturing', "Manufacturing and Assembly"),
                  ('financial', "Financial Services"),
@@ -166,8 +166,8 @@ class ScalingForm3(BaseModelForm):
     def __init__(self, *args, **kwargs):
         super(ScalingForm3, self).__init__(*args, **kwargs)
         self.fields['revenue'].label = "What are your revenue sources?"
-        self.fields['mcosts'].label = "What are your monthly operating costs?"
-        self.fields['ycosts'].label = "What are your yearly operating costs?"
+        self.fields['mcosts'].label = "What are your monthly operating costs (Excel sheets only)?"
+        self.fields['ycosts'].label = "What are your yearly operating costs (Excel sheets only)?"
         self.fields[
             'growth_ambitions'].label = "What are your growth ambitions for the next 24 months?"
         self.fields[

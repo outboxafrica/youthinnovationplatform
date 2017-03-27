@@ -423,7 +423,7 @@ def validation_view(request):
                 return render(request, 'projects/validation.html', {
                     'active_form': active_form,
                     'form1': ValidationForm1(instance=proj),
-                    'form2': validation_form_2,
+                    'form2': form_2,
                     'form3': ValidationForm3()
                 })
 
@@ -443,7 +443,7 @@ def validation_view(request):
                     'active_form': active_form,
                     'form1': ValidationForm1(instance=proj),
                     'form2': ValidationForm2(instance=proj),
-                    'form3': validation_form_3
+                    'form3': form_3
                 })
 
     else:
@@ -528,7 +528,7 @@ def scaling_view(request):
                 return render(request, 'projects/scaling.html', {
                     'active_form': active_form,
                     'form1': ScalingForm1(instance=proj),
-                    'form2': scaling_form_2,
+                    'form2': form_2,
                     'form3': ScalingForm3()
                 })
 
@@ -548,7 +548,7 @@ def scaling_view(request):
                     'active_form': active_form,
                     'form1': ScalingForm1(instance=proj),
                     'form2': ScalingForm2(instance=proj),
-                    'form3': scaling_form_3
+                    'form3': form_3
                 })
 
     else:
@@ -633,7 +633,7 @@ def establishing_view(request):
                 return render(request, 'projects/establishing.html', {
                     'active_form': active_form,
                     'form1': EstablishingForm1(instance=proj),
-                    'form2': establishing_form_2,
+                    'form2': form_2,
                     'form3': EstablishingForm3()
                 })
 
@@ -653,7 +653,7 @@ def establishing_view(request):
                     'active_form': active_form,
                     'form1': EstablishingForm1(instance=proj),
                     'form2': EstablishingForm2(instance=proj),
-                    'form3': establishing_form_3
+                    'form3': form_3
                 })
 
     else:

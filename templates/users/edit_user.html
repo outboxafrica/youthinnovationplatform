@@ -27,7 +27,10 @@
             {% if userprofile.role == 'investor' %}
                 <button class="contact-ownerBtn" type="button">Company profile</button>
             {% elif userprofile.role == 'innovator' %}
-                <a href="{% url 'projects:view-startup' %}"><button class="contact-ownerBtn" type="button">Startup Profile</button></a>
+                {% if request.user.has_created_entity %}
+                    <a href="{% url 'projects:view-startup' %}"><button class="contact-ownerBtn" type="button">Startup Profile</button></a>
+                {% endif %}
+
             {% elif userprofile.role == 'Community Hub' %}
                 <button class="contact-ownerBtn" type="button">Hub profile</button>
             {% endif%}

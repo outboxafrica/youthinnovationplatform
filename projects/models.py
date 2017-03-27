@@ -51,7 +51,7 @@ class Innovation(models.Model):
     stage = models.CharField(max_length=1, blank=True)
     name = models.CharField(max_length=50, blank=True)
     description = models.TextField(blank=True)
-    url = models.CharField(max_length=200, blank=True)
+    url = models.CharField(max_length=200, blank=True, null=True)
     service_pic = CloudinaryField('image', blank=True)
     service_videos = models.TextField(blank=True)
     sectors = models.TextField(blank=True)

@@ -15,7 +15,7 @@ class ConceptingForm1(forms.ModelForm):
         self.fields['name'].label = "Idea name"
         self.fields['description'].label = "Please describe your idea"
         self.fields['sectors'].label = "What sectors do you operate in?"
-        self.fields['challenge_to_solve'].label = "What problems/Challenges or needs is your idea trying to solve?"
+        self.fields['challenge_to_solve'].label = "What challenges or need is your idea trying to solve?"
         self.fields['challenge_faced'].label = "What challenges are you facing?"
 
     name = forms.CharField(widget=forms.TextInput(attrs={'class': "", 'placeholder': 'name of idea'}))

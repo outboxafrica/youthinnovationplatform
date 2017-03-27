@@ -18,7 +18,7 @@ class ValidationForm1(BaseModelForm):
             'url'].label = "Please share a url to the website with your product"
         self.fields['sectors'].label = "What sectors do you operate in?"
         self.fields[
-            'challenge_to_solve'].label = "What problems/Challenges or needs is your idea trying to solve?"
+            'challenge_to_solve'].label = "What challenges or need is your idea trying to solve?"
         self.fields[
             'challenge_faced'].label = "What challenges are you facing?"
         self.fields[
@@ -204,6 +204,7 @@ class ValidationForm3(BaseModelForm):
               rows="3",
               css_class='input-length2 form-control text-large'),
         FormActions(
+            Button('Cancel', 'Previous', css_class="cancelBtn btnPrevious"),
             Submit('validation_form_3', 'Finish', css_class="cancelBtn btnNext"),
         )
     )

@@ -22,7 +22,7 @@ class CommitmentForm1(BaseModelForm):
         self.fields[
             'service_videos'].label = "Please provide a link to the video that shows your product/service. [This can be a link to youtube or vimeo]"
         self.fields[
-            'challenge_to_solve'].label = "What problems/Challenges or needs is your idea trying to solve?"
+            'challenge_to_solve'].label = "What challenges or need is your idea trying to solve?"
         self.fields[
             'challenge_faced'].label = "What challenges are you facing?"
 
