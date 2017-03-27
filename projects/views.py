@@ -112,30 +112,6 @@ def view_startup(request):
     return render(request, 'projects/view_startup.html', {'project': innovation_profile})
 
 
-def edit_startup_profile(request):
-    innovation_profile = get_object_or_404(Innovation, lead=request.user.id)
-    if request.method == 'POST':
-        form = IdeationStage(request.POST, request.FILES, instance=innovation_profile)
-        if form.is_valid():
-            print form.cleaned_data
-            idea_form = form.save(commit=False)
-            idea_form.idea_stage = 1
-            try:
-                idea_form.save()
-            except:
-                print 'errors'
-            # print idea_form
-            return HttpResponseRedirect(reverse('projects:view-startup'))
-
-        else:
-            print 'errors'
-            print form.errors
-    else:
-        form = IdeationStage(instance=innovation_profile)
-    form = IdeationStage(instance=innovation_profile)
-    return render(request, 'projects/idea_wizard.html', {'form': form})
-
-
 class EditIdeationProfile(UpdateView):
     form_class = IdeationStage
 
@@ -171,7 +147,7 @@ def commitment_view(request):
                 proj.challenge_to_solve = cleaned_data.get("challenge_to_solve")
                 proj.url = cleaned_data.get('url')
 
-                proj.stage = 3
+                proj.stage = 2
                 proj.save()
 
                 active_form = 'form_2'
@@ -381,7 +357,7 @@ def validation_view(request):
                 proj.challenge_to_solve = cleaned_data.get("challenge_to_solve")
                 proj.url = cleaned_data.get('url')
 
-                proj.stage = 3
+                proj.stage = 4
                 proj.save()
 
                 active_form = 'form_2'
@@ -486,7 +462,7 @@ def scaling_view(request):
                 proj.challenge_to_solve = cleaned_data.get("challenge_to_solve")
                 proj.url = cleaned_data.get('url')
 
-                proj.stage = 3
+                proj.stage = 5
                 proj.save()
 
                 active_form = 'form_2'
@@ -494,8 +470,8 @@ def scaling_view(request):
                 return render(request, 'projects/scaling.html', {
                     'active_form': active_form,
                     'form1': ScalingForm1(instance=proj),
-                    'form2': ScalingForm2(),
-                    'form3': ScalingForm3()
+                    'form2': ScalingForm2(instance=proj),
+                    'form3': ScalingForm3(instance=proj)
                 })
 
             else:
@@ -503,8 +479,8 @@ def scaling_view(request):
                 return render(request, 'projects/scaling.html', {
                     'active_form': active_form,
                     'form1': scaling_form_1,
-                    'form2': ScalingForm2(),
-                    'form3': ScalingForm3()
+                    'form2': ScalingForm2(instance=proj),
+                    'form3': ScalingForm3(instance=proj)
                 })
 
         elif 'scaling_form_2' in request.POST:
@@ -520,7 +496,7 @@ def scaling_view(request):
                     'active_form': active_form,
                     'form1': ScalingForm1(instance=proj),
                     'form2': ScalingForm2(instance=proj),
-                    'form3': ScalingForm3()
+                    'form3': ScalingForm3(instance=proj)
                 })
 
             else:
@@ -529,7 +505,7 @@ def scaling_view(request):
                     'active_form': active_form,
                     'form1': ScalingForm1(instance=proj),
                     'form2': form_2,
-                    'form3': ScalingForm3()
+                    'form3': ScalingForm3(instance=proj)
                 })
 
         elif 'scaling_form_3' in request.POST:
@@ -591,7 +567,7 @@ def establishing_view(request):
                 proj.challenge_to_solve = cleaned_data.get("challenge_to_solve")
                 proj.url = cleaned_data.get('url')
 
-                proj.stage = 3
+                proj.stage = 6
                 proj.save()
 
                 active_form = 'form_2'
@@ -599,8 +575,8 @@ def establishing_view(request):
                 return render(request, 'projects/establishing.html', {
                     'active_form': active_form,
                     'form1': EstablishingForm1(instance=proj),
-                    'form2': EstablishingForm2(),
-                    'form3': EstablishingForm3()
+                    'form2': EstablishingForm2(instance=proj),
+                    'form3': EstablishingForm3(instance=proj)
                 })
 
             else:
@@ -608,8 +584,8 @@ def establishing_view(request):
                 return render(request, 'projects/establishing.html', {
                     'active_form': active_form,
                     'form1': establishing_form_1,
-                    'form2': EstablishingForm2(),
-                    'form3': EstablishingForm3()
+                    'form2': EstablishingForm2(instance=proj),
+                    'form3': EstablishingForm3(instance=proj)
                 })
 
         elif 'establishing_form_2' in request.POST:
@@ -625,7 +601,7 @@ def establishing_view(request):
                     'active_form': active_form,
                     'form1': EstablishingForm1(instance=proj),
                     'form2': EstablishingForm2(instance=proj),
-                    'form3': EstablishingForm3()
+                    'form3': EstablishingForm3(instance=proj)
                 })
 
             else:
@@ -634,7 +610,7 @@ def establishing_view(request):
                     'active_form': active_form,
                     'form1': EstablishingForm1(instance=proj),
                     'form2': form_2,
-                    'form3': EstablishingForm3()
+                    'form3': EstablishingForm3(instance=proj)
                 })
 
         elif 'establishing_form_3' in request.POST:
@@ -664,3 +640,23 @@ def establishing_view(request):
             'form2': EstablishingForm2(instance=proj),
             'form3': EstablishingForm3(instance=proj)
         })
+
+
+def edit_startups_view(request):
+    proj = Innovation.objects.get(lead__email=request.user.email)
+    print "proj stage: ", proj.stage
+    if proj.stage == '1':
+        return HttpResponseRedirect(reverse('projects:ideation'))
+    elif proj.stage == '2':
+        return HttpResponseRedirect(reverse('projects:commitment'))
+    elif proj.stage == '3':
+        return HttpResponseRedirect(reverse('projects:concepting'))
+    elif proj.stage == '4':
+        return HttpResponseRedirect(reverse('projects:validation'))
+    elif proj.stage == '5':
+        return HttpResponseRedirect(reverse('projects:scaling'))
+    elif proj.stage == '6':
+        return HttpResponseRedirect(reverse("projects:establishing"))
+    else:
+        return HttpResponseRedirect(reverse('index:home'))
+

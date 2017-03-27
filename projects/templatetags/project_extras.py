@@ -29,7 +29,7 @@ def listifyNL(value):
 def status(value):
     try:
         print int(value)
-        values = ["Ideation", "Prototype", "Target and Direction", "Growth", "Scaling", "Established"]
+        values = ["Ideation", "Commitment", "Concepting", "Validation", "Scaling", "Established"]
         return values[int(value) - 1]
     except Exception, e:
         print value
