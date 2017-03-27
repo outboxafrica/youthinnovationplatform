@@ -153,8 +153,8 @@ class ConceptingForm3(BaseModelForm):
         self.fields['revenue'].label = "How will you generate revenue?"
         self.fields['costs'].label = "What do you envision as your costs?"
 
-    revenue = forms.CharField()
-    costs = forms.CharField()
+    revenue = forms.CharField(widget=forms.Textarea())
+    costs = forms.CharField(widget=forms.Textarea())
 
     helper = FormHelper()
     helper.form_class = 'form-horizontal'
