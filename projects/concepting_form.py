@@ -17,6 +17,8 @@ class ConceptingForm1(forms.ModelForm):
         self.fields['sectors'].label = "What sectors do you operate in?"
         self.fields['challenge_to_solve'].label = "What challenges or need is your idea trying to solve?"
         self.fields['challenge_faced'].label = "What challenges are you facing?"
+        self.fields['other_challenges'].label = ""
+
 
     name = forms.CharField(widget=forms.TextInput(attrs={'class': "", 'placeholder': 'name of idea'}))
     description = forms.CharField(widget=forms.Textarea())
@@ -45,10 +47,12 @@ class ConceptingForm1(forms.ModelForm):
             ('technical', "Technical Training"),
             ('team', "To build a team"),
             ('funding', "Funding"),
+            ('others', "Others"),
         ),
         widget=forms.CheckboxSelectMultiple,
     )
     logo = forms.ImageField(validators=[validate_img], required=False)
+    other_challenges = forms.CharField(widget=forms.Textarea(), required=False)
 
     helper = FormHelper()
     helper.form_class = 'form-horizontal'
@@ -65,6 +69,7 @@ class ConceptingForm1(forms.ModelForm):
               rows="3",
               css_class='input-length form-control text-large'),
         InlineCheckboxes('challenge_faced'),
+        Field('other_challenges', css_class='text-small'),
         Field('logo',
               css_class='file-upload'),
         FormActions(
@@ -75,7 +80,8 @@ class ConceptingForm1(forms.ModelForm):
     class Meta:
         model = Innovation
         fields = (
-            'name', 'description', 'sectors', 'other_sectors', 'challenge_faced', 'challenge_to_solve', 'logo')
+            'name', 'description', 'sectors', 'other_sectors', 'challenge_faced', 'challenge_to_solve', 'logo',
+            'other_challenges')
 
 
 class ConceptingForm2(BaseModelForm):

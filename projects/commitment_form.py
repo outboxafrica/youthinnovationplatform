@@ -25,6 +25,7 @@ class CommitmentForm1(BaseModelForm):
             'challenge_to_solve'].label = "What challenges or need is your idea trying to solve?"
         self.fields[
             'challenge_faced'].label = "What challenges are you facing?"
+        self.fields['other_challenges'].label = ""
 
     name = forms.CharField()
     logo = forms.ImageField(validators=[validate_img], required=False)
@@ -58,10 +59,11 @@ class CommitmentForm1(BaseModelForm):
             ('team', "To build a team"),
             ('funding', "Funding"),
             ('office', "Office Space"),
+            ('others', "Others"),
         ),
         widget=forms.CheckboxSelectMultiple, )
     other_sectors = forms.CharField(required=False, max_length=2000)
-
+    other_challenges = forms.CharField(widget=forms.Textarea(), required=False)
     helper = FormHelper()
     helper.form_class = 'form-horizontal'
     helper.layout = Layout(
@@ -84,6 +86,7 @@ class CommitmentForm1(BaseModelForm):
               rows="3",
               css_class='input-length3 form-control text-large'),
         InlineCheckboxes('challenge_faced', ),
+        Field('other_challenges', css_class='text-small', placeholder="Other Challenges"),
         Field('logo',
               css_class='file-upload'),
         FormActions(
@@ -95,7 +98,7 @@ class CommitmentForm1(BaseModelForm):
     class Meta:
         model = Innovation
         fields = ('name', 'description', 'url', 'sectors', 'other_sectors', 'challenge_faced',
-                  'challenge_to_solve', 'logo', 'service_pic',
+                  'challenge_to_solve', 'logo', 'service_pic', 'other_challenges',
                   'service_videos')
 
 

@@ -27,11 +27,13 @@ class EstablishingForm1(BaseModelForm):
             'challenge_to_solve'].label = "What challenges or need is your idea trying to solve?"
         self.fields[
             'challenge_faced'].label = "What challenges are you facing?"
+        self.fields['other_challenges'].label = ""
 
     name = forms.CharField()
     logo = forms.ImageField(validators=[validate_img], required=False)
     service_pic = forms.ImageField(required=False)
     service_videos = forms.URLField(required=False)
+    other_challenges = forms.CharField(widget=forms.Textarea(), required=False)
     url = forms.URLField(required=False)
     description = forms.CharField(widget=forms.Textarea(), )
     sectors = forms.MultipleChoiceField(
@@ -55,7 +57,9 @@ class EstablishingForm1(BaseModelForm):
                  ('risk_management', "I do not know how to manage risk"),
                  ('runway_ending', "Running out of start up capital"),
                  ('business_differentiator', "Figuring out why my business is different"),
-                 ('team_members', "Getting qualified team members"), ),
+                 ('team_members', "Getting qualified team members"),
+                 ('others', "Others"),
+                 ),
         widget=forms.CheckboxSelectMultiple, )
 
     helper = FormHelper()
@@ -80,6 +84,7 @@ class EstablishingForm1(BaseModelForm):
               rows="3",
               css_class='input-length3 form-control text-large'),
         InlineCheckboxes('challenge_faced', ),
+        Field('other_challenges', css_class='text-small', placeholder="Other Challenges"),
         Field('logo',
               css_class='file-upload'),
         FormActions(
@@ -90,7 +95,7 @@ class EstablishingForm1(BaseModelForm):
     class Meta:
         model = Innovation
         fields = ('name', 'description', 'url', 'sectors', 'other_sectors', 'challenge_faced',
-                  'challenge_to_solve', 'logo', 'service_pic',
+                  'challenge_to_solve', 'logo', 'service_pic', 'other_challenges',
                   'service_videos')
 
 

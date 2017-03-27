@@ -47,6 +47,7 @@ class IdeationStage(BaseModelForm):
         self.fields['sectors'].label = "What sectors do you operate in?"
         self.fields['challenge_to_solve'].label = "What problems/Challenges or needs is your idea trying to solve?"
         self.fields['challenge_faced'].label = "What challenges are you facing?"
+        self.fields['other_challenges'].label = ""
 
     name = forms.CharField(widget=forms.TextInput(attrs={'class': "", 'placeholder': 'name of idea'}))
     description = forms.CharField(widget=forms.Textarea())
@@ -67,6 +68,7 @@ class IdeationStage(BaseModelForm):
     )
     other_sectors = forms.CharField(required=False, max_length=2000)
     challenge_to_solve = forms.CharField(widget=forms.Textarea())
+    other_challenges = forms.CharField(widget=forms.Textarea(), required=False)
     challenge_faced = forms.MultipleChoiceField(
         choices=(
             ('mentorship', "Mentorship"),
@@ -76,6 +78,7 @@ class IdeationStage(BaseModelForm):
             ('technical', "Technical Training"),
             ('team', "To build a team"),
             ('funding', "Funding"),
+            ('others', "Others"),
         ),
         widget=forms.CheckboxSelectMultiple,
     )
@@ -91,6 +94,7 @@ class IdeationStage(BaseModelForm):
               css_class='text-small'),
         Field('challenge_to_solve', rows="4", css_class='text-large'),
         Field('challenge_faced', css_class=''),
+        Field('other_challenges', css_class='text-small', placeholder="Other Sectors"),
         Field('logo', css_class='file-upload'),
         FormActions(
             Button('cancel', 'Cancel', css_class='cancelBtn'),
@@ -104,4 +108,5 @@ class IdeationStage(BaseModelForm):
 
     class Meta:
         model = Innovation
-        fields = ('name', 'description', 'sectors', 'other_sectors', 'challenge_faced', 'challenge_to_solve', 'logo')
+        fields = ('name', 'description', 'sectors', 'other_sectors', 'challenge_faced', 'challenge_to_solve', 'logo',
+                  'other_challenges')

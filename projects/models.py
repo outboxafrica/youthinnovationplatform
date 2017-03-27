@@ -58,6 +58,7 @@ class Innovation(models.Model):
     other_sectors = models.CharField(max_length=30, blank=True)
     challenge_to_solve = models.TextField(blank=True)
     challenge_faced = models.TextField(blank=True)
+    other_challenges = models.TextField(blank=True, null=True)
     logo = CloudinaryField('image', blank=True)
 
     target_customers = models.TextField(blank=True)

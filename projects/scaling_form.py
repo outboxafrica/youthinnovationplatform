@@ -21,11 +21,13 @@ class ScalingForm1(BaseModelForm):
         self.fields[
             'service_pic'].label = "Please provide a picture that shows your product/service (jpeg, png, gif)"
         self.fields[
-            'service_videos'].label = "Please provide a link to the video that shows your product/service. [This can be a link to youtube or vimeo]"
+            'service_videos'].label = "Please provide a link to the video that shows your product/service. " \
+                                      "[This can be a link to youtube or vimeo]"
         self.fields[
             'challenge_to_solve'].label = "What challenges or need is your idea trying to solve?"
         self.fields[
             'challenge_faced'].label = "What challenges are you facing?"
+        self.fields['other_challenges'].label = ""
 
     name = forms.CharField()
     logo = forms.ImageField(validators=[validate_img], required=False)
@@ -33,6 +35,7 @@ class ScalingForm1(BaseModelForm):
     service_videos = forms.URLField(required=False)
     url = forms.URLField(required=False)
     description = forms.CharField(widget=forms.Textarea(), )
+    other_challenges = forms.CharField(widget=forms.Textarea(), required=False)
     sectors = forms.MultipleChoiceField(
         required=True,
         choices=(('agriculture', "Agriculture"),
@@ -54,7 +57,9 @@ class ScalingForm1(BaseModelForm):
                  ('risk_management', "I do not know how to manage risk"),
                  ('runway_ending', "Running out of start up capital"),
                  ('business_differentiator', "Figuring out why my business is different"),
-                 ('team_members', "Getting qualified team members"), ),
+                 ('team_members', "Getting qualified team members"),
+                 ('others', "Others"),
+                 ),
         widget=forms.CheckboxSelectMultiple, )
 
     helper = FormHelper()
@@ -78,6 +83,7 @@ class ScalingForm1(BaseModelForm):
               rows="3",
               css_class='input-length form-control text-large'),
         InlineCheckboxes('challenge_faced'),
+        Field('other_challenges', css_class='text-small', placeholder="Other Sectors"),
         Field('logo',
               css_class='file-upload'),
         FormActions(
@@ -88,7 +94,7 @@ class ScalingForm1(BaseModelForm):
     class Meta:
         model = Innovation
         fields = ('name', 'description', 'url', 'sectors', 'other_sectors', 'challenge_faced',
-                  'challenge_to_solve', 'logo', 'service_pic',
+                  'challenge_to_solve', 'logo', 'service_pic', 'other_challenges',
                   'service_videos')
 
 
