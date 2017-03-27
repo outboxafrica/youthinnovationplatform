@@ -59,7 +59,8 @@ class Innovation(models.Model):
     challenge_to_solve = models.TextField(blank=True)
     challenge_faced = models.TextField(blank=True)
     other_challenges = models.TextField(blank=True, null=True)
-    logo = CloudinaryField('image', blank=True, default="")
+    logo = CloudinaryField('image', blank=True,
+                           default="https://cloudinary.com/console/media_library#/dialog/image/upload/StartupLogo_hqxizg")
 
     target_customers = models.TextField(blank=True)
     market_size = models.TextField(blank=True)

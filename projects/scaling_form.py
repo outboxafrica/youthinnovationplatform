@@ -192,14 +192,14 @@ class ScalingForm3(BaseModelForm):
 
     revenue = forms.CharField()
 
-    mcosts = forms.FileField(validators=[validate_xls])
-    ycosts = forms.FileField(validators=[validate_xls])
-    growth_ambitions = forms.CharField(widget=forms.Textarea())
-    milestones = forms.CharField(widget=forms.Textarea())
+    mcosts = forms.FileField(validators=[validate_xls], required=False)
+    ycosts = forms.FileField(validators=[validate_xls], required=False)
+    growth_ambitions = forms.CharField(widget=forms.Textarea(), required=False)
+    milestones = forms.CharField(widget=forms.Textarea(), required=False)
     do_you_have_auditedbooks = forms.ChoiceField(
         choices=(('1', "Yes"), ('0', "No")),
-        widget=forms.RadioSelect, )
-    total_capital = forms.CharField()
+        widget=forms.RadioSelect, required=False)
+    total_capital = forms.CharField(required=False)
     total_sales = forms.CharField(required=False)
     expected_capital = forms.CharField()
     capital_type = forms.ChoiceField(choices=(('1', "Equity"),
@@ -207,7 +207,7 @@ class ScalingForm3(BaseModelForm):
                                               ('3', "Convertible Debt"),
                                               ('4', "Commercial Debt (Banks)"),
                                               ('5', "Soft Debt (Friends)"), ),
-                                     widget=forms.RadioSelect, )
+                                     widget=forms.RadioSelect, required=False )
     capital_use = forms.CharField()
 
     helper = FormHelper()
