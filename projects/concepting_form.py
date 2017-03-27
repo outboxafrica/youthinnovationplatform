@@ -160,9 +160,9 @@ class ConceptingForm3(BaseModelForm):
     helper.form_class = 'form-horizontal'
     helper.layout = Layout(
         Field('revenue',
-              css_class='input-length2 form-control text-large'),
+              css_class='input-length2 form-control text-large', rows='3'),
         Field('costs',
-              css_class='input-length2 form-control text-large'),
+              css_class='input-length2 form-control text-large', rows='3'),
         FormActions(
             Button('Cancel', 'Previous', css_class="cancelBtn btnPrevious"),
             Submit('concepting_form_3', 'Finish', css_class="cancelBtn btnNext"),
