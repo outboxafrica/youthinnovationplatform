@@ -66,7 +66,7 @@ class InnovatorProfileForm(BaseForm):
               css_class='text-small'),
         Field('gender'),
         Field('age',
-              css_class='sign_text'),
+              css_class='age_text'),
         Field('phone',
               css_class='text-small'),
         Field('country',

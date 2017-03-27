@@ -1029,6 +1029,17 @@ textarea:-moz-placeholder {
     color: black;
 }
 
+.age_text {
+    font-family: "FiraSans-Thin";
+    padding-left: 12px;
+    border-radius: 40px;
+    border-color: transparent;
+    width: 263px;
+    background-color: #b5b1b1;
+    height: 33px;
+    color: black;
+}
+
 .side_text {
     width: 400px;
     font-size: 1.5vw;
