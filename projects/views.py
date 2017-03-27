@@ -246,8 +246,6 @@ def concepting_view(request):
                 proj.sectors = cleaned_data.get('sectors')
                 proj.other_sectors = cleaned_data.get('other_sectors')
                 proj.logo = cleaned_data.get('logo')
-                proj.service_pic = cleaned_data.get('service_pic')
-                proj.service_videos = cleaned_data.get('service_videos')
                 proj.challenge_faced = cleaned_data.get("challenge_faced")
                 proj.challenge_to_solve = cleaned_data.get("challenge_to_solve")
                 proj.url = cleaned_data.get('url')
@@ -260,8 +258,8 @@ def concepting_view(request):
                 return render(request, 'projects/concepting.html', {
                     'active_form': active_form,
                     'form1': ConceptingForm1(instance=proj),
-                    'form2': ConceptingForm2(),
-                    'form3': ConceptingForm3()
+                    'form2': ConceptingForm2(instance=proj),
+                    'form3': ConceptingForm3(instance=proj)
                 })
 
             else:
@@ -269,8 +267,8 @@ def concepting_view(request):
                 return render(request, 'projects/concepting.html', {
                     'active_form': active_form,
                     'form1': concepting_form_1,
-                    'form2': ConceptingForm2(),
-                    'form3': ConceptingForm3()
+                    'form2': ConceptingForm2(instance=proj),
+                    'form3': ConceptingForm3(instance=proj)
                 })
 
         elif 'concepting_form_2' in request.POST:
@@ -286,7 +284,7 @@ def concepting_view(request):
                     'active_form': active_form,
                     'form1': ConceptingForm1(instance=proj),
                     'form2': ConceptingForm2(instance=proj),
-                    'form3': ConceptingForm3()
+                    'form3': ConceptingForm3(instance=proj)
                 })
 
             else:
@@ -294,8 +292,8 @@ def concepting_view(request):
                 return render(request, 'projects/concepting.html', {
                     'active_form': active_form,
                     'form1': ConceptingForm1(instance=proj),
-                    'form2': concepting_form_2,
-                    'form3': ConceptingForm3()
+                    'form2': form_2,
+                    'form3': ConceptingForm3(instance=proj)
                 })
 
         elif 'concepting_form_3' in request.POST:
@@ -314,7 +312,7 @@ def concepting_view(request):
                     'active_form': active_form,
                     'form1': ConceptingForm1(instance=proj),
                     'form2': ConceptingForm2(instance=proj),
-                    'form3': concepting_form_3
+                    'form3': form_3
                 })
 
     else:

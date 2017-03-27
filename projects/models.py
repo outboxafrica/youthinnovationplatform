@@ -53,7 +53,7 @@ class Innovation(models.Model):
     description = models.TextField(blank=True)
     url = models.CharField(max_length=200, blank=True, null=True)
     service_pic = CloudinaryField('image', blank=True)
-    service_videos = models.TextField(blank=True)
+    service_videos = models.TextField(blank=True, null=True)
     sectors = models.TextField(blank=True)
     other_sectors = models.CharField(max_length=30, blank=True)
     challenge_to_solve = models.TextField(blank=True)
