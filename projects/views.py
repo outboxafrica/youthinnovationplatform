@@ -10,6 +10,7 @@ from projects.concepting_form import ConceptingForm1, ConceptingForm2, Conceptin
 from projects.validation_form import ValidationForm1, ValidationForm2, ValidationForm3
 from projects.scaling_form import ScalingForm1, ScalingForm2, ScalingForm3
 from projects.establishing_form import EstablishingForm1, EstablishingForm2, EstablishingForm3
+from form_helpers import handle_uploads
 
 # Create your views here.
 
@@ -511,8 +512,16 @@ def scaling_view(request):
             form_3 = ScalingForm3(request.POST, request.FILES, instance=proj)
 
             if form_3.is_valid():
+                cleaned_data = form_3.cleaned_data
+                mcosts_url = handle_uploads(cleaned_data['mcosts'])
+                ycosts_url = handle_uploads(cleaned_data['ycosts'])
                 proj_form = form_3.save(commit=False)
                 proj_form.save()
+
+                proj.monthly_costs = mcosts_url
+                proj.annual_costs = ycosts_url
+                proj.save()
+
 
                 return HttpResponseRedirect(reverse('projects:view-startup'))
 

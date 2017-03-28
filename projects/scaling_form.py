@@ -193,8 +193,8 @@ class ScalingForm3(BaseModelForm):
 
     revenue = forms.CharField()
 
-    mcosts = CloudinaryFileField(validators=[validate_xls], required=False)
-    ycosts = CloudinaryFileField(validators=[validate_xls], required=False)
+    mcosts = forms.FileField(validators=[validate_xls], required=False)
+    ycosts = forms.FileField(validators=[validate_xls], required=False)
     growth_ambitions = forms.CharField(widget=forms.Textarea(), required=False)
     milestones = forms.CharField(widget=forms.Textarea(), required=False)
     do_you_have_auditedbooks = forms.ChoiceField(
