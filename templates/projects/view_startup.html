@@ -1,6 +1,7 @@
 {% extends 'layouts/base.html' %}
 {% load crispy_forms_tags %}
 {% load project_extras %}
+{% load cloudinary %}
 
 {% block content %}
     <div class="banner">
@@ -14,7 +15,7 @@
             <div class="people_role pull-left">
                 <p>{{ project.stage | status }}</p>
             </div>
-            <div class="startup-logo"> <img class="img img-responsive" src="{{ project.logo.url }}" alt="startup logo"> </div>
+            <div class="startup-logo"> <img class="img img-responsive" src="{% cloudinary_url project.logo %}" alt="startup logo"> </div>
             <span id="startup-name"> {{ project.name }}</span>
             <div class="sidebar_separator"></div>
             <div class="social-media-icons"> <img id="linkedinBtn" src="/static/img/LinkedIn.png" alt="linkedin">

@@ -173,8 +173,8 @@ class ScalingForm3(BaseModelForm):
     def __init__(self, *args, **kwargs):
         super(ScalingForm3, self).__init__(*args, **kwargs)
         self.fields['revenue'].label = "What are your revenue sources?"
-        self.fields['mcosts'].label = "What are your monthly operating costs (Excel sheets only)?"
-        self.fields['ycosts'].label = "What are your yearly operating costs (Excel sheets only)?"
+        self.fields['monthly_costs'].label = "What are your monthly operating costs (Excel sheets only)?"
+        self.fields['annual_costs'].label = "What are your yearly operating costs (Excel sheets only)?"
         self.fields[
             'growth_ambitions'].label = "What are your growth ambitions for the next 24 months?"
         self.fields[
@@ -193,8 +193,8 @@ class ScalingForm3(BaseModelForm):
 
     revenue = forms.CharField()
 
-    mcosts = forms.FileField(validators=[validate_xls], required=False)
-    ycosts = forms.FileField(validators=[validate_xls], required=False)
+    monthly_costs = forms.FileField(required=False)
+    annual_costs = forms.FileField(required=False)
     growth_ambitions = forms.CharField(widget=forms.Textarea(), required=False)
     milestones = forms.CharField(widget=forms.Textarea(), required=False)
     do_you_have_auditedbooks = forms.ChoiceField(
@@ -218,8 +218,8 @@ class ScalingForm3(BaseModelForm):
               css_class='input-length1 form-control text-small'),
         # Field('monthly_cashflow', css_class='file-upload'),
         # Field('income_statement', css_class='file-upload'),
-        Field('mcosts'),
-        Field('ycosts'),
+        Field('monthly_costs'),
+        Field('annual_costs'),
         Field('growth_ambitions',
               rows="3",
               css_class='input-length1 form-control text-large'),
@@ -245,7 +245,7 @@ class ScalingForm3(BaseModelForm):
 
     class Meta:
         model = Innovation
-        fields = ('revenue', 'mcosts', 'ycosts', 'growth_ambitions',
+        fields = ('revenue', 'monthly_costs', 'annual_costs', 'growth_ambitions',
                   'milestones', 'do_you_have_auditedbooks',
                   'total_capital', 'expected_capital', 'capital_type',
                   'capital_use', 'total_sales')

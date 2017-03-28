@@ -1,6 +1,7 @@
 from django.shortcuts import render, reverse, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.views.generic import FormView, TemplateView, UpdateView
+from django.core.files.storage import FileSystemStorage
 from projects.models import InvestmentCompany, Innovation
 from users.models import User, Innovator
 from projects.investor_form import InvestorForm
@@ -364,8 +365,8 @@ def validation_view(request):
                 return render(request, 'projects/validation.html', {
                     'active_form': active_form,
                     'form1': ValidationForm1(instance=proj),
-                    'form2': ValidationForm2(),
-                    'form3': ValidationForm3()
+                    'form2': ValidationForm2(instance=proj),
+                    'form3': ValidationForm3(instance=proj)
                 })
 
             else:
@@ -373,8 +374,8 @@ def validation_view(request):
                 return render(request, 'projects/validation.html', {
                     'active_form': active_form,
                     'form1': validation_form_1,
-                    'form2': ValidationForm2(),
-                    'form3': ValidationForm3()
+                    'form2': ValidationForm2(instance=proj),
+                    'form3': ValidationForm3(instance=proj)
                 })
 
         elif 'validation_form_2' in request.POST:
@@ -390,7 +391,7 @@ def validation_view(request):
                     'active_form': active_form,
                     'form1': ValidationForm1(instance=proj),
                     'form2': ValidationForm2(instance=proj),
-                    'form3': ValidationForm3()
+                    'form3': ValidationForm3(instance=proj)
                 })
 
             else:
@@ -441,7 +442,7 @@ def scaling_view(request):
     active_form = 'form_1'
 
     if request.method == 'POST':
-        print request.POST
+        # print request.POST
         proj = Innovation.objects.get(lead__email=request.user.email)
         scaling_form_1 = ScalingForm1(request.POST, request.FILES, instance=proj)
 
@@ -509,19 +510,21 @@ def scaling_view(request):
 
         elif 'scaling_form_3' in request.POST:
             proj = Innovation.objects.get(lead__email=request.user.email)
-            form_3 = ScalingForm3(request.POST, request.FILES, instance=proj)
+            form_3 = ScalingForm3(data=request.POST, files=request.FILES, instance=proj)
+            cleaned_data = form_3.data
+            print form_3.data
 
             if form_3.is_valid():
-                cleaned_data = form_3.cleaned_data
-                mcosts_url = handle_uploads(cleaned_data['mcosts'])
-                ycosts_url = handle_uploads(cleaned_data['ycosts'])
                 proj_form = form_3.save(commit=False)
+                if request.FILES:
+                    if request.FILES['monthly_costs']:
+                        proj_form.monthly_costs = request.FILES['monthly_costs']
+                    elif request.FILES['annual_costs']:
+                        proj_form.annual_costs = request.FILES['annual_costs']
+
                 proj_form.save()
 
-                proj.monthly_costs = mcosts_url
-                proj.annual_costs = ycosts_url
                 proj.save()
-
 
                 return HttpResponseRedirect(reverse('projects:view-startup'))
 
