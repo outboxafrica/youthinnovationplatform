@@ -588,6 +588,7 @@ def establishing_view(request):
         if 'establishing_form_1' in request.POST:
             establishing_form_1 = EstablishingForm1(request.POST, request.FILES)
             if establishing_form_1.is_valid():
+                print "establishing form is valid"
                 proj = Innovation.objects.get(lead__email=request.user.email)
                 cleaned_data = establishing_form_1.cleaned_data
                 proj.name = cleaned_data.get('name')
@@ -615,6 +616,7 @@ def establishing_view(request):
                 })
 
             else:
+                print "establishing form is valid"
                 active_form = 'form_1'
                 return render(request, 'projects/establishing.html', {
                     'active_form': active_form,

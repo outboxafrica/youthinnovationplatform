@@ -89,7 +89,7 @@ class EstablishingForm1(BaseModelForm):
         Field('logo',
               css_class='file-upload'),
         FormActions(
-            Submit('validation_form_1', 'Next', css_class="cancelBtn btnNext"),
+            Submit('establishing_form_1', 'Next', css_class="cancelBtn btnNext"),
         )
     )
 
