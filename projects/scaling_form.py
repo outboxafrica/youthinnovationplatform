@@ -208,7 +208,7 @@ class ScalingForm3(BaseModelForm):
                                               ('3', "Convertible Debt"),
                                               ('4', "Commercial Debt (Banks)"),
                                               ('5', "Soft Debt (Friends)"), ),
-                                     widget=forms.RadioSelect, required=False )
+                                     widget=forms.RadioSelect, required=True)
     capital_use = forms.CharField()
 
     helper = FormHelper()
