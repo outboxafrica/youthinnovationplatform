@@ -11,15 +11,26 @@
     </div>
     <div class="sidebar pull-left">
         <div class="people_role pull-left">
-            <p>Validation</p>
+            <p>Scaling</p>
         </div>
-        <div class="startup-logo"><img class="img img-responsive" src="/static/img/StartupLogo.png" alt="startup logo"></div>
-        <span id="startup-name"> My Startup</span>
-        <div class="sidebar_separator"></div>
-        <div class="social-media-icons"><img id="linkedinBtn" src="/static/img/LinkedIn.png" alt="linkedin"> <img
-                id="facebookBtn" src="/static/img/Facebook.png" alt="facebook"></div>
-        <span id="startup-telephone">+256 75 555 5555</span> <span id="startup-website">www.mystartup.com</span>
-        <button class="contact-ownerBtn" type="button">Contact Owner</button>
+        {% if request.session.status == 'edit' %}
+            <div class="startup-logo"><img class="img img-responsive" src="{{ project.logo.url }}" alt="startup logo"></div>
+            <span id="startup-name"> {{ project.name }}</span>
+            <div class="sidebar_separator"></div>
+            <div class="social-media-icons"><img id="linkedinBtn" src="/static/img/LinkedIn.png" alt="linkedin"> <img
+                    id="facebookBtn" src="/static/img/Facebook.png" alt="facebook"></div>
+            <span id="startup-telephone">+256 75 555 5555</span> <span id="startup-website">www.mystartup.com</span>
+            <button class="contact-ownerBtn" type="button">Contact Owner</button>
+        {% else%}
+            <div class="startup-logo"><img class="img img-responsive" src="/static/img/StartupLogo.png" alt="startup logo"></div>
+            <span id="startup-name"> My Startup</span>
+            <div class="sidebar_separator"></div>
+            <div class="social-media-icons"><img id="linkedinBtn" src="/static/img/LinkedIn.png" alt="linkedin"> <img
+                    id="facebookBtn" src="/static/img/Facebook.png" alt="facebook"></div>
+            <span id="startup-telephone">+256 75 555 5555</span> <span id="startup-website">www.mystartup.com</span>
+            <button class="contact-ownerBtn" type="button">Contact Owner</button>
+        {% endif %}
+
     </div>
     <div class="content-container">
         <div class="tab-forms">

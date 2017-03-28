@@ -38,7 +38,7 @@ class EstablishingForm1(BaseModelForm):
     url = forms.URLField(required=False)
     description = forms.CharField(widget=forms.Textarea(), )
     sectors = forms.MultipleChoiceField(
-        required=False,
+        required=True,
         choices=(('agriculture', "Agriculture"),
                  ('manufacturing', "Manufacturing and Assembly"),
                  ('financial', "Financial Services"),

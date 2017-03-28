@@ -158,7 +158,8 @@ def commitment_view(request):
                     'active_form': active_form,
                     'form1': CommitmentForm1(instance=proj),
                     'form2': CommitmentForm2(instance=proj),
-                    'form3': CommitmentForm3(instance=proj)
+                    'form3': CommitmentForm3(instance=proj),
+                    'project': proj
                 })
 
             else:
@@ -167,7 +168,8 @@ def commitment_view(request):
                     'active_form': active_form,
                     'form1': commitment_form_1,
                     'form2': CommitmentForm2(instance=proj),
-                    'form3': CommitmentForm3(instance=proj)
+                    'form3': CommitmentForm3(instance=proj),
+                    'project': proj
                 })
 
         elif 'commitment_form_2' in request.POST:
@@ -183,7 +185,8 @@ def commitment_view(request):
                     'active_form': active_form,
                     'form1': CommitmentForm1(instance=proj),
                     'form2': CommitmentForm2(instance=proj),
-                    'form3': CommitmentForm3(instance=proj)
+                    'form3': CommitmentForm3(instance=proj),
+                    'project': proj
                 })
 
             else:
@@ -192,7 +195,8 @@ def commitment_view(request):
                     'active_form': active_form,
                     'form1': CommitmentForm1(instance=proj),
                     'form2': form_2,
-                    'form3': CommitmentForm3(instance=proj)
+                    'form3': CommitmentForm3(instance=proj),
+                    'project': proj
                 })
 
         elif 'commitment_form_3' in request.POST:
@@ -211,7 +215,8 @@ def commitment_view(request):
                     'active_form': active_form,
                     'form1': CommitmentForm1(instance=proj),
                     'form2': CommitmentForm2(instance=proj),
-                    'form3': form_3
+                    'form3': form_3,
+                    'project': proj
                 })
 
     else:
@@ -220,7 +225,8 @@ def commitment_view(request):
             'active_form': active_form,
             'form1': CommitmentForm1(instance=proj),
             'form2': CommitmentForm2(instance=proj),
-            'form3': CommitmentForm3(instance=proj)
+            'form3': CommitmentForm3(instance=proj),
+            'project': proj
         })
 
 
@@ -261,7 +267,8 @@ def concepting_view(request):
                     'active_form': active_form,
                     'form1': ConceptingForm1(instance=proj),
                     'form2': ConceptingForm2(instance=proj),
-                    'form3': ConceptingForm3(instance=proj)
+                    'form3': ConceptingForm3(instance=proj),
+                    'project': proj
                 })
 
             else:
@@ -270,7 +277,8 @@ def concepting_view(request):
                     'active_form': active_form,
                     'form1': concepting_form_1,
                     'form2': ConceptingForm2(instance=proj),
-                    'form3': ConceptingForm3(instance=proj)
+                    'form3': ConceptingForm3(instance=proj),
+                    'project': proj
                 })
 
         elif 'concepting_form_2' in request.POST:
@@ -286,7 +294,8 @@ def concepting_view(request):
                     'active_form': active_form,
                     'form1': ConceptingForm1(instance=proj),
                     'form2': ConceptingForm2(instance=proj),
-                    'form3': ConceptingForm3(instance=proj)
+                    'form3': ConceptingForm3(instance=proj),
+                    'project': proj
                 })
 
             else:
@@ -295,7 +304,8 @@ def concepting_view(request):
                     'active_form': active_form,
                     'form1': ConceptingForm1(instance=proj),
                     'form2': form_2,
-                    'form3': ConceptingForm3(instance=proj)
+                    'form3': ConceptingForm3(instance=proj),
+                    'project': proj
                 })
 
         elif 'concepting_form_3' in request.POST:
@@ -314,7 +324,8 @@ def concepting_view(request):
                     'active_form': active_form,
                     'form1': ConceptingForm1(instance=proj),
                     'form2': ConceptingForm2(instance=proj),
-                    'form3': form_3
+                    'form3': form_3,
+                    'project': proj
                 })
 
     else:
@@ -323,7 +334,8 @@ def concepting_view(request):
             'active_form': active_form,
             'form1': ConceptingForm1(instance=proj),
             'form2': ConceptingForm2(instance=proj),
-            'form3': ConceptingForm3(instance=proj)
+            'form3': ConceptingForm3(instance=proj),
+            'project': proj
         })
 
 
@@ -366,7 +378,8 @@ def validation_view(request):
                     'active_form': active_form,
                     'form1': ValidationForm1(instance=proj),
                     'form2': ValidationForm2(instance=proj),
-                    'form3': ValidationForm3(instance=proj)
+                    'form3': ValidationForm3(instance=proj),
+                    'project': proj
                 })
 
             else:
@@ -375,7 +388,8 @@ def validation_view(request):
                     'active_form': active_form,
                     'form1': validation_form_1,
                     'form2': ValidationForm2(instance=proj),
-                    'form3': ValidationForm3(instance=proj)
+                    'form3': ValidationForm3(instance=proj),
+                    'project': proj
                 })
 
         elif 'validation_form_2' in request.POST:
@@ -391,7 +405,8 @@ def validation_view(request):
                     'active_form': active_form,
                     'form1': ValidationForm1(instance=proj),
                     'form2': ValidationForm2(instance=proj),
-                    'form3': ValidationForm3(instance=proj)
+                    'form3': ValidationForm3(instance=proj),
+                    'project': proj
                 })
 
             else:
@@ -400,7 +415,8 @@ def validation_view(request):
                     'active_form': active_form,
                     'form1': ValidationForm1(instance=proj),
                     'form2': form_2,
-                    'form3': ValidationForm3()
+                    'form3': ValidationForm3(),
+                    'project': proj
                 })
 
         elif 'validation_form_3' in request.POST:
@@ -419,7 +435,8 @@ def validation_view(request):
                     'active_form': active_form,
                     'form1': ValidationForm1(instance=proj),
                     'form2': ValidationForm2(instance=proj),
-                    'form3': form_3
+                    'form3': form_3,
+                    'project': proj
                 })
 
     else:
@@ -428,7 +445,8 @@ def validation_view(request):
             'active_form': active_form,
             'form1': ValidationForm1(instance=proj),
             'form2': ValidationForm2(instance=proj),
-            'form3': ValidationForm3(instance=proj)
+            'form3': ValidationForm3(instance=proj),
+            'project': proj
         })
 
 
@@ -471,7 +489,8 @@ def scaling_view(request):
                     'active_form': active_form,
                     'form1': ScalingForm1(instance=proj),
                     'form2': ScalingForm2(instance=proj),
-                    'form3': ScalingForm3(instance=proj)
+                    'form3': ScalingForm3(instance=proj),
+                    'project': proj
                 })
 
             else:
@@ -480,7 +499,8 @@ def scaling_view(request):
                     'active_form': active_form,
                     'form1': scaling_form_1,
                     'form2': ScalingForm2(instance=proj),
-                    'form3': ScalingForm3(instance=proj)
+                    'form3': ScalingForm3(instance=proj),
+                    'project': proj
                 })
 
         elif 'scaling_form_2' in request.POST:
@@ -496,7 +516,8 @@ def scaling_view(request):
                     'active_form': active_form,
                     'form1': ScalingForm1(instance=proj),
                     'form2': ScalingForm2(instance=proj),
-                    'form3': ScalingForm3(instance=proj)
+                    'form3': ScalingForm3(instance=proj),
+                    'project': proj
                 })
 
             else:
@@ -505,7 +526,8 @@ def scaling_view(request):
                     'active_form': active_form,
                     'form1': ScalingForm1(instance=proj),
                     'form2': form_2,
-                    'form3': ScalingForm3(instance=proj)
+                    'form3': ScalingForm3(instance=proj),
+                    'project': proj
                 })
 
         elif 'scaling_form_3' in request.POST:
@@ -534,7 +556,8 @@ def scaling_view(request):
                     'active_form': active_form,
                     'form1': ScalingForm1(instance=proj),
                     'form2': ScalingForm2(instance=proj),
-                    'form3': form_3
+                    'form3': form_3,
+                    'project': proj
                 })
 
     else:
@@ -543,7 +566,8 @@ def scaling_view(request):
             'active_form': active_form,
             'form1': ScalingForm1(instance=proj),
             'form2': ScalingForm2(instance=proj),
-            'form3': ScalingForm3(instance=proj)
+            'form3': ScalingForm3(instance=proj),
+            'project': proj
         })
 
 
@@ -586,7 +610,8 @@ def establishing_view(request):
                     'active_form': active_form,
                     'form1': EstablishingForm1(instance=proj),
                     'form2': EstablishingForm2(instance=proj),
-                    'form3': EstablishingForm3(instance=proj)
+                    'form3': EstablishingForm3(instance=proj),
+                    'project': proj
                 })
 
             else:
@@ -595,7 +620,8 @@ def establishing_view(request):
                     'active_form': active_form,
                     'form1': establishing_form_1,
                     'form2': EstablishingForm2(instance=proj),
-                    'form3': EstablishingForm3(instance=proj)
+                    'form3': EstablishingForm3(instance=proj),
+                    'project': proj
                 })
 
         elif 'establishing_form_2' in request.POST:
@@ -611,7 +637,8 @@ def establishing_view(request):
                     'active_form': active_form,
                     'form1': EstablishingForm1(instance=proj),
                     'form2': EstablishingForm2(instance=proj),
-                    'form3': EstablishingForm3(instance=proj)
+                    'form3': EstablishingForm3(instance=proj),
+                    'project': proj
                 })
 
             else:
@@ -620,7 +647,8 @@ def establishing_view(request):
                     'active_form': active_form,
                     'form1': EstablishingForm1(instance=proj),
                     'form2': form_2,
-                    'form3': EstablishingForm3(instance=proj)
+                    'form3': EstablishingForm3(instance=proj),
+                    'project': proj
                 })
 
         elif 'establishing_form_3' in request.POST:
@@ -644,7 +672,8 @@ def establishing_view(request):
                     'active_form': active_form,
                     'form1': EstablishingForm1(instance=proj),
                     'form2': EstablishingForm2(instance=proj),
-                    'form3': form_3
+                    'form3': form_3,
+                    'project': proj
                 })
 
     else:
@@ -653,11 +682,13 @@ def establishing_view(request):
             'active_form': active_form,
             'form1': EstablishingForm1(instance=proj),
             'form2': EstablishingForm2(instance=proj),
-            'form3': EstablishingForm3(instance=proj)
+            'form3': EstablishingForm3(instance=proj),
+            'project': proj
         })
 
 
 def edit_startups_view(request):
+    request.session['status'] = 'edit'
     proj = Innovation.objects.get(lead__email=request.user.email)
     print "proj stage: ", proj.stage
     if proj.stage == '1':

@@ -12,6 +12,7 @@ from YouthInnovPltfrm.forms import BaseModelForm
 
 class ScalingForm1(BaseModelForm):
 
+
     def __init__(self, *args, **kwargs):
         super(ScalingForm1, self).__init__(*args, **kwargs)
         self.fields['name'].label = "Company name"
