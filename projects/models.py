@@ -72,8 +72,8 @@ class Innovation(models.Model):
     major_wrongs = models.TextField(blank=True)
 
     revenue = models.TextField(blank=True)
-    monthly_costs = CloudinaryField('raw', blank=True)
-    annual_costs = CloudinaryField('raw', blank=True)
+    monthly_costs = CloudinaryField(resource_type='raw', blank=True)
+    annual_costs = CloudinaryField(resource_type='raw', blank=True)
 
     growth_ambitions = models.TextField(blank=True)
     milestones = models.TextField(blank=True)
