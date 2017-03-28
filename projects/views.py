@@ -518,9 +518,9 @@ def scaling_view(request):
                 proj_form = form_3.save(commit=False)
                 if request.FILES:
                     if request.FILES['monthly_costs']:
-                        proj_form.monthly_costs = request.FILES['monthly_costs']
+                        proj_form.monthly = request.FILES['monthly_costs']
                     elif request.FILES['annual_costs']:
-                        proj_form.annual_costs = request.FILES['annual_costs']
+                        proj_form.annual = request.FILES['annual_costs']
 
                 proj_form.save()
 
@@ -629,6 +629,11 @@ def establishing_view(request):
 
             if form_3.is_valid():
                 proj_form = form_3.save(commit=False)
+                if request.FILES:
+                    if request.FILES['monthly_costs']:
+                        proj_form.monthly = request.FILES['monthly_costs']
+                    elif request.FILES['annual_costs']:
+                        proj_form.annual = request.FILES['annual_costs']
                 proj_form.save()
 
                 return HttpResponseRedirect(reverse('projects:view-startup'))
