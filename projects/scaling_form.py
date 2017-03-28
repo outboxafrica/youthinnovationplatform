@@ -4,6 +4,7 @@ from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Div, Submit, HTML, Button, Row, Field
 from crispy_forms.bootstrap import AppendedText, PrependedText, FormActions, InlineCheckboxes
+from cloudinary.forms import CloudinaryFileField
 from projects.models import Innovation
 from projects.validators import validate_img, validate_xls
 from YouthInnovPltfrm.forms import BaseModelForm
@@ -192,8 +193,8 @@ class ScalingForm3(BaseModelForm):
 
     revenue = forms.CharField()
 
-    mcosts = forms.FileField(validators=[validate_xls], required=False)
-    ycosts = forms.FileField(validators=[validate_xls], required=False)
+    mcosts = CloudinaryFileField(validators=[validate_xls], required=False)
+    ycosts = CloudinaryFileField(validators=[validate_xls], required=False)
     growth_ambitions = forms.CharField(widget=forms.Textarea(), required=False)
     milestones = forms.CharField(widget=forms.Textarea(), required=False)
     do_you_have_auditedbooks = forms.ChoiceField(
