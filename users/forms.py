@@ -24,6 +24,7 @@ class InnovatorProfileForm(BaseForm):
         self.fields['phone'].label = "Mobile contact"
         self.fields['summary'].label = "Please provide a summary about your educational, professional and" \
                                        " entrepreneurial experience"
+        self.fields['picture'].label = "Profile Picture"
 
     full_names = forms.CharField()
     phone_regex = RegexValidator(
@@ -113,6 +114,7 @@ class MentorProfileForm(forms.ModelForm):
         self.fields['phone'].label = "Mobile contact"
         self.fields['summary'].label = "Please provide a summary about your educational, professional and" \
                                        " entrepreneurial experience"
+        self.fields['picture'].label = "Profile Picture"
         competencies = forms.CharField(
             widget=forms.Textarea(),
             label="What are your core competencies?"
@@ -246,6 +248,7 @@ class InvestorProfileForm(forms.ModelForm):
         self.fields['phone'].label = "Mobile contact"
         self.fields['summary'].label = "Please provide a summary about your educational, professional and" \
                                        " entrepreneurial experience"
+        self.fields['picture'].label = "Profile Picture"
 
     full_names = forms.CharField()
     phone_regex = RegexValidator(
@@ -341,6 +344,7 @@ class HubManagerProfileForm(forms.ModelForm):
         self.fields['phone'].label = "Mobile contact"
         self.fields['summary'].label = "Please provide a summary about your educational, professional and" \
                                        " entrepreneurial experience"
+        self.fields['picture'].label = "Profile Picture"
 
     full_names = forms.CharField()
     phone_regex = RegexValidator(

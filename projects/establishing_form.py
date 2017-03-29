@@ -193,13 +193,13 @@ class EstablishingForm3(BaseModelForm):
 
     revenue = forms.CharField()
 
-    mcosts = CloudinaryFileField(validators=[validate_xls], required=False)
-    ycosts = CloudinaryFileField(validators=[validate_xls], required=False)
+    monthly_costs = forms.FileField(required=False)
+    annual_costs = forms.FileField(required=False)
     growth_ambitions = forms.CharField(widget=forms.Textarea())
     milestones = forms.CharField(widget=forms.Textarea())
     do_you_have_auditedbooks = forms.ChoiceField(
         choices=(('1', "Yes"), ('0', "No")),
-        widget=forms.RadioSelect, )
+        widget=forms.RadioSelect, required=True)
     total_capital = forms.CharField()
     total_sales = forms.CharField(required=False)
     expected_capital = forms.CharField()
@@ -210,9 +210,9 @@ class EstablishingForm3(BaseModelForm):
                                               ('5', "Soft Debt (Friends)"), ),
                                      widget=forms.RadioSelect, )
     capital_use = forms.CharField()
-    yr_1_projected_earnings = forms.CharField()
-    yr_2_projected_earnings = forms.CharField()
-    yr_3_projected_earnings = forms.CharField()
+    yr_1_projected_earnings = forms.CharField(required=False)
+    yr_2_projected_earnings = forms.CharField(required=False)
+    yr_3_projected_earnings = forms.CharField(required=False)
 
     helper = FormHelper()
     helper.form_class = 'form-horizontal'
@@ -221,8 +221,8 @@ class EstablishingForm3(BaseModelForm):
               css_class='input-length1 form-control text-small'),
         # Field('monthly_cashflow', css_class='file-upload'),
         # Field('income_statement', css_class='file-upload'),
-        Field('mcosts'),
-        Field('ycosts'),
+        Field('monthly_costs'),
+        Field('annual_costs'),
         Field('growth_ambitions',
               rows="3",
               css_class='input-length1 form-control text-large'),
@@ -232,11 +232,11 @@ class EstablishingForm3(BaseModelForm):
         Field('total_sales',
               css_class='input-length1 form-control text-small'),
         Field('yr_1_projected_earnings',
-              css_class='input-length1 form-control text-small down-10'),
+              css_class='input-length1 form-control text-small down-10', placeholder="Year 1"),
         Field('yr_2_projected_earnings',
-              css_class='input-length1 form-control text-small down-10'),
+              css_class='input-length1 form-control text-small down-10', placeholder="Year 2"),
         Field('yr_3_projected_earnings',
-              css_class='input-length1 form-control text-small down-10'),
+              css_class='input-length1 form-control text-small down-10', placeholder="Year 3"),
         Field('do_you_have_auditedbooks'),
         Field('total_capital',
               css_class='input-length1 form-control text-small'),
@@ -252,7 +252,7 @@ class EstablishingForm3(BaseModelForm):
 
     class Meta:
         model = Innovation
-        fields = ('revenue', 'mcosts', 'ycosts', 'growth_ambitions',
+        fields = ('revenue', 'monthly_costs', 'annual_costs', 'growth_ambitions',
                   'milestones', 'do_you_have_auditedbooks',
                   'total_capital', 'expected_capital', 'capital_type',
                   'capital_use', 'total_sales', 'yr_1_projected_earnings', 'yr_2_projected_earnings',

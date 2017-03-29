@@ -13,7 +13,7 @@
         </div>
         <div class="sidebar pull-left">
             <div class="people_role pull-left">
-                <p>{{ userprofile.role }}</p>
+                <p>{{ userprofile.role | capfirst }}</p>
             </div>
             <div class="user-avatar">
                 <!--user avatar-->
@@ -31,7 +31,7 @@
                 </a>
                  </div>
             <span id="startup-telephone">{{ userprofile.phone }}</span>
-            <span id="startup-website">{% if userprofile.website %}{{ userprofile.website }}{% endif %}</span>
+            <span id="startup-website">{% if userprofile.website is not None %}{{ userprofile.website }}{% endif %}</span>
             {% if userprofile.role == 'investor' %}
                 <a href="{% url 'projects:view-startup' %}"><button class="contact-ownerBtn" type="button">Company profile</button></a>
 

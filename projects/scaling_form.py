@@ -200,7 +200,7 @@ class ScalingForm3(BaseModelForm):
     milestones = forms.CharField(widget=forms.Textarea(), required=False)
     do_you_have_auditedbooks = forms.ChoiceField(
         choices=(('1', "Yes"), ('0', "No")),
-        widget=forms.RadioSelect, required=False)
+        widget=forms.RadioSelect, required=True)
     total_capital = forms.CharField(required=False)
     total_sales = forms.CharField(required=False)
     expected_capital = forms.CharField()
