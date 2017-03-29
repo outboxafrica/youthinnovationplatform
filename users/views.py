@@ -79,9 +79,11 @@ class ViewProfile(TemplateView):
 
 
 def view_profile(request):
+    user = User.objects.get(pk=request.user.id)
+    return render(request, 'users/my_profile.html', {'userprofile': user})
 
-    if not request.user.has_created_entity:
-        return HttpResponseRedirect(reverse('projects:select-startup-stage'))
-    else:
-        user = User.objects.get(pk=request.user.id)
-        return render(request, 'users/my_profile.html', {'userprofile': user})
+    # if not request.user.has_created_entity:
+    #     return HttpResponseRedirect(reverse('projects:select-startup-stage'))
+    # else:
+    #     user = User.objects.get(pk=request.user.id)
+    #     return render(request, 'users/my_profile.html', {'userprofile': user})
