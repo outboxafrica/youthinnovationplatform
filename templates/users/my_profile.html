@@ -33,7 +33,7 @@
                     <a href="{% if userprofile.linkedin %}{{ userprofile.linkedin }}{% else %}{{ "#" }}{% endif %}" target="_blank">
                         <i class="fa fa-linkedin last-icon" style="font-size:33px;"></i></a>
                 </div></div>
-                 </div>
+
             <span id="startup-telephone">{{ userprofile.phone }}</span>
             {% if userprofile.role == 'investor' %}
                 <a href="{% url 'projects:view-startup' %}"><button class="contact-ownerBtn" type="button">Company profile</button></a>
@@ -43,6 +43,7 @@
             {% elif userprofile.role == 'Community Hub' %}
                 <button class="contact-ownerBtn" type="button">Hub profile</button>
             {% endif%}
+        </div>
         <div class="content-container">
             <div class="overview pull-right">
                 <div class="overview-title marginalise">
