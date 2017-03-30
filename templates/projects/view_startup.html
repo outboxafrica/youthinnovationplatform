@@ -66,20 +66,21 @@
                     <div class="main_text_content">
                         <section>
                             <p><strong>Target Customers</strong></p>
-                            <p>{{ project.target_customers | capfirst}}</p>
+                            <p class="market-about">{{ project.target_customers | capfirst}}</p>
                         </section>
                         <section>
                             <p><strong>How do we reach our customers</strong></p>
-                            <p>{{ project.acquisition_plan | capfirst}}</p>
+                            <p class="market-about">{{ project.acquisition_plan | capfirst}}</p>
                         </section>
 
                         <section>
-                            <p><strong>Potential Competitos</strong></p>
-                            <p>{{ project.potential_competitors | capfirst}}</p>
+                            <p><strong>Potential Competitors</strong></p>
+                            <p class="market-about">{{ project.potential_competitors | capfirst}}</p>
                         </section>
                     </div>
                 </div>
             </div>
+        {% if project.stage != '1' %}
             <div class="financials pull-right">
                 <div class="text-overview">
                     <div class="overview-title marginalise">
@@ -87,9 +88,32 @@
                     </div>
                     <div class="overview-separator"></div>
                     <div class="main_text_content">
-                        <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vitae nisi vel nibh convallis consequat id eget odio. Cras ac pharetra neque. Aliquam vel leo massa. Praesent porttitor nulla vitae libero iaculis, vel vulputate dolor semper. Nam quis aliquet augue. In et risus vitae leo tempus faucibus vitae et est. Praesent nec dapibus metus. Integer ut venenatis libero. Aliquam at magna posuere, finibus sem id, dictum erat. Donec at mi ut turpis blandit tristique ac pulvinar sapien. Aliquam ultrices mattis nunc, tempus faucibus lacus vestibulum sit amet. Vivamus non laoreet ligula. Mauris vehicula purus non convallis tristique. Vestibulum ex dui, ultrices at pretium a, porttitor at diam. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam semper sagittis diam ac iaculis. Vestibulum sed libero tristique, elementum libero id, ultricies ex. Nam laoreet pulvinar mi, finibus sagittis magna elementum non. Donec pretium nisl ut tempor dictum. </p>
+                        {% if project.stage == '2' or '3' or '4' %}
+                            <section>
+                            <p><strong>How we'll generate revenue</strong></p>
+                            <p class="market-about">{{ project.revenue | capfirst}}</p>
+                        </section>
+                            <section>
+                            <p><strong>Startup Costs</strong></p>
+                            <p class="market-about">{{ project.costs | currency}}</p>
+                        </section>
+                        {% elif project.stage == '5' or '6'%}
+                            <section>
+                            <p><strong>Revenue Sources</strong></p>
+                            <p class="market-about">{{ project.revenue | capfirst}}</p>
+                        </section>
+                         <section>
+                            <p><strong>Our Growth Ambitions</strong></p>
+                            <p class="market-about">{{ project.growth_ambitions | capfirst}}</p>
+                        </section>
+                            <p><strong>Milestones</strong></p>
+                            <p class="market-about">{{ project.growth_ambitions | capfirst}}</p>
+                        </section>
+                        {% endif %}
                     </div>
                 </div>
             </div>
+        {% endif %}
+
         </div>
 {% endblock %}

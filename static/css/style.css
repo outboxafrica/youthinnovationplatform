@@ -684,11 +684,15 @@ footer li:first-child:before {
     margin: 15px 15px;
 }
 
-.main_text_content p {
+.main_text_content>p {
     font-family: "FiraSans-Thin";
     font-size: 0.9em;
 }
 
+.market-about {
+    font-family: "FiraSans-Thin";
+    font-size: 0.9em;
+}
 
 .marginalise {
     margin-left: 15px;

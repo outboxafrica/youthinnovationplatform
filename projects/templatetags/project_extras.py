@@ -54,3 +54,8 @@ def listSector(value):
     clean_list = [i[:-1] for i in listy]
     sectors = ", ".join(clean_list)
     return sectors.title()
+
+
+@register.filter()
+def currency(value):
+    return "UGX " + str(value)
