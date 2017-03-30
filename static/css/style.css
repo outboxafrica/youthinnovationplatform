@@ -2442,3 +2442,13 @@ label.checkbox.inline{
     font-size: inherit;
 }
 
+.icon {
+    margin-right:10px;
+    color: #000000;
+}
+
+.last-icon{
+    color: #000000;
+}
+
+

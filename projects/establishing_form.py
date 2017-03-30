@@ -246,6 +246,7 @@ class EstablishingForm3(BaseModelForm):
         Field('capital_use',
               css_class='input-length1 form-control text-small'),
         FormActions(
+            Button('Cancel', 'Previous', css_class="cancelBtn btnPrevious"),
             Submit('establishing_form_3', 'Finish', css_class="cancelBtn btnNext"),
         )
     )

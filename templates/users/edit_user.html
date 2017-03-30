@@ -20,10 +20,19 @@
             </div> <span id="startup-name"> {{ user.get_full_name }}</span>
             <!--user name-->
             <div class="sidebar_separator"></div>
-            <div class="social-media-icons"> <img id="linkedinBtn" src="/static/img/LinkedIn.png" alt="linkedin">
-                <img id="facebookBtn" src="/static/img/Facebook.png" alt="facebook"> </div>
-            <span id="startup-telephone">{{ user.phone }}</span>
-            <span id="startup-website">{% if userprofile.website is not None %}{{ userprofile.website }}{% endif %}</span>
+            <div class="social-media-icons">
+                <div>
+                    <a href="{% if userprofile.facebook %}{{ userprofile.facebook }}{% else %}{{ "#" }}{% endif %}" target="_blank">
+                        <i class="fa fa-facebook-square icon" style="font-size:33px;"></i></a>
+                    <a href="{% if userprofile.twitter %}{{ userprofile.twitter }}{% else %}{{ "#" }}{% endif %}" target="_blank">
+                        <i class="fa fa-twitter-square icon" style="font-size:33px;"></i></a>
+                    <a href="{% if "http" in userprofile.website  %}{{ userprofile.website }}{% else %}{{ "#" }}{% endif %}" target="_blank">
+                        <i class="fa fa-globe icon" style="font-size:33px;"></i></a>
+                    <a href="{% if userprofile.linkedin %}{{ userprofile.linkedin }}{% else %}{{ "#" }}{% endif %}" target="_blank">
+                        <i class="fa fa-linkedin last-icon" style="font-size:33px;"></i></a>
+                </div>
+            </div>
+            <span id="startup-telephone">{{ user.phone }}</span
             {% if userprofile.role == 'investor' %}
                 <button class="contact-ownerBtn" type="button">Company profile</button>
             {% elif userprofile.role == 'innovator' %}

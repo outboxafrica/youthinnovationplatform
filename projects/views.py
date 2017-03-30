@@ -466,6 +466,7 @@ def scaling_view(request):
 
         if 'scaling_form_1' in request.POST:
             scaling_form_1 = ScalingForm1(request.POST, request.FILES)
+            print scaling_form_1.data
             if scaling_form_1.is_valid():
                 proj = Innovation.objects.get(lead__email=request.user.email)
                 cleaned_data = scaling_form_1.cleaned_data
