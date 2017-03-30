@@ -52,6 +52,7 @@ def select_startup_stage(request):
             prof = form.save(commit=False)
             innov = Innovator.objects.get(email=request.user.email)
             prof.lead = innov
+            prof.stage = str(stage)
             prof.save()
 
             innov.has_created_entity = True
@@ -85,23 +86,19 @@ def select_startup_stage(request):
 
 
 def ideation(request):
+    proj = Innovation.objects.get(lead__email=request.user.email)
     form = IdeationStage()
     if request.method == "POST":
-        form = IdeationStage(request.POST, request.FILES)
+        form = IdeationStage(request.POST, request.FILES, instance=proj)
         if form.is_valid():
-            proj = Innovation.objects.get(lead__email=request.user.email)
-            cleaned_data = form.cleaned_data
-            print cleaned_data
-            proj.name = cleaned_data.get('name')
-            proj.description = cleaned_data.get('description')
-            proj.sectors = cleaned_data.get('sectors')
-            proj.other_sectors = cleaned_data.get('other_sectors')
-            proj.logo = cleaned_data.get('logo')
-            proj.challenge_faced = cleaned_data.get("challenge_faced")
-            proj.challenge_to_solve = cleaned_data.get("challenge_to_solve")
+            if request.FILES:
+                if 'logo' in request.FILES:
+                    form.logo = request.FILES['logo']
+                elif 'service_pic' in request.FILES:
+                    form.service_pic = request.FILES['service_pic']
 
-            proj.stage = 1
-            proj.save()
+            proj_form = form.save(commit=False)
+            proj_form.save()
             return HttpResponseRedirect(reverse("projects:view-startup"))
         else:
             return render(request, "projects/idea_wizard.html", {'form': form})
@@ -135,22 +132,14 @@ def commitment_view(request):
         if 'commitment_form_1' in request.POST:
             commitment_form_1 = CommitmentForm1(request.POST, request.FILES)
             if commitment_form_1.is_valid():
-                print 'form is valid'
-                proj = Innovation.objects.get(lead__email=request.user.email)
-                cleaned_data = commitment_form_1.cleaned_data
-                proj.name = cleaned_data.get('name')
-                proj.description = cleaned_data.get('description')
-                proj.sectors = cleaned_data.get('sectors')
-                proj.other_sectors = cleaned_data.get('other_sectors')
-                proj.logo = cleaned_data.get('logo')
-                proj.service_pic = cleaned_data.get('service_pic')
-                proj.service_videos = cleaned_data.get('service_videos')
-                proj.challenge_faced = cleaned_data.get("challenge_faced")
-                proj.challenge_to_solve = cleaned_data.get("challenge_to_solve")
-                proj.url = cleaned_data.get('url')
+                if request.FILES:
+                    if 'logo' in request.FILES:
+                        concepting_form_1.logo = request.FILES['logo']
+                    elif 'service_pic' in request.FILES:
+                        concepting_form_1.service_pic = request.FILES['service_pic']
 
-                proj.stage = 2
-                proj.save()
+                proj_form = concepting_form_1.save(commit=False)
+                proj_form.save()
 
                 active_form = 'form_2'
 
@@ -247,20 +236,14 @@ def concepting_view(request):
         if 'concepting_form_1' in request.POST:
             concepting_form_1 = ConceptingForm1(request.POST, request.FILES)
             if concepting_form_1.is_valid():
-                proj = Innovation.objects.get(lead__email=request.user.email)
-                cleaned_data = concepting_form_1.cleaned_data
-                proj.name = cleaned_data.get('name')
-                proj.description = cleaned_data.get('description')
-                proj.sectors = cleaned_data.get('sectors')
-                proj.other_sectors = cleaned_data.get('other_sectors')
-                proj.logo = cleaned_data.get('logo')
-                proj.challenge_faced = cleaned_data.get("challenge_faced")
-                proj.challenge_to_solve = cleaned_data.get("challenge_to_solve")
-                proj.url = cleaned_data.get('url')
+                if request.FILES:
+                    if 'logo' in request.FILES:
+                        concepting_form_1.logo = request.FILES['logo']
+                    elif 'service_pic' in request.FILES:
+                        concepting_form_1.service_pic = request.FILES['service_pic']
 
-                proj.stage = 3
-                proj.save()
-
+                proj_form = concepting_form_1.save(commit=False)
+                proj_form.save()
                 active_form = 'form_2'
 
                 return render(request, 'projects/concepting.html', {
@@ -356,21 +339,14 @@ def validation_view(request):
         if 'validation_form_1' in request.POST:
             validation_form_1 = ValidationForm1(request.POST, request.FILES)
             if validation_form_1.is_valid():
-                proj = Innovation.objects.get(lead__email=request.user.email)
-                cleaned_data = validation_form_1.cleaned_data
-                proj.name = cleaned_data.get('name')
-                proj.description = cleaned_data.get('description')
-                proj.sectors = cleaned_data.get('sectors')
-                proj.other_sectors = cleaned_data.get('other_sectors')
-                proj.logo = cleaned_data.get('logo')
-                proj.service_pic = cleaned_data.get('service_pic')
-                proj.service_videos = cleaned_data.get('service_videos')
-                proj.challenge_faced = cleaned_data.get("challenge_faced")
-                proj.challenge_to_solve = cleaned_data.get("challenge_to_solve")
-                proj.url = cleaned_data.get('url')
+                if request.FILES:
+                    if 'logo' in request.FILES:
+                        validation_form_1.logo = request.FILES['logo']
+                    elif 'service_pic' in request.FILES:
+                        validation_form_1.service_pic = request.FILES['service_pic']
 
-                proj.stage = 4
-                proj.save()
+                proj_form = validation_form_1.save(commit=False)
+                proj_form.save()
 
                 active_form = 'form_2'
 
@@ -463,26 +439,19 @@ def scaling_view(request):
         # print request.POST
         proj = Innovation.objects.get(lead__email=request.user.email)
         scaling_form_1 = ScalingForm1(request.POST, request.FILES, instance=proj)
+        print request.FILES
 
         if 'scaling_form_1' in request.POST:
-            scaling_form_1 = ScalingForm1(request.POST, request.FILES)
-            print scaling_form_1.data
+            scaling_form_1 = ScalingForm1(request.POST, request.FILES,  instance=proj)
             if scaling_form_1.is_valid():
-                proj = Innovation.objects.get(lead__email=request.user.email)
-                cleaned_data = scaling_form_1.cleaned_data
-                proj.name = cleaned_data.get('name')
-                proj.description = cleaned_data.get('description')
-                proj.sectors = cleaned_data.get('sectors')
-                proj.other_sectors = cleaned_data.get('other_sectors')
-                proj.logo = cleaned_data.get('logo')
-                proj.service_pic = cleaned_data.get('service_pic')
-                proj.service_videos = cleaned_data.get('service_videos')
-                proj.challenge_faced = cleaned_data.get("challenge_faced")
-                proj.challenge_to_solve = cleaned_data.get("challenge_to_solve")
-                proj.url = cleaned_data.get('url')
+                if request.FILES:
+                    if 'logo' in request.FILES:
+                        scaling_form_1.logo = request.FILES['logo']
+                    elif 'service_pic' in request.FILES:
+                        scaling_form_1.service_pic = request.FILES['service_pic']
 
-                proj.stage = 5
-                proj.save()
+                proj_form = scaling_form_1.save(commit=False)
+                proj_form.save()
 
                 active_form = 'form_2'
 
@@ -589,22 +558,14 @@ def establishing_view(request):
         if 'establishing_form_1' in request.POST:
             establishing_form_1 = EstablishingForm1(request.POST, request.FILES)
             if establishing_form_1.is_valid():
-                print "establishing form is valid"
-                proj = Innovation.objects.get(lead__email=request.user.email)
-                cleaned_data = establishing_form_1.cleaned_data
-                proj.name = cleaned_data.get('name')
-                proj.description = cleaned_data.get('description')
-                proj.sectors = cleaned_data.get('sectors')
-                proj.other_sectors = cleaned_data.get('other_sectors')
-                proj.logo = cleaned_data.get('logo')
-                proj.service_pic = cleaned_data.get('service_pic')
-                proj.service_videos = cleaned_data.get('service_videos')
-                proj.challenge_faced = cleaned_data.get("challenge_faced")
-                proj.challenge_to_solve = cleaned_data.get("challenge_to_solve")
-                proj.url = cleaned_data.get('url')
+                if request.FILES:
+                    if 'logo' in request.FILES:
+                        establishing_form_1.logo = request.FILES['logo']
+                    elif 'service_pic' in request.FILES:
+                        establishing_form_1.service_pic = request.FILES['service_pic']
 
-                proj.stage = 6
-                proj.save()
+                proj_form = establishing_form_1.save(commit=False)
+                proj_form.save()
 
                 active_form = 'form_2'
 

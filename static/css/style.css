@@ -663,13 +663,6 @@ footer li:first-child:before {
 
 .startup-image {
     float: left;
-    background-position: center center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-image: url("/static/img/startup_image.png");
-    height: 299px;
-    width: 427px;
-    margin-bottom: 10px;
 }
 
 .vertical-separator {
@@ -680,14 +673,22 @@ footer li:first-child:before {
     margin-right: 15px;
 }
 
+.view-startup-vertical-separator{
+    height: 308px;
+    background-color: #85dafa;
+    width: 3px;
+    float: left;
+    margin-right: 15px;
+}
 .main_text_content {
     margin: 15px 15px;
 }
 
-.main_text_content>p {
+.main_text_content p {
     font-family: "FiraSans-Thin";
     font-size: 0.9em;
 }
+
 
 .marginalise {
     margin-left: 15px;
@@ -701,7 +702,7 @@ footer li:first-child:before {
 }
 
 #overview-margin {
-    margin-left: 448px;
+    margin-left: 341px;
     width: 50px;
 }
 
@@ -2396,6 +2397,7 @@ div.footer-basic.footer-min {
 
 .text-overview{
     height: 15.0em;
+    display: inline;
 }
 
 .img{
