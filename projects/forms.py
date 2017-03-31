@@ -82,7 +82,6 @@ class IdeationStage(BaseModelForm):
         ),
         widget=forms.CheckboxSelectMultiple,
     )
-    logo = forms.ImageField(validators=[validate_img], required=False)
 
     helper = FormHelper()
     helper.form_class = 'form-horizontal'
@@ -95,7 +94,6 @@ class IdeationStage(BaseModelForm):
         Field('challenge_to_solve', rows="4", css_class='text-large'),
         Field('challenge_faced', css_class=''),
         Field('other_challenges', css_class='text-small', placeholder="Other Sectors"),
-        Field('logo', css_class='file-upload'),
         FormActions(
             Button('cancel', 'Cancel', css_class='cancelBtn'),
             Submit(
@@ -108,5 +106,5 @@ class IdeationStage(BaseModelForm):
 
     class Meta:
         model = Innovation
-        fields = ('name', 'description', 'sectors', 'other_sectors', 'challenge_faced', 'challenge_to_solve', 'logo',
+        fields = ('name', 'description', 'sectors', 'other_sectors', 'challenge_faced', 'challenge_to_solve',
                   'other_challenges')
