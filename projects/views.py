@@ -231,10 +231,9 @@ def concepting_view(request):
     if request.method == 'POST':
         print request.POST
         proj = Innovation.objects.get(lead__email=request.user.email)
-        concepting_form_1 = ConceptingForm1(request.POST, request.FILES, instance=proj)
 
         if 'concepting_form_1' in request.POST:
-            concepting_form_1 = ConceptingForm1(request.POST, request.FILES)
+            concepting_form_1 = ConceptingForm1(request.POST, request.FILES, instance=proj)
             if concepting_form_1.is_valid():
                 if request.FILES:
                     if 'logo' in request.FILES:
@@ -337,7 +336,7 @@ def validation_view(request):
         validation_form_1 = ValidationForm1(request.POST, request.FILES, instance=proj)
 
         if 'validation_form_1' in request.POST:
-            validation_form_1 = ValidationForm1(request.POST, request.FILES)
+            validation_form_1 = ValidationForm1(request.POST, request.FILES,  instance=proj)
             if validation_form_1.is_valid():
                 if request.FILES:
                     if 'logo' in request.FILES:
