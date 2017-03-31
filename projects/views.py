@@ -130,15 +130,15 @@ def commitment_view(request):
         commitment_form_1 = CommitmentForm1(request.POST, request.FILES, instance=proj)
 
         if 'commitment_form_1' in request.POST:
-            commitment_form_1 = CommitmentForm1(request.POST, request.FILES)
+            commitment_form_1 = CommitmentForm1(request.POST, request.FILES, instance=proj)
             if commitment_form_1.is_valid():
                 if request.FILES:
                     if 'logo' in request.FILES:
-                        concepting_form_1.logo = request.FILES['logo']
+                        commitment_form_1.logo = request.FILES['logo']
                     elif 'service_pic' in request.FILES:
-                        concepting_form_1.service_pic = request.FILES['service_pic']
+                        commitment_form_1.service_pic = request.FILES['service_pic']
 
-                proj_form = concepting_form_1.save(commit=False)
+                proj_form = commitment_form_1.save(commit=False)
                 proj_form.save()
 
                 active_form = 'form_2'
