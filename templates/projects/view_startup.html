@@ -35,7 +35,7 @@
             <div class="overview pull-right">
                 <div class="pull-left view-startup-image">
                     {% if project.stage == "1" or "3" %}
-                        <img src="/static/img/startup_image.png" height="308">
+
                     {% else %}
                         <img src="{% cloudinary_url project.service_pic height=308 crop="fit" %}">
                     {% endif %}
