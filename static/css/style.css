@@ -706,7 +706,7 @@ footer li:first-child:before {
 }
 
 #overview-margin {
-    margin-left: 341px;
+    margin-left: 10px;
     width: 50px;
 }
 
@@ -2404,6 +2404,16 @@ div.footer-basic.footer-min {
     display: inline;
 }
 
+.view-startup-desc{
+    float: left;
+    height: 308px;
+    width: 600px;
+}
+
+.view-startup-image{
+    float: left;
+}
+
 .img{
     height: 100%;
     width: 100%;
@@ -2455,6 +2465,21 @@ label.checkbox.inline{
 
 .last-icon{
     color: #000000;
+}
+
+.flex-container {
+    display: -webkit-flex;
+    display: flex;
+    width: 400px;
+    height: 250px;
+    background-color: lightgrey;
+}
+
+.flex-item {
+    background-color: cornflowerblue;
+    width: 100px;
+    height: 100px;
+    margin: 10px;
 }
 
 

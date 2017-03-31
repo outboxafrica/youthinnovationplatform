@@ -653,20 +653,24 @@ def establishing_view(request):
 
 def edit_startups_view(request):
     request.session['status'] = 'edit'
+    print request.user.email
     proj = Innovation.objects.get(lead__email=request.user.email)
     print "proj stage: ", proj.stage
-    if proj.stage == '1':
-        return HttpResponseRedirect(reverse('projects:ideation'))
-    elif proj.stage == '2':
-        return HttpResponseRedirect(reverse('projects:commitment'))
-    elif proj.stage == '3':
-        return HttpResponseRedirect(reverse('projects:concepting'))
-    elif proj.stage == '4':
-        return HttpResponseRedirect(reverse('projects:validation'))
-    elif proj.stage == '5':
-        return HttpResponseRedirect(reverse('projects:scaling'))
-    elif proj.stage == '6':
-        return HttpResponseRedirect(reverse("projects:establishing"))
+    if proj:
+        if proj.stage == '1':
+            return HttpResponseRedirect(reverse('projects:ideation'))
+        elif proj.stage == '2':
+            return HttpResponseRedirect(reverse('projects:commitment'))
+        elif proj.stage == '3':
+            return HttpResponseRedirect(reverse('projects:concepting'))
+        elif proj.stage == '4':
+            return HttpResponseRedirect(reverse('projects:validation'))
+        elif proj.stage == '5':
+            return HttpResponseRedirect(reverse('projects:scaling'))
+        elif proj.stage == '6':
+            return HttpResponseRedirect(reverse("projects:establishing"))
+        else:
+            return HttpResponseRedirect(reverse('index:home'))
     else:
-        return HttpResponseRedirect(reverse('index:home'))
+        return HttpResponseRedirect(reverse('projects:select-startup-stage'))
 
