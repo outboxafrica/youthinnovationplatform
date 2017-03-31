@@ -553,10 +553,9 @@ def establishing_view(request):
     if request.method == 'POST':
         print request.POST
         proj = Innovation.objects.get(lead__email=request.user.email)
-        establishing_form_1 = EstablishingForm1(request.POST, request.FILES, instance=proj)
 
         if 'establishing_form_1' in request.POST:
-            establishing_form_1 = EstablishingForm1(request.POST, request.FILES)
+            establishing_form_1 = EstablishingForm1(request.POST, request.FILES, instance=proj)
             if establishing_form_1.is_valid():
                 if request.FILES:
                     if 'logo' in request.FILES:
@@ -564,8 +563,8 @@ def establishing_view(request):
                     elif 'service_pic' in request.FILES:
                         establishing_form_1.service_pic = request.FILES['service_pic']
 
-                proj_form = establishing_form_1.save(commit=False)
-                proj_form.save()
+                establishing_form_1.save(commit=False)
+                establishing_form_1.save()
 
                 active_form = 'form_2'
 
