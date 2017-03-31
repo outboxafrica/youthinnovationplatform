@@ -33,7 +33,7 @@ class ScalingForm1(BaseModelForm):
 
     name = forms.CharField()
     logo = forms.ImageField(validators=[validate_img], required=False)
-    service_pic = forms.ImageField(required=False)
+    service_pic = forms.ImageField(required=True)
     service_videos = forms.URLField(required=False)
     url = forms.URLField(required=False)
     description = forms.CharField(widget=forms.Textarea(), )

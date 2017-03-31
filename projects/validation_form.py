@@ -31,7 +31,7 @@ class ValidationForm1(BaseModelForm):
     name = forms.CharField()
     description = forms.CharField(widget=forms.Textarea())
     url = forms.CharField(required=False)
-    service_pic = forms.ImageField(required=False)
+    service_pic = forms.ImageField(required=True)
     other_challenges = forms.CharField(widget=forms.Textarea(), required=False)
     service_videos = forms.CharField(required=False)
     sectors = forms.MultipleChoiceField(
