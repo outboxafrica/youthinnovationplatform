@@ -34,7 +34,7 @@
         <div class="content-container">
             <div class="overview pull-right">
                 <div class="pull-left view-startup-image">
-                    {% if project.stage == "1" %}
+                    {% if project.stage == "1" or "3" %}
                         <img src="/static/img/startup_image.png" height="308">
                     {% else %}
                         <img src="{% cloudinary_url project.service_pic height=308 crop="fit" %}">
@@ -63,7 +63,7 @@
                 <div class="circular left-align"> <img class="avatar" src="/static/img/avatar-m-37.png"> </div>
             </div>
             <div class="market pull-right">
-                {% if project.stage != "1" or "3" %}
+                {% if project.stage != "1" %}
                    <div class="text-overview">
                     <div class="overview-title marginalise">
                         <p>Market</p>
