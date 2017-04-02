@@ -13,30 +13,30 @@
         <div class="people_role pull-left">
             <p>Scaling</p>
         </div>
-        {% if request.session.status == 'edit' %}
-            <div class="startup-logo"><img class="img img-responsive" src="{{ project.logo.url }}" alt="startup logo"></div>
-            <span id="startup-name"> {{ project.name }}</span>
-            <div class="sidebar_separator"></div>
-            <div class="social-media-icons"><img id="linkedinBtn" src="/static/img/LinkedIn.png" alt="linkedin"> <img
-                    id="facebookBtn" src="/static/img/Facebook.png" alt="facebook"></div>
-            <span id="startup-telephone">+256 75 555 5555</span> <span id="startup-website">www.mystartup.com</span>
-            <button class="contact-ownerBtn" type="button">Contact Owner</button>
-        {% else%}
+{#        {% if request.session.status == 'edit' %}#}
+{#            <div class="startup-logo"><img class="img img-responsive" src="{{ project.logo.url }}" alt="startup logo"></div>#}
+{#            <span id="startup-name"> {{ project.name }}</span>#}
+{#            <div class="sidebar_separator"></div>#}
+{#            <div class="social-media-icons"><img id="linkedinBtn" src="/static/img/LinkedIn.png" alt="linkedin"> <img#}
+{#                    id="facebookBtn" src="/static/img/Facebook.png" alt="facebook"></div>#}
+{#            <span id="startup-telephone">+256 75 555 5555</span> <span id="startup-website">www.mystartup.com</span>#}
+{#            <button class="contact-ownerBtn" type="button">Contact Owner</button>#}
+{#        {% else%}#}
             <div class="startup-logo"><img class="img img-responsive" src="/static/img/StartupLogo.png" alt="startup logo"></div>
             <span id="startup-name"> My Startup</span>
             <div class="sidebar_separator"></div>
-            <div class="social-media-icons">
-                <div>
-                    <a href="#" target="_blank">
-                        <i class="fa fa-facebook-square icon" style="font-size:33px;"></i></a>
-                    <a href="#" target="_blank">
-                        <i class="fa fa-twitter-square icon" style="font-size:33px;"></i></a>
-                    <a href="#" target="_blank">
-                        <i class="fa fa-globe icon" style="font-size:33px;"></i></a>
-                </div>
-            <span id="startup-telephone">+256 75 555 5555</span>
-            <button class="contact-ownerBtn" type="button">Contact Owner</button>
-        {% endif %}
+{#            <div class="social-media-icons">#}
+{#                <div>#}
+{#                    <a href="#" target="_blank">#}
+{#                        <i class="fa fa-facebook-square icon" style="font-size:33px;"></i></a>#}
+{#                    <a href="#" target="_blank">#}
+{#                        <i class="fa fa-twitter-square icon" style="font-size:33px;"></i></a>#}
+{#                    <a href="#" target="_blank">#}
+{#                        <i class="fa fa-globe icon" style="font-size:33px;"></i></a>#}
+{#                </div>#}
+{#            <span id="startup-telephone">+256 75 555 5555</span>#}
+{#            <button class="contact-ownerBtn" type="button">Contact Owner</button>#}
+{#        {% endif %}#}
 
     </div>
     <div class="content-container">

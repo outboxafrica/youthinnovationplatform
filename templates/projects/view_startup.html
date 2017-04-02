@@ -34,8 +34,7 @@
         <div class="content-container">
             <div class="overview pull-right">
                 <div class="pull-left view-startup-image">
-                    {% if project.stage == "1" or "3" %}
-
+                    {% if project.stage == "1" or project.stage == "3" %}
                     {% else %}
                         <img src="{% cloudinary_url project.service_pic height=308 crop="fit" %}">
                     {% endif %}
@@ -96,7 +95,7 @@
                     </div>
                     <div class="overview-separator"></div>
                     <div class="main_text_content">
-                        {% if project.stage == '2' or '3' or '4' %}
+                        {% if project.stage == '2' or project.stage == '3' or project.stage == '4' %}
                             <section>
                             <p><strong>How we'll generate revenue</strong></p>
                             <p class="market-about">{{ project.revenue | capfirst}}</p>
@@ -105,7 +104,7 @@
                             <p><strong>Startup Costs</strong></p>
                             <p class="market-about">{{ project.costs | currency}}</p>
                         </section>
-                        {% elif project.stage == '5' or '6'%}
+                        {% elif project.stage == '5' or project.stage == '6'%}
                             <section>
                             <p><strong>Revenue Sources</strong></p>
                             <p class="market-about">{{ project.revenue | capfirst}}</p>

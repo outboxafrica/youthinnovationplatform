@@ -22,7 +22,7 @@ class ValidationForm1(BaseModelForm):
         self.fields[
             'challenge_faced'].label = "What challenges are you facing?"
         self.fields[
-            'service_pic'].label = "Please provide a picture that shows yrour product/service (jpeg, png, gif)"
+            'service_pic'].label = "Please provide a picture that shows your product/service (jpeg, png, gif)"
         self.fields[
             'service_videos'].label = "Please provide a link to the video that shows your product/service. " \
                                       "[This can be a link to youtube or vimeo]"
