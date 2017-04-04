@@ -1,10 +1,12 @@
 {% extends 'layouts/../index/../layouts/base.html' %}
 {% load project_extras %}
 {% load cloudinary %}
+{% load tz %}
 
 {% load crispy_forms_tags %}
 
 {% block content %}
+    {% get_current_timezone as TIME_ZONE %}
     <div class="blog-main-content">
         <div class="blog-image">
             <img id="blog-image img img-responsive" src="{{ post.blog_pic.url }}" width="600" height="400">
@@ -40,8 +42,13 @@
                 </div>
                 <div class="comment_meta">
                     <p id="user_says">{{ comment.author }} says:</p><br>
-                    <p id="comment_timestamp">{{ comment.created_date | date:"d M Y" }} at
-                        {{ comment.created_date | time }}</p>
+                    <p id="comment_timestamp">
+                        {{ comment.created_date | date:"d M Y" }}
+                        at
+                        {% localtime on %}
+                        {{ comment.created_date | time}}
+                        {% endlocaltime %}
+                    </p>
                 </div>
                 <div class="comment_text">
                     <p>{{ comment.text }}</p>

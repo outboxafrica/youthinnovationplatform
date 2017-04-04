@@ -1,6 +1,6 @@
 from django.conf.urls import url
 from projects.views import EditInvestmentCompany, select_startup_stage, ideation, view_startup, edit_startups_view, \
-    commitment_view, concepting_view, validation_view, scaling_view, establishing_view
+    commitment_view, concepting_view, validation_view, scaling_view, establishing_view, StartupDetailView
 
 urlpatterns = [
     url(r'^investment_company', EditInvestmentCompany.as_view(), name='investment_company'),
@@ -13,4 +13,5 @@ urlpatterns = [
     url(r'validation-stage', validation_view, name="validation"),
     url(r'scaling-stage', scaling_view, name="scaling"),
     url(r'establishing-stage', establishing_view, name="establishing"),
+    url(r'innovation/(?P<pk>\d+)/detail$', StartupDetailView.as_view(), name='startup-detail'),
 ]

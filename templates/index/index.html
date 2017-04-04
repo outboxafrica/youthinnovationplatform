@@ -4,46 +4,65 @@
 {% block content %}
     <div class="homepageBanner">
         <div class="left_icons pull-left">
-            <ul>
-                <li>
-                    <a href="#"> <img id="briefcase_icon"
+            <ul data-tabs="tabs">
+                <li data-toggle="tab" href="#showcase" class="active">
+                    <img id="briefcase_icon"
                                       src="/static/img/Briefcase_icon@2x.png">
                         <p>Showcase your
                             <br>ideas or business</p>
-                    </a>
+
                     <div class="separator"></div>
                 </li>
-                <li>
-                    <a href="#"> <img id="money_icon"
+                <li data-toggle="tab" href="#invest">
+                    <img id="money_icon"
                                       src="/static/img/Money_icon@2x.png">
                         <p>Help a young
                             <br>business grow</p>
-                    </a>
+
                     <div class="separator"></div>
                 </li>
-                <li>
-                    <a href="#"> <img id="mentor_icon"
+                <li data-toggle="tab" href="#mentor">
+                    <img id="mentor_icon"
                                       src="/static/img/Mentor_icon@2x.png">
                         <p>Mentor a young
                             <br>entrepreneur</p>
-                    </a>
+
                     <div class="separator"></div>
                 </li>
-                <li>
-                    <a href="#"> <img id="hub_icon" src="/static/img/hub_icon@2x.png">
+                <li data-toggle="tab" href="#startup-community">
+                    <img id="hub_icon" src="/static/img/hub_icon@2x.png">
                         <p>Build a startup
                             <br> community</p>
-                    </a>
+
                 </li>
             </ul>
         </div>
-        <div class="mob_text pull-left">
+    <div class="tab-content">
+        <div class="mob_text pull-left tab-pane active" id="showcase">
             <p>"Build a business profile and
                 <br>gain access to a curated
                 <br> list of mentors, investors and
                 <br> community hubs to
                 <br> connect with."</p>
         </div>
+        <div class="mob_text pull-left tab-pane" id="invest">
+            <p>"Receive a curated list of
+                <br>startups based on your
+                <br> investment portfolio."</p>
+        </div>
+        <div class="mob_text pull-left tab-pane" id="mentor">
+            <p>"Share knowledge with
+                <br>entrepreneurs that match
+                <br>  your expertise."</p>
+        </div>
+        <div class="mob_text pull-left tab-pane" id="startup-community">
+            <p>"Spend less time sourcing for
+                <br>gwhom to support. Focus
+                <br> on getting your services to
+                <br> work for entrepreneurs."</p>
+
+        </div>
+    </div>
         {% if not user.is_authenticated %}
             <div class="pull-right button_image">
                 <a href={% url 'index:register' %}>
@@ -91,6 +110,7 @@
         <div class="featured_startup_cards">
             {% for project in innovations %}
                 <div class="featured_startup_card1">
+                <a class="no_link" href="{% url 'projects:startup-detail' project.pk %}">
                     <div class="startup_pic">
                         <img class="card_img img-responsive img" src="{{ project.service_pic.url }}">
                         <div class="startup_stage pull-right">
@@ -103,6 +123,7 @@
                         <p class="sector">Sector - {{ project.sectors|listSector }}</p>
                         <p class="desc">{{ project.description }}</p>
                     </div>
+                    </a>
                     <img class="share_btn" src="/static/img/Share_icon2x_1_24x21.png"></div>
             {% endfor %}
         </div>

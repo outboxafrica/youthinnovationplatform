@@ -14,6 +14,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/static/js/bootstrap.js"></script>
     <script type="text/javascript" src="/static/js/bootstrap.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jstimezonedetect/1.0.4/jstz.min.js'></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js" type="text/javascript"></script>
     <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/themes/flick/jquery-ui.css"/>
     <!-- for modal jquery -->
@@ -26,6 +27,12 @@
             {% endfor %}
         {% endif %}
     </script>
+
+    <script>
+        var current_timezone = jstz.determine();
+        console.log(current_timezone.name())
+    </script>
+
     <script>
         $('.btnNext').click(function () {
             $('.nav-pills > .active').next('li').find('a').trigger('click');

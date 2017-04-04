@@ -1,6 +1,6 @@
 from django.shortcuts import render, reverse, get_object_or_404
 from django.http import HttpResponseRedirect
-from django.views.generic import FormView, TemplateView, UpdateView
+from django.views.generic import FormView, TemplateView, UpdateView, DetailView
 from django.core.files.storage import FileSystemStorage
 from projects.models import InvestmentCompany, Innovation
 from users.models import User, Innovator
@@ -108,7 +108,13 @@ def ideation(request):
 
 def view_startup(request):
     innovation_profile = get_object_or_404(Innovation, lead=request.user.id)
-    return render(request, 'projects/view_startup.html', {'project': innovation_profile})
+    return render(request, 'projects/view_startup.html', {'object': innovation_profile})
+
+
+class StartupDetailView(DetailView):
+    template_name = 'projects/view_startup.html'
+    model = Innovation
+
 
 
 class EditIdeationProfile(UpdateView):
