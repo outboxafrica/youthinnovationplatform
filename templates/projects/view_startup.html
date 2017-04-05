@@ -20,11 +20,10 @@
             <div class="sidebar_separator"></div>
             <div class="social-media-icons">
                 <div>
-                    <a href="{% if "http" in object.url  %}{{ object.website }}{% else %}{{ "#" }}{% endif %}" target="_blank">
+                    <a href="{% if "http" in object.url  %}{{ object.url }}{% else %}{{ "#" }}{% endif %}" target="_blank">
                         <i class="fa fa-globe icon" style="font-size:33px;"></i></a>
                 </div>
             </div>
-            <span id="startup-telephone">+256 75 555 5555</span>
             <button class="contact-ownerBtn" type="button">Contact Owner</button>
         </div>
         <div class="content-container">

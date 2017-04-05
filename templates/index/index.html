@@ -119,13 +119,13 @@
                     <div class="startup_pic">
                         <img class="card_img img-responsive img" src="{{ project.service_pic.url }}">
                         <div class="startup_stage pull-right">
-                            <p>{{ project.stage|status }}</p>
+                            <p>{{ project.stage|status }} </p>
                         </div>
                     </div>
                     <div class="desc_separator"></div>
                     <div class="startup_description">
                         <p class="title-index">{{ project.name }}</p>
-                        <p class="sector">Sector - {{ project.sectors|listSector }}</p>
+                        <p class="sector">Sector - {{ project.sectors|listSector }} {{ project.other_sectors|listSector }}</p>
                         <p class="desc">{{ project.description }}</p>
                     </div>
                     </a>
