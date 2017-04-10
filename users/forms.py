@@ -168,6 +168,9 @@ class MentorProfileForm(BaseModelForm):
                               widget=forms.URLInput(attrs={'placeholder': "http://example.com"}))
     blog = forms.CharField(required=False,
                            widget=forms.URLInput(attrs={'placeholder': "http://example.com"}))
+
+    facebook = forms.CharField(required=False,
+                           widget=forms.URLInput(attrs={'placeholder': "http://example.com"}))
     website = forms.CharField(
         required=False,
         widget=forms.URLInput(attrs={'placeholder': "http://example.com"}))
@@ -197,6 +200,8 @@ class MentorProfileForm(BaseModelForm):
               css_class='file-upload'),
         Field('linkedin',
               css_class='text-small'),
+        Field('facebook',
+              css_class='text-small'),
         Field('twitter',
               css_class='text-small'),
         Field('blog',
@@ -220,7 +225,7 @@ class MentorProfileForm(BaseModelForm):
         model = Mentor
         fields = ('gender', 'phone', 'country', 'summary', 'picture',
                   'resume', 'linkedin', 'twitter', 'blog', 'website', 'full_names', 'support_stage',
-                  'support_type', 'competencies')
+                  'support_type', 'competencies', 'facebook')
 
 
 class InvestorProfileForm(forms.ModelForm):

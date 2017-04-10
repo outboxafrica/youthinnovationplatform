@@ -4,7 +4,9 @@ from django.views.generic import FormView, TemplateView, UpdateView
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from users.forms import InnovatorProfileForm, InvestorProfileForm, MentorProfileForm, HubManagerProfileForm, ProgramManagerProfileForm
+from users.forms import InnovatorProfileForm, InvestorProfileForm, MentorProfileForm, HubManagerProfileForm, \
+    ProgramManagerProfileForm
+from projects.forms import InvestmentCompany
 from users.models import User, Mentor, Innovator, Investor, HubManager, ProgramManager
 
 # Create your views here.
@@ -155,3 +157,108 @@ def view_profile(request):
         return render(request, 'users/my_profile.html', {'userprofile': innovator})
     else:
         return render(request, 'users/my_profile.html', {'userprofile': user})
+
+
+# def commitment_view(request):
+#     proj = Innovation.objects.get(lead__email=request.user.email)
+#
+#     commitment_form_1 = CommitmentForm1(request.FILES, instance=proj)
+#     commitment_form_2 = CommitmentForm2(request.FILES, instance=proj)
+#     commitment_form_3 = CommitmentForm3(request.FILES, instance=proj)
+#
+#     active_form = 'form_1'
+#
+#     if request.method == 'POST':
+#         print request.POST
+#         proj = Innovation.objects.get(lead__email=request.user.email)
+#         commitment_form_1 = CommitmentForm1(request.POST, request.FILES, instance=proj)
+#
+#         if 'commitment_form_1' in request.POST:
+#             commitment_form_1 = CommitmentForm1(request.POST, request.FILES, instance=proj)
+#             if commitment_form_1.is_valid():
+#                 if request.FILES:
+#                     if 'logo' in request.FILES:
+#                         commitment_form_1.logo = request.FILES['logo']
+#                     elif 'service_pic' in request.FILES:
+#                         commitment_form_1.service_pic = request.FILES['service_pic']
+#
+#                 proj_form = commitment_form_1.save(commit=False)
+#                 proj_form.save()
+#
+#                 active_form = 'form_2'
+#
+#                 return render(request, 'projects/commitment.html', {
+#                     'active_form': active_form,
+#                     'form1': CommitmentForm1(instance=proj),
+#                     'form2': CommitmentForm2(instance=proj),
+#                     'form3': CommitmentForm3(instance=proj),
+#                     'project': proj
+#                 })
+#
+#             else:
+#                 active_form = 'form_1'
+#                 return render(request, 'projects/commitment.html', {
+#                     'active_form': active_form,
+#                     'form1': commitment_form_1,
+#                     'form2': CommitmentForm2(instance=proj),
+#                     'form3': CommitmentForm3(instance=proj),
+#                     'project': proj
+#                 })
+#
+#         elif 'commitment_form_2' in request.POST:
+#             proj = Innovation.objects.get(lead__email=request.user.email)
+#             form_2 = CommitmentForm2(request.POST, request.FILES, instance=proj)
+#             if form_2.is_valid():
+#                 proj_form = form_2.save(commit=False)
+#                 proj_form.save()
+#
+#                 active_form = 'form_3'
+#
+#                 return render(request, 'projects/commitment.html', {
+#                     'active_form': active_form,
+#                     'form1': CommitmentForm1(instance=proj),
+#                     'form2': CommitmentForm2(instance=proj),
+#                     'form3': CommitmentForm3(instance=proj),
+#                     'project': proj
+#                 })
+#
+#             else:
+#                 active_form = 'form_2'
+#                 return render(request, 'projects/commitment.html', {
+#                     'active_form': active_form,
+#                     'form1': CommitmentForm1(instance=proj),
+#                     'form2': form_2,
+#                     'form3': CommitmentForm3(instance=proj),
+#                     'project': proj
+#                 })
+#
+#         elif 'commitment_form_3' in request.POST:
+#             proj = Innovation.objects.get(lead__email=request.user.email)
+#             form_3 = CommitmentForm3(request.POST, request.FILES, instance=proj)
+#
+#             if form_3.is_valid():
+#                 proj_form = form_3.save(commit=False)
+#                 proj_form.save()
+#
+#                 return HttpResponseRedirect(reverse('projects:view-startup'))
+#
+#             else:
+#                 active_form = 'form_3'
+#                 return render(request, 'projects/commitment.html', {
+#                     'active_form': active_form,
+#                     'form1': CommitmentForm1(instance=proj),
+#                     'form2': CommitmentForm2(instance=proj),
+#                     'form3': form_3,
+#                     'project': proj
+#                 })
+#
+#     else:
+#         print "commitment get"
+#         return render(request, 'projects/commitment.html', {
+#             'active_form': active_form,
+#             'form1': CommitmentForm1(instance=proj),
+#             'form2': CommitmentForm2(instance=proj),
+#             'form3': CommitmentForm3(instance=proj),
+#             'project': proj
+#         })
+
