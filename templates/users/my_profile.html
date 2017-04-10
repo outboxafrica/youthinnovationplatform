@@ -1,5 +1,6 @@
 {% extends 'layouts/base.html' %}
 {% load crispy_forms_tags %}
+{% load project_extras %}
 
 {% block content %}
     <div class="banner">
@@ -73,8 +74,32 @@
             <div class="overview-separator"></div>
             <div class="main_text_content">
                 <p>{{ userprofile.summary|linebreaks }}</p>
+                {% if userprofile.role == 'mentor' %}
+                <p><strong>Competencies: </strong> {{ userprofile.competencies }}</p>
+            {% endif %}
+            </div>
+
+        </div>
+        {% if request.user.role == 'mentor' %}
+            <div class="overview pull-right">
+            <div class="overview-title marginalise">
+                <p>Support Type</p>
+            </div>
+            <div class="overview-separator"></div>
+            <div class="main_text_content">
+                <p>{{ userprofile.support_type | listSector }}</p>
             </div>
         </div>
+            <div class="overview pull-right">
+            <div class="overview-title marginalise">
+                <p>We support innovations at</p>
+            </div>
+            <div class="overview-separator"></div>
+            <div class="main_text_content">
+                <p>{{ userprofile.support_stage | listSector }}</p>
+            </div>
+        </div>
+        {% endif %}
         <div class="overview pull-right">
             <div class="overview-title marginalise">
                 <p>Community Hub Affiliation</p>

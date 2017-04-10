@@ -147,11 +147,11 @@ def view_profile(request):
     # user = User.objects.get(pk=request.user.id)
     # return render(request, 'users/my_profile.html', {'userprofile': user})
     user = User.objects.get(pk=request.user.id)
-
-    if not request.user.has_created_entity:
-        if request.user.gender:
-            return render(request, 'users/my_profile.html', {'userprofile': user})
-        else:
-            return HttpResponseRedirect(reverse('projects:select-startup-stage'))
+    if user.role == 'mentor':
+        mentor = Mentor.objects.get(pk=request.user.id)
+        return render(request, 'users/my_profile.html', {'userprofile': mentor})
+    elif user.role == 'innovator':
+        innovator = Innovator.objects.get(pk=request.user.id)
+        return render(request, 'users/my_profile.html', {'userprofile': innovator})
     else:
         return render(request, 'users/my_profile.html', {'userprofile': user})

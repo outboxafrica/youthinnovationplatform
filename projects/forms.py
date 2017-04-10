@@ -154,7 +154,7 @@ class InvestmentCompanyForm(BaseModelForm):
     class Meta:
         model = InvestmentCompany
         fields = [
-            'investor_focus', 'prefered_industries', 'other_industries', 'investment_stage', 'ticket_size', 'logo',
+            'investor_focus', 'preferred_industries', 'other_industries', 'investment_stage', 'ticket_size', 'logo',
             'url', 'organisation_name'
         ]
 

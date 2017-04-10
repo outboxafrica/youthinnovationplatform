@@ -59,3 +59,8 @@ def listSector(value):
 @register.filter()
 def currency(value):
     return "UGX " + str(value)
+
+
+@register.filter()
+def split_by_comma(value):
+    return value.split(" ")
