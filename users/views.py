@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.urls import reverse
-from django.views.generic import FormView, TemplateView
+from django.views.generic import FormView, TemplateView, UpdateView
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
@@ -10,47 +10,28 @@ from users.models import User, Mentor, Innovator, Investor, HubManager, ProgramM
 # Create your views here.
 
 
-class EditUser(FormView):
+class EditMentor(UpdateView):
+    form_class = MentorProfileForm
+    model = Mentor
     template_name = 'users/edit_user.html'
-    success_url = 'view'
+    success_url = '/users/view'
 
-    def get_form_class(self):
-        role = self.request.user.role
-        if role == 'mentor':
-            form_class = MentorProfileForm
-        elif role == 'innovator':
-            print 'innovator form'
-            form_class = InnovatorProfileForm
-        elif role == 'investor':
-            print 'investor form'
-            form_class = InvestorProfileForm
-        elif role == 'hub manager':
-            form_class = HubManagerProfileForm
-        elif role == 'program manager':
-            form_class = ProgramManagerProfileForm
-
-        return form_class
+    def form_invalid(self, form):
+        return super(EditMentor, self).form_invalid(form)
 
     def form_valid(self, form):
         user = form.save(commit=False)
         user.save()
-        return super(EditUser, self).form_valid(form)
+        return super(EditMentor, self).form_valid(form)
 
-    def form_invalid(self, form):
-        return super(EditUser, self).form_invalid(form)
-
-    def get_form(self, form_class=None):
-        form_class = self.get_form_class()
-        try:
-            user = User.objects.get(pk=self.request.user.id)
-            print type(user)
-            user.full_name = user.get_full_name()
-            return form_class(instance=user, **self.get_form_kwargs())
-        except User.DoesNotExist:
-            return form_class(**self.get_form_kwargs())
+    def get_context_data(self, **kwargs):
+        context = super(EditMentor, self).get_context_data(**kwargs)
+        mentor = Mentor.objects.get(pk=self.request.user.id)
+        context['userprofile'] = mentor
+        return context
 
     def get_initial(self):
-        initial = super(EditUser, self).get_initial()
+        initial = super(EditMentor, self).get_initial()
         try:
             user = User.objects.get(pk=self.request.user.id)
             initial['full_names'] = user.get_full_name()
@@ -58,11 +39,95 @@ class EditUser(FormView):
         except User.DoesNotExist:
             return initial
 
+
+class EditInvestor(UpdateView):
+    form_class = InvestorProfileForm
+    model = Investor
+    template_name = 'users/edit_user.html'
+    success_url = 'view'
+
+    def form_invalid(self, form):
+        return super(EditInvestor, self).form_invalid(form)
+
+    def form_valid(self, form):
+        user = form.save(commit=False)
+        user.save()
+        return super(EditInvestor, self).form_valid(form)
+
     def get_context_data(self, **kwargs):
-        context = super(EditUser, self).get_context_data(**kwargs)
-        user = User.objects.get(pk=self.request.user.id)
-        context['userprofile'] = user
+        context = super(EditInvestor, self).get_context_data(**kwargs)
+        investor = Investor.objects.get(pk=self.request.user.id)
+        context['userprofile'] = investor
         return context
+
+    def get_initial(self):
+        initial = super(EditInvestor, self).get_initial()
+        try:
+            user = User.objects.get(pk=self.request.user.id)
+            initial['full_names'] = user.get_full_name()
+            return initial
+        except User.DoesNotExist:
+            return initial
+
+
+class EditHubManager(UpdateView):
+    form_class = HubManagerProfileForm
+    template_name = 'users/edit_user.html'
+    success_url = 'view'
+    model = HubManager
+
+    def form_invalid(self, form):
+        return super(EditHubManager, self).form_invalid(form)
+
+    def form_valid(self, form):
+        user = form.save(commit=False)
+        user.save()
+        return super(EditHubManager, self).form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super(EditHubManager, self).get_context_data(**kwargs)
+        hub_manager = HubManager.objects.get(pk=self.request.user.id)
+        context['userprofile'] = hub_manager
+        return context
+
+    def get_initial(self):
+        initial = super(EditHubManager, self).get_initial()
+        try:
+            user = User.objects.get(pk=self.request.user.id)
+            initial['full_names'] = user.get_full_name()
+            return initial
+        except User.DoesNotExist:
+            return initial
+
+
+class EditInnovator(UpdateView):
+    form_class = InnovatorProfileForm
+    template_name = 'users/edit_user.html'
+    success_url = 'view'
+    model = Innovator
+
+    def form_invalid(self, form):
+        return super(EditInnovator, self).form_invalid(form)
+
+    def form_valid(self, form):
+        user = form.save(commit=False)
+        user.save()
+        return super(EditInnovator, self).form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super(EditInnovator, self).get_context_data(**kwargs)
+        innovator = Innovator.objects.get(pk=self.request.user.id)
+        context['userprofile'] = innovator
+        return context
+
+    def get_initial(self):
+        initial = super(EditInnovator, self).get_initial()
+        try:
+            user = User.objects.get(pk=self.request.user.id)
+            initial['full_names'] = user.get_full_name()
+            return initial
+        except User.DoesNotExist:
+            return initial
 
 
 class ViewProfile(TemplateView):

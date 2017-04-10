@@ -90,7 +90,18 @@
                                aria-haspopup="true"
                                aria-expanded="false">{{ user.first_name }}<span class="caret"></span></a>
                             <ul class="dropdown-menu" id="user_menu">
-                                <li><a href={% url 'users:edit_user' %}>Edit My Profile</a></li>
+                                <li>{% if request.user.role == 'innovator' %}
+                                    <a href={% url 'users:edit-innovator' request.user.id %}>
+                                    {% elif request.user.role == 'mentor' %}
+                                    <a href={% url 'users:edit-mentor' request.user.id %}>
+                                    {% elif request.user.role == 'investor' %}
+                                    <a href={% url 'users:edit-investor' request.user.id %}>
+                                    {% elif request.user.role  == 'hub_manager'%}
+                                    <a href={% url 'users:edit-hub-manager' request.user.id %}>
+                                    {% else %}
+                                    <a href="#">
+                                    {% endif %}
+                                        Edit My Profile</a></li>
                                 <li><a href={% url 'users:view_profile' %}>View User Profile</a></li>
                                 {% if user.role == 'investor' %}
                                     <li><a href="">View Company Profile</a></li>

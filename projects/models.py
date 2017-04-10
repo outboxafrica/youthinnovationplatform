@@ -16,10 +16,6 @@ class InvestmentCompany(models.Model):
     url = models.CharField(max_length=200, blank=True)
     logo = cloudinary.models.CloudinaryField('image', blank=True)
     organisation_name = models.CharField(max_length=200, blank=True)
-    description = models.TextField(blank=True)
-    support_type = models.CharField(max_length=255, blank=True)
-    competencies = models.TextField(blank=True)
-    specialties = models.TextField(blank=True)
     published = models.BooleanField(default=False)
 
     def get_logo(self):

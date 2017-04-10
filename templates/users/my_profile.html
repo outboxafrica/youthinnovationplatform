@@ -2,79 +2,101 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-        <div class="banner">
-            <div class="burn">
-                <div class="title"> <span id="startupTitle">{{ userprofile.get_full_name }}'s Details</span>
-                    <div class="desc_separator" id="title_separator"></div>
-                </div>
+    <div class="banner">
+        <div class="burn">
+            <div class="title"><span id="startupTitle">{{ userprofile.get_full_name }}'s Details</span>
+                <div class="desc_separator" id="title_separator"></div>
             </div>
-            <a href={% url 'users:edit_user' %}>
-                <button id="editprofileBtn" class="pull-right" type="button">Edit profile</button></a>
         </div>
-        <div class="sidebar pull-left">
-            <div class="people_role pull-left">
-                <p>{{ userprofile.role | capfirst }}</p>
+        {% if request.user.role == 'innovator' %}
+            <a href={% url 'users:edit-innovator' request.user.id %}>
+        {% elif request.user.role == 'mentor' %}
+            <a href={% url 'users:edit-mentor' request.user.id %}>
+        {% elif request.user.role == 'investor' %}
+            <a href={% url 'users:edit-investor' request.user.id %}>
+        {% elif request.user.role  == 'hub_manager' %}
+            <a href={% url 'users:edit-hub-manager' request.user.id %}>
+        {% else %}
+            <a href="#">
+        {% endif %}
+        <button id="editprofileBtn" class="pull-right" type="button">Edit profile</button></a>
+    </div>
+    <div class="sidebar pull-left">
+        <div class="people_role pull-left">
+            <p>{{ userprofile.role | capfirst }}</p>
+        </div>
+        <div class="user-avatar">
+            <!--user avatar-->
+            <div class="circular " id="startup_profile_avatar"><img class="avatar" src="{{ userprofile.picture.url }}"
+                                                                    width="70" height="70">
             </div>
-            <div class="user-avatar">
-                <!--user avatar-->
-                <div class="circular " id="startup_profile_avatar"> <img class="avatar" src="{{ userprofile.picture.url }}" width="70" height="70">
-                </div>
-            </div> <span id="startup-name"> {{ userprofile.get_full_name }}</span>
-            <!--user name-->
-            <div class="sidebar_separator"></div>
-            <div class="social-media-icons">
-                <div>
-                    <a href="{% if userprofile.facebook %}{{ userprofile.facebook }}{% else %}{{ "#" }}{% endif %}" target="_blank">
-                        <i class="fa fa-facebook-square icon" style="font-size:33px;"></i></a>
-                    <a href="{% if userprofile.twitter %}{{ userprofile.twitter }}{% else %}{{ "#" }}{% endif %}" target="_blank">
-                        <i class="fa fa-twitter-square icon" style="font-size:33px;"></i></a>
-                    <a href="{% if "http" in userprofile.website  %}{{ userprofile.website }}{% else %}{{ "#" }}{% endif %}" target="_blank">
-                        <i class="fa fa-globe icon" style="font-size:33px;"></i></a>
-                    <a href="{% if userprofile.linkedin %}{{ userprofile.linkedin }}{% else %}{{ "#" }}{% endif %}" target="_blank">
-                        <i class="fa fa-linkedin last-icon" style="font-size:33px;"></i></a>
-                </div></div>
+        </div>
+        <span id="startup-name"> {{ userprofile.get_full_name }}</span>
+        <!--user name-->
+        <div class="sidebar_separator"></div>
+        <div class="social-media-icons">
+            <div>
+                <a href="{% if userprofile.facebook %}{{ userprofile.facebook }}{% else %}{{ "#" }}{% endif %}"
+                   target="_blank">
+                    <i class="fa fa-facebook-square icon" style="font-size:33px;"></i></a>
+                <a href="{% if userprofile.twitter %}{{ userprofile.twitter }}{% else %}{{ "#" }}{% endif %}"
+                   target="_blank">
+                    <i class="fa fa-twitter-square icon" style="font-size:33px;"></i></a>
+                <a href="{% if "http" in userprofile.website %}{{ userprofile.website }}{% else %}{{ "#" }}{% endif %}"
+                   target="_blank">
+                    <i class="fa fa-globe icon" style="font-size:33px;"></i></a>
+                <a href="{% if userprofile.linkedin %}{{ userprofile.linkedin }}{% else %}{{ "#" }}{% endif %}"
+                   target="_blank">
+                    <i class="fa fa-linkedin last-icon" style="font-size:33px;"></i></a>
+            </div>
+        </div>
 
-            <span id="startup-telephone">{{ userprofile.phone }}</span>
-            {% if userprofile.role == 'investor' %}
-                <a href="{% url 'projects:view-startup' %}"><button class="contact-ownerBtn" type="button">Company profile</button></a>
+        <span id="startup-telephone">{{ userprofile.phone }}</span>
+        {% if userprofile.role == 'investor' %}
+            <a href="{% url 'projects:view-startup' %}">
+                <button class="contact-ownerBtn" type="button">Company profile</button>
+            </a>
 
-            {% elif userprofile.role == 'innovator' %}
-                <a href="{% url 'projects:view-startup' %}"><button class="contact-ownerBtn" type="button">Startup Profile</button></a>
-            {% elif userprofile.role == 'Community Hub' %}
-                <button class="contact-ownerBtn" type="button">Hub profile</button>
-            {% endif%}
-        </div>
-        <div class="content-container">
-            <div class="overview pull-right">
-                <div class="overview-title marginalise">
-                    <p>Experience Summary</p>
-                </div>
-                <div class="overview-separator"></div>
-                <div class="main_text_content">
-                    <p>{{ userprofile.summary|linebreaks }}</p>
-                </div>
+        {% elif userprofile.role == 'innovator' %}
+            <a href="{% url 'projects:view-startup' %}">
+                <button class="contact-ownerBtn" type="button">Startup Profile</button>
+            </a>
+        {% elif userprofile.role == 'Community Hub' %}
+            <button class="contact-ownerBtn" type="button">Hub profile</button>
+        {% endif %}
+    </div>
+    <div class="content-container">
+        <div class="overview pull-right">
+            <div class="overview-title marginalise">
+                <p>Experience Summary</p>
             </div>
-            <div class="overview pull-right">
-                <div class="overview-title marginalise">
-                    <p>Community Hub Affiliation</p>
-                </div>
-                <div class="overview-separator"></div>
-                <div class="main_text_content community_hub">
-                    <div class="hub_affiliation"> <img src="/static/img/Shape.png"> </div>
-                    <div class="hub_affiliation"> <img src="/static/img/Shape.png"> </div>
-                    <div class="hub_affiliation"> <img src="/static/img/Shape.png"> </div>
-                    <div class="hub_affiliation"> <img src="/static/img/Shape.png"> </div>
-                </div>
-            </div>
-            <div class="team-members pull-right">
-                <div class="overview-title marginalise">
-                    <p>Team Members</p>
-                </div>
-                <div class="overview-separator"></div>
-                <div class="circular left-align" id="first-team-member"> <img class="avatar" src="/static/img/avatar-m-41.png"> </div>
-                <div class="circular left-align"> <img class="avatar" src="/static/img/avatar-m-02%20copy.png"> </div>
-                <div class="circular left-align"> <img class="avatar" src="/static/img/avatar-m-83.png"> </div>
-                <div class="circular left-align"> <img class="avatar" src="/static/img/avatar-m-37.png"> </div>
+            <div class="overview-separator"></div>
+            <div class="main_text_content">
+                <p>{{ userprofile.summary|linebreaks }}</p>
             </div>
         </div>
+        <div class="overview pull-right">
+            <div class="overview-title marginalise">
+                <p>Community Hub Affiliation</p>
+            </div>
+            <div class="overview-separator"></div>
+            <div class="main_text_content community_hub">
+                <div class="hub_affiliation"><img src="/static/img/Shape.png"></div>
+                <div class="hub_affiliation"><img src="/static/img/Shape.png"></div>
+                <div class="hub_affiliation"><img src="/static/img/Shape.png"></div>
+                <div class="hub_affiliation"><img src="/static/img/Shape.png"></div>
+            </div>
+        </div>
+        <div class="team-members pull-right">
+            <div class="overview-title marginalise">
+                <p>Team Members</p>
+            </div>
+            <div class="overview-separator"></div>
+            <div class="circular left-align" id="first-team-member"><img class="avatar"
+                                                                         src="/static/img/avatar-m-41.png"></div>
+            <div class="circular left-align"><img class="avatar" src="/static/img/avatar-m-02%20copy.png"></div>
+            <div class="circular left-align"><img class="avatar" src="/static/img/avatar-m-83.png"></div>
+            <div class="circular left-align"><img class="avatar" src="/static/img/avatar-m-37.png"></div>
+        </div>
+    </div>
 {% endblock %}
