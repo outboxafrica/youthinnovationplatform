@@ -46,7 +46,7 @@ class EditInvestor(UpdateView):
     form_class = InvestorProfileForm
     model = Investor
     template_name = 'users/edit_user.html'
-    success_url = 'view'
+    success_url = '/users/view'
 
     def form_invalid(self, form):
         return super(EditInvestor, self).form_invalid(form)
@@ -75,7 +75,7 @@ class EditInvestor(UpdateView):
 class EditHubManager(UpdateView):
     form_class = HubManagerProfileForm
     template_name = 'users/edit_user.html'
-    success_url = 'view'
+    success_url = '/users/view'
     model = HubManager
 
     def form_invalid(self, form):
@@ -105,7 +105,7 @@ class EditHubManager(UpdateView):
 class EditInnovator(UpdateView):
     form_class = InnovatorProfileForm
     template_name = 'users/edit_user.html'
-    success_url = 'view'
+    success_url = '/users/view'
     model = Innovator
 
     def form_invalid(self, form):
