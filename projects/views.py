@@ -1,11 +1,11 @@
 from django.shortcuts import render, reverse, get_object_or_404
 from django.http import HttpResponseRedirect
-from django.views.generic import FormView, TemplateView, UpdateView, DetailView
+from django.views.generic import FormView, TemplateView, UpdateView, DetailView, CreateView
 from django.core.files.storage import FileSystemStorage
 from projects.models import InvestmentCompany, Innovation
 from users.models import User, Innovator
 from projects.investor_form import InvestorForm
-from projects.forms import StartupStageForm, IdeationStage
+from projects.forms import StartupStageForm, IdeationStage, InvestmentCompanyForm
 from projects.commitment_form import CommitmentForm1, CommitmentForm2, CommitmentForm3
 from projects.concepting_form import ConceptingForm1, ConceptingForm2, ConceptingForm3
 from projects.validation_form import ValidationForm1, ValidationForm2, ValidationForm3
@@ -16,29 +16,32 @@ from form_helpers import handle_uploads
 # Create your views here.
 
 
-class EditInvestmentCompany(FormView):
-    form_class = InvestorForm
-    template_name = 'projects/investor_profile_wizard.html'
-
-    def form_valid(self, form):
-        investor = form.save(commit=False)
-        investor.save()
-
-        return super(EditInvestmentCompany, self).form_valid(form)
+class CreateInvestmentCompany(CreateView):
+    model = InvestmentCompany
+    form_class = InvestmentCompanyForm
 
     def form_invalid(self, form):
-        return super(EditInvestmentCompany, self).form_invalid(form)
+        return super(CreateInvestmentCompany, self).form_invalid(form)
+
+    def form_valid(self, form):
+        investor = self.request.user
+        company = form.save(commit=False)
+        company.lead = investor
+        company.save()
+        return super(CreateInvestmentCompany, self).form_valid(form)
 
 
-class ViewInvestmentCompany(TemplateView):
-    template_name = 'projects/view-investor.html'
+class UpdateInvestmentCompany(UpdateView):
     model = InvestmentCompany
+    form_class = InvestmentCompanyForm
 
-    def get_context_data(self, **kwargs):
-        context = super(ViewInvestmentCompany, self).get_context_data(**kwargs)
-        user = User.objects.get(pk=self.request.user.id)
-        context['company'] = user
-        return context
+    def form_invalid(self, form):
+        return super(UpdateInvestmentCompany, self).form_invalid(form)
+
+    def form_valid(self, form):
+        user = form.save(commit=False)
+        user.save()
+        return super(UpdateInvestmentCompany, self).form_valid(form)
 
 
 def select_startup_stage(request):

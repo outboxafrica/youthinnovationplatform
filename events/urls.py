@@ -1,11 +1,10 @@
 from django.conf.urls import url
-from . import views
-from events.views import EventsIndex
+from events.views import EventsIndex, EventsDetail
 
 app_name = "pm"
 
 # Project Create
 urlpatterns = [
-    url(r'^', EventsIndex.as_view(), name='events_index'),
-    url(r'^view/(?P<id>[0-9]+)/', views.view, name='view'),
+    url(r'^current', EventsIndex.as_view(), name='events_index'),
+    url(r'^view/(?P<pk>\d+)/detail', EventsDetail.as_view(), name='detail'),
 ]

@@ -12,6 +12,7 @@
         <div class="blog-content">
         {% if not no_event %}
             <div class="most-recent-blogpost">
+            <a class="no_link" href="{% url 'events:detail' upcoming_event.pk %}">
                 <div class="people_role pull-right">
                     <!-- blog date -->
                     <p>
@@ -35,11 +36,13 @@
                     </div> <img class="blog_share_btn" src="/static/img/Share_icon2x_1_24x21.png">
                     <div class="attend_btn pull-right"> <span>Attend</span> <img src="/static/img/left_icon_events2x_50.png"> </div>
                 </div>
+            </a>
             </div>
             <div class="clearfix"></div>
             <div class="other-events">
                 {% for event in events %}
                     <div class="event_card1">
+                    <a class="no_link" href="{% url 'events:detail' event.pk %}">
                     <div class="event_pic"> <img class="card_img" src="/static/img/events1.png">
                         <div class="event_date">
                             <p>
@@ -56,6 +59,7 @@
                         <p class="desc">{{ event.introduction }}</p>
                     </div> <img id="event_share" class="blog_share_btn" src="/static/img/Share_icon2x_1_24x21.png">
                     <div class="attend_btn pull-right"> <span>Attend</span> <img src="/static/img/left_icon_events2x_50.png"> </div>
+                    </a>
                 </div>
                 {% endfor %}
             </div>
@@ -64,6 +68,7 @@
             <div class="other-events">
                 {% for event in past_events %}
                     <div class="event_card1">
+                    <a class="no_link" href="{% url 'events:detail' event.pk %}">
                     <div class="event_pic"> <img class="card_img" src="/static/img/events1.png">
                         <div class="event_date">
                             <p>
@@ -80,6 +85,7 @@
                         <p class="desc">{{ event.introduction }}</p>
                     </div> <img id="event_share" class="blog_share_btn" src="/static/img/Share_icon2x_1_24x21.png">
                     <div class="attend_btn pull-right"> <span>Attend</span> <img src="/static/img/left_icon_events2x_50.png"> </div>
+                    </a>
                 </div>
                 {% endfor %}
             </div>

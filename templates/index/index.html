@@ -167,6 +167,7 @@
         <div class="featured_startup_cards">
             {% for event in events %}
                 <div class="event_card11">
+                <a class="no_link" href="{% url 'events:detail' event.pk %}">
                     <div class="event_pic">
                         <img class="card_img img-responsive img" src="{{ event.event_pic.url }}" alt="startup pic">
                         <div class="event_date">
@@ -184,6 +185,7 @@
                     <img class="share_btn" src="/static/img/Share_icon2x_1_24x21.png">
                     <div class="attend_btn_index"><span>Attend</span> <img src="/static/img/left_icon_events2x_50.png">
                     </div>
+                </a>
                 </div>
             {% endfor %}
         </div>

@@ -1,21 +1,23 @@
-{% extends 'layouts/../index/../layouts/base.html' %}
+{% extends 'layouts/base.html' %}
+{% load cloudinary %}
 
 {% block content %}
 <div class="container" style="background-color: white">
   <div class="row">
-  <div class="col-md-12" style="height: 300px; background-image: url('/static/img/awards.jpg');background-position: top;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;">
+  <div class="blog-main-content">
+      <img src="{% cloudinary_url event.event_pic height=408 crop="fit" %}">
   </div>
-    <div class="col-md-7 event-details">
+    <div class="col-md-offset-2 col-md-8 event-details">
       <div class="as-card" style="border: none">
         <div class="as-card-area">
         	<h3 style="color: #ff9900">{{ event.title }}</h3>
         	Location/Venue: {{ event.venue }}<br/>
-        	Date: {{ event.title }}<br/>
-        	Time: {{ event.title }} <br/>
+        	Date: {% for time in upcoming_event.occurrence_set.all %}
+                            {{ time.start | date:"d M Y" }}
+                            {% endfor %}<br/>
+        	Time: {% for time in upcoming_event.occurrence_set.all %}
+                            {{ time.start | time }}
+                            {% endfor %} <br/>
         	Price: {{ event.price }}
         	<a class="btn btn-info" style="float: right; background-color: gray" href="{{ event.registration_link }}">Join</a>
         	<br/> 

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from events.models import Event, Occurrence
 from django.utils import timezone
 
@@ -35,3 +35,10 @@ class EventsIndex(ListView):
                 "if number of past events is more than 8, display the last 8 events"
                 context['past_events'] = past_events[:8]
                 return context
+
+
+class EventsDetail(DetailView):
+    model = Event
+    template_name = "events/view.html"
+    queryset = Event.objects.all()
+
