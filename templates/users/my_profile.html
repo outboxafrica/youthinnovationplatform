@@ -112,7 +112,9 @@
                 <div class="hub_affiliation"><img src="/static/img/Shape.png"></div>
             </div>
         </div>
-        <div class="team-members pull-right">
+        {% if request.user.role != 'mentor' %}
+                        <div class="team-members pull-right">
+
             <div class="overview-title marginalise">
                 <p>Team Members</p>
             </div>
@@ -123,5 +125,7 @@
             <div class="circular left-align"><img class="avatar" src="/static/img/avatar-m-83.png"></div>
             <div class="circular left-align"><img class="avatar" src="/static/img/avatar-m-37.png"></div>
         </div>
+        {% endif %}
+
     </div>
 {% endblock %}
