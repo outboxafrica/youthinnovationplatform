@@ -161,7 +161,6 @@ class MentorProfileForm(BaseModelForm):
 
     country = forms.CharField(max_length=20)
     picture = forms.ImageField(required=False, validators=[validate_img])
-    resume = forms.FileField(validators=[validate_doc], required=False)
     linkedin = forms.CharField(required=False,
                                widget=forms.URLInput(attrs={'placeholder': "http://example.com"}))
     twitter = forms.CharField(required=False,
@@ -196,8 +195,6 @@ class MentorProfileForm(BaseModelForm):
               css_class='text-large'),
         Field('picture',
               css_class='file-upload'),
-        Field('resume',
-              css_class='file-upload'),
         Field('linkedin',
               css_class='text-small'),
         Field('facebook',
@@ -224,7 +221,7 @@ class MentorProfileForm(BaseModelForm):
     class Meta:
         model = Mentor
         fields = ('gender', 'phone', 'country', 'summary', 'picture',
-                  'resume', 'linkedin', 'twitter', 'blog', 'website', 'full_names', 'support_stage',
+                  'linkedin', 'twitter', 'blog', 'website', 'full_names', 'support_stage',
                   'support_type', 'competencies', 'facebook')
 
 
@@ -305,7 +302,6 @@ class InvestorProfileForm(forms.ModelForm):
         model = Investor
         fields = ('gender', 'phone', 'country', 'summary', 'picture',
                   'resume', 'linkedin', 'twitter', 'blog', 'website', 'full_names')
-
 
 
 class HubManagerProfileForm(forms.ModelForm):

@@ -178,3 +178,5 @@ cloudinary.config(
   api_key=url.username,
   api_secret=url.password
 )
+
+LOGIN_URL = '/signin'

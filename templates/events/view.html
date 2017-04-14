@@ -12,10 +12,10 @@
         <div class="as-card-area">
         	<h3 style="color: #ff9900">{{ event.title }}</h3>
         	Location/Venue: {{ event.venue }}<br/>
-        	Date: {% for time in upcoming_event.occurrence_set.all %}
+        	Date: {% for time in event.occurrence_set.all %}
                             {{ time.start | date:"d M Y" }}
                             {% endfor %}<br/>
-        	Time: {% for time in upcoming_event.occurrence_set.all %}
+        	Time: {% for time in event.occurrence_set.all %}
                             {{ time.start | time }}
                             {% endfor %} <br/>
         	Price: {{ event.price }}

@@ -55,6 +55,15 @@ def listSector(value):
     sectors = ", ".join(clean_list)
     return sectors.title()
 
+@register.filter
+def listOtherSector(value):
+    value = value.replace('[', '').replace(']', '')
+    value = value.split(', ')
+    listy = [i.replace("u'", "") for i in value]
+    clean_list = [i for i in listy]
+    sectors = ", ".join(clean_list)
+    return sectors.title()
+
 
 @register.filter()
 def currency(value):

@@ -26,7 +26,9 @@ from projects.decorators import check_profile_complete
 
 
 def homepage(request):
-    events = Event.objects.for_period(from_date=timezone.now())
+    events = Event.objects.for_period(from_date=timezone.now()).sort_by_next()
+    if len(events) > 4:
+        events = events[:4]
     innovations = Innovation.objects.all().order_by("id")[:4]
     blog_posts = Post.objects.all()[:3]
     return render(request, 'index/index.html', {'events':events, 'innovations': innovations, 'blog_posts': blog_posts})

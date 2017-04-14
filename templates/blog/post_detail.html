@@ -68,8 +68,9 @@
                 </form>
             </div>
             {% else %}
-            <p class="tabs-title"><a href="{% url 'index:signin' %}">Login</a> to comment
+            <p class="tabs-title"><a href="{% url 'index:signin' %}?next={{request.path | urlencode}}">Login</a> to comment
                     <br></p>
+
         {% endif %}
 
         </div>

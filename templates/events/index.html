@@ -1,5 +1,6 @@
 {% extends 'layouts/base.html' %}
 {% load project_extras %}
+{% load cloudinary %}
 
 {% block content %}
 <div class="banner">
@@ -21,7 +22,7 @@
                             {% endfor %}
                     </p>
                 </div>
-                <div class="blog-image2 pull-left"> <img src="/static/img/karungiTerry.jpg" height="299" width="448"> </div>
+                <div class="blog-image2 pull-left"> <img src="{% cloudinary_url upcoming_event.event_pic height=299 crop="fit" %}"> </div>
                 <div class="vertical-separator"></div>
                 <div class="text-overview" >
                     <div class="overview-title">
@@ -43,7 +44,7 @@
                 {% for event in events %}
                     <div class="event_card1">
                     <a class="no_link" href="{% url 'events:detail' event.pk %}">
-                    <div class="event_pic"> <img class="card_img" src="/static/img/events1.png">
+                    <div class="event_pic"> <img class="card_img img-responsive img" src="{{ event.event_pic.url }}" alt="startup pic">
                         <div class="event_date">
                             <p>
                                 {% for time in event.occurrence_set.all %}
