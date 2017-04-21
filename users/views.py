@@ -149,6 +149,7 @@ def view_profile(request):
     # user = User.objects.get(pk=request.user.id)
     # return render(request, 'users/my_profile.html', {'userprofile': user})
     user = User.objects.get(pk=request.user.id)
+
     if user.role == 'mentor':
         mentor = Mentor.objects.get(pk=request.user.id)
         return render(request, 'users/my_profile.html', {'userprofile': mentor})

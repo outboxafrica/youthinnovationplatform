@@ -159,7 +159,7 @@ def verify_key(request, key):
     user.save()
     user.backend = 'django.contrib.auth.backends.ModelBackend'
     django_login(request, user)
-    return render(request, 'index/confirm.html')
+    return render(request, 'index/confirm.html', {'user':user})
 
 
 def logout(request):

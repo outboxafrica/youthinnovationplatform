@@ -10,20 +10,8 @@ class UNDPMailer():
         self.from_email = 'undp_django@gmail.com'
 
     def sendVerification(self, email, code, url):
-        # mail = EmailMultiAlternatives(
-        #     subject="UNDP Account Verification",
-        #     body="Please open " + url + "users/verify/" + code
-        #          + " in your browser.",
-        #     from_email="UNDP Django <undp_django@gmail.com>",
-        #     to=[email],
-        #     headers={"Reply-To": "undp_django@gmail.com"}
-        # )
-        # mail.attach_alternative("Click <a href=\"" + url + "verify/" + code
-        #                         + "\">Here</a> to activate your account. This link will expire in 24 hours.", "text/html")
-        #
-        # mail.send()
 
-        body = "Please open " + url + "users/verify/" + code + " in your browser."
+        body = "Please open " + url + "verify/" + code + " in your browser."
 
         return send_mail(
                 "UNDP Account Verification",
@@ -33,20 +21,8 @@ class UNDPMailer():
                 fail_silently=False)
 
     def sendResetEmail(self, email, code, url):
-        # mail = EmailMultiAlternatives(
-        #     subject="UNDP Password Reset Link",
-        #     body="Please open " + url + "users/verify/" + code
-        #          + " in your browser.",
-        #     from_email="UNDP Django <undp_django@gmail.com>",
-        #     to=[email],
-        #     headers={"Reply-To": "undp_django@gmail.com"}
-        # )
-        # mail.attach_alternative("Click <a href=\"" + url + "confirm_password/" + code
-        #                         + "\">here</a> to reset your password. This link will expire in 24 hours.", "text/html")
-        #
-        # mail.send()
 
-        body = "Please open " + url + "users/verify/" + code + " in your browser."
+        body = "Please open " + url + "verify/" + code + " in your browser."
 
         return send_mail(
             "UNDP Password Reset Link",
@@ -68,7 +44,7 @@ class UNDPMailer():
                                 + "\">here</a> to recover your account. This link will expire in 24 hours.", "text/html")
 
         mail.send()
-        body = "Please open " + url + "users/verify/" + code + " in your browser.",
+        body = "Please open " + url + "verify/" + code + " in your browser.",
 
         return send_mail(
             "UNDP Account Recovery Link",
