@@ -1,11 +1,12 @@
 {% extends 'layouts/base.html' %}
 {% block content %}
 <script type="text/javascript">
-	 setTimeout(function(){
-	     var role = {{ user.role }};
-	     var id = {{ user.id }};
-	 	window.location = "/users/edit/" + id + "/" + role ;
-	 }, 3000);
+    var role = "{{ user.role }}";
+    var id = "{{ user.id }}";
+    console.log(role);
+    setTimeout(function () {
+        window.location = "/users/edit/" + id + "/" + role;
+    }, 3000);
 </script>
 	<div class="body-container container">
 		<h1 class="title">Account Confirmation</h1>
