@@ -155,13 +155,12 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 MEDIA_URL = '/media/'
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'undpdjango@gmail.com'
-SERVER_EMAIL = 'undpdjango@gmail.com'
-EMAIL_HOST_PASSWORD = 'Django_undp'
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = os.environ.get('SENDGRID_USERNAME')
+EMAIL_HOST_PASSWORD = os.environ.get('SENDGRID_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
 DEFAULT_FROM_EMAIL = 'undp_django@gmail.com'
 
 # Axes configuration

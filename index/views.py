@@ -118,8 +118,9 @@ def register(request):
                 hub_manager_profile.save()
 
             mailer = UNDPMailer()
-            mailer.sendVerification(email, activation_key,
-                                    request.build_absolute_uri("/"))
+            er = mailer.sendVerification(email, activation_key, request.build_absolute_uri("/"))
+
+            print "mailer: " + str(er)
 
             messages.success(request,
                              'Your account has been successfully created, check you email to verify your account')
