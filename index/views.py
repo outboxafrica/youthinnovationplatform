@@ -8,6 +8,7 @@ from django.utils import timezone
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as django_login
 from django.contrib.auth import logout as django_logout
+from django.core.cache import cache
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.core.exceptions import PermissionDenied
@@ -27,6 +28,16 @@ from projects.decorators import check_profile_complete
 
 def homepage(request):
     events = Event.objects.for_period(from_date=timezone.now()).sort_by_next()
+
+    # check if the user has  created an entity and redirect if necessary
+    if request.user.is_authenticated():
+        role = request.user.role
+        has_entity = request.user.has_created_entity
+        url = redirect_to_create_enity(role, has_entity)
+
+        if url is not None:
+            return HttpResponseRedirect(reverse(url))
+
     if len(events) > 4:
         events = events[:4]
     innovations = Innovation.objects.all().order_by("id")[:4]
@@ -157,6 +168,7 @@ def verify_key(request, key):
         return render(request, 'index/confirm_expired.html')
     user.is_active = True
     user.save()
+    cache.set(str(user.id), 'has_signed_up')
     user.backend = 'django.contrib.auth.backends.ModelBackend'
     django_login(request, user)
     return render(request, 'index/confirm.html', {'user':user})
@@ -237,10 +249,11 @@ def signin(request):
                 if user.is_active:
                     django_login(request, user)
                     # check if the user has created entity profile
+                    role = request.user.role
+                    id = request.user.id
                     if not request.user.gender:
-                        return HttpResponseRedirect(reverse('users:edit_user'))
-                    else:
-                        return HttpResponseRedirect(reverse('index:home'))
+                        url = reverse_user_edit(role)
+                        return HttpResponseRedirect(reverse(url, kwargs={'pk': id}))
 
                 else:
                     raise ValidationError("Please check your email and validate your account")
@@ -286,4 +299,27 @@ class RecoverAccountView(FormView):
 
     def form_invalid(self, form):
         return super(RecoverAccountView, self).form_invalid(form)
+
+
+def reverse_user_edit(role):
+    if role == 'hub_manager':
+        return 'users:edit_hub-manager'
+    else:
+        return 'users:edit-' + role
+
+
+def redirect_to_create_enity(role, has_created_entity):
+    if not has_created_entity:
+        if role == 'investor':
+            return 'projects:create-investment-company'
+        elif role == 'innovator':
+            return 'projects:select-startup-stage'
+        elif role == 'hub_manager':
+            return 'projects:create-hub-manager'
+    else:
+        return None
+
+
+
+
 

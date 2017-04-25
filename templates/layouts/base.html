@@ -103,9 +103,14 @@
                                     {% endif %}
                                         Edit My Profile</a></li>
                                 <li><a href={% url 'users:view_profile' %}>View User Profile</a></li>
-                                {% if user.role == 'investor' %}
-                                    <li><a href="">View Company Profile</a></li>
-                                    <li><a href={% url 'projects:investment_company' %}>Edit Company Profile</a></li>
+                                {% if user.role == 'investor'%}
+                                    {% if user.has_created_entity %}
+                                        <li><a href="#">View Investment Co. Profile</a></li>
+                                        <li><a href="{% url 'projects:update-investment-company' %}">Edit Investment Co. Profile</a></li>
+                                    {% else %}
+                                        <li><a href={% url 'projects:create-investment-company' %}>Create Investment Co. Profile</a>
+                                        </li>
+                                    {% endif %}
                                 {% elif user.role == 'hub manager' %}
                                     <li><a href="">Edit Hub Profile</a></li>
                                     <li><a href="">View Hub Profile</a></li>

@@ -4,6 +4,8 @@ from django.views.generic import FormView, TemplateView, UpdateView
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
+
+from index.views import redirect_to_create_enity
 from users.forms import InnovatorProfileForm, InvestorProfileForm, MentorProfileForm, HubManagerProfileForm, \
     ProgramManagerProfileForm
 from projects.forms import InvestmentCompany
@@ -150,6 +152,13 @@ def view_profile(request):
     # return render(request, 'users/my_profile.html', {'userprofile': user})
     user = User.objects.get(pk=request.user.id)
 
+    role = request.user.role
+    has_entity = request.user.has_created_entity
+    url = redirect_to_create_enity(role, has_entity)
+
+    if url is not None:
+        return HttpResponseRedirect(reverse(url))
+
     if user.role == 'mentor':
         mentor = Mentor.objects.get(pk=request.user.id)
         return render(request, 'users/my_profile.html', {'userprofile': mentor})
@@ -158,6 +167,13 @@ def view_profile(request):
         return render(request, 'users/my_profile.html', {'userprofile': innovator})
     else:
         return render(request, 'users/my_profile.html', {'userprofile': user})
+
+
+def check_created_instance(role, has_created_instance):
+    if role == 'mentor':
+        return True
+    else:
+        return has_created_instance
 
 
 

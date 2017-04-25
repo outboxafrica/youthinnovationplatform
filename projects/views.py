@@ -4,7 +4,6 @@ from django.views.generic import FormView, TemplateView, UpdateView, DetailView,
 from django.core.files.storage import FileSystemStorage
 from projects.models import InvestmentCompany, Innovation
 from users.models import User, Innovator
-from projects.investor_form import InvestorForm
 from projects.forms import StartupStageForm, IdeationStage, InvestmentCompanyForm
 from projects.commitment_form import CommitmentForm1, CommitmentForm2, CommitmentForm3
 from projects.concepting_form import ConceptingForm1, ConceptingForm2, ConceptingForm3
@@ -19,6 +18,7 @@ from form_helpers import handle_uploads
 class CreateInvestmentCompany(CreateView):
     model = InvestmentCompany
     form_class = InvestmentCompanyForm
+    template_name = 'projects/investor_profile_wizard.html'
 
     def form_invalid(self, form):
         return super(CreateInvestmentCompany, self).form_invalid(form)
@@ -34,6 +34,7 @@ class CreateInvestmentCompany(CreateView):
 class UpdateInvestmentCompany(UpdateView):
     model = InvestmentCompany
     form_class = InvestmentCompanyForm
+    template_name = 'projects/investor_profile_wizard.html'
 
     def form_invalid(self, form):
         return super(UpdateInvestmentCompany, self).form_invalid(form)
@@ -42,6 +43,21 @@ class UpdateInvestmentCompany(UpdateView):
         user = form.save(commit=False)
         user.save()
         return super(UpdateInvestmentCompany, self).form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super(UpdateInvestmentCompany, self).get_context_data(**kwargs)
+        company = InvestmentCompany.objects.get(pk=self.request.user.id)
+        context['company'] = company
+        return context
+
+    def get_initial(self):
+        initial = super(UpdateInvestmentCompany, self).get_initial()
+        try:
+            user = User.objects.get(pk=self.request.user.id)
+            initial['full_names'] = user.get_full_name()
+            return initial
+        except User.DoesNotExist:
+            return initial
 
 
 def select_startup_stage(request):

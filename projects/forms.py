@@ -93,7 +93,7 @@ class IdeationStage(BaseModelForm):
               css_class='text-small'),
         Field('challenge_to_solve', rows="4", css_class='text-large'),
         Field('challenge_faced', css_class=''),
-        Field('other_challenges', css_class='text-small', placeholder="Other Sectors"),
+        Field('other_challenges', css_class='text-small', placeholder="Other Challenges"),
         FormActions(
             Button('cancel', 'Cancel', css_class='cancelBtn'),
             Submit(
@@ -119,13 +119,27 @@ class InvestmentCompanyForm(BaseModelForm):
         self.fields['url'].label = 'What is your organisation URL?'
         self.fields['logo'].label = "Organisation logo (jpeg, png, gif)"
 
-
-    investor_focus = forms.CharField(widget=forms.Textarea())
+    investor_focus = forms.CharField(widget=forms.Textarea(), label="Please describe the investor focus of your organisation")
     preferred_industries = forms.MultipleChoiceField(
-        choices=(), required=True)
+        choices=(
+            ('agriculture', "Agriculture"),
+            ('manufacturing', "Manufacturing and Assembly"),
+            ('financial', "Financial Services"),
+            ('renewable', "Renewable Energy"),
+            ('information security', "Information Security"),
+            ('education', "Education"),
+            ('health', "Healthcare & Services"),
+            ('infrastructure', "Infrastructure"),
+            ('transport', "Transport"),
+        ), required=True)
     other_industries = forms.CharField()
     investment_stage = forms.MultipleChoiceField(
-        choices=(), required=True)
+        choices=(
+            ("Concept Stage", "Concept stage"),
+            ("Seed stage (finding product market fit)", "Seed stage (finding product market fit)"),
+            ("Venture captial (growth)", "Venture captial (growth)"),
+            ("Private Equity (scaling and expansion)", "Private Equity (scaling and expansion)")
+        ), required=True)
     ticket_size = forms.CharField(required=True)
     url = forms.CharField()
     logo = forms.ImageField(validators=[validate_img], required=False)
@@ -134,13 +148,14 @@ class InvestmentCompanyForm(BaseModelForm):
     helper = FormHelper()
     helper.form_class = 'form-horizontal'
     helper.layout = Layout(
-        Field('organisation_name'),
+        Field('organisation_name', css_class='text-small form-control'),
         Field('logo'),
-        Field('url'),
-        Field('ticket_size'),
+        Field('url', css_class='text-small form-control'),
+        Field('ticket_size', css_class='text-small form-control'),
         InlineCheckboxes('preferred_industries'),
-        Field('other_industries'),
-        InlineCheckboxes('investor_focus'),
+        Field('other_industries', css_class='text-small form-control'),
+        Field('investor_focus', css_class='text-large form-control'),
+        InlineCheckboxes('investment_stage'),
         FormActions(
             Button('cancel', 'Cancel', css_class='cancelBtn'),
             Submit(
